@@ -1,10 +1,16 @@
-import styled from 'styled-components'
-
-const Title = styled.h1`
-  font-size: 50px;
-  color: ${({ theme }) => theme.colors.primary};
-`
+import styled from "styled-components";
+import { signIn, signOut, useSession } from "next-auth/client";
 
 export default function Home() {
-  return <Title>My page</Title>
+  const [session, loading] = useSession();
+
+  return (
+    <>
+      {session ? (
+        <button onClick={signOut}>signout</button>
+      ) : (
+        <button onClick={signIn}>signin</button>
+      )}
+    </>
+  );
 }
