@@ -30,6 +30,7 @@ const Review = () => {
         return setResults([]);
       }
 
+      setSelectedMovie(null);
       const { results } = await search(query);
       setResults(results);
     },
@@ -43,6 +44,8 @@ const Review = () => {
     },
     [results]
   );
+
+  console.log("selected movie: ", selectedMovie);
 
   return (
     <Form>
