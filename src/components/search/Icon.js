@@ -11,11 +11,16 @@ const Container = styled.div`
 
   .searchForm_svg {
     fill: ${({ theme }) => theme.icon.default};
-    width: 21px;
+    width: 15px;
   }
 
   @media screen and (max-width: ${mediaQueries.search}) {
     cursor: ${({ active }) => (active ? "text" : "pointer")};
+
+    .searchForm_svg {
+      fill: ${({ theme }) => theme.icon.default};
+      width: 21px;
+    }
   }
 `;
 

@@ -1,6 +1,6 @@
 import { memo, useCallback } from "react";
 import styled from "styled-components";
-import { mediaQueries, sizes } from "../../utils/style";
+import { inputStyles, mediaQueries } from "../../utils/style";
 import PropTypes from "prop-types";
 
 const inputWidth = 16;
@@ -8,24 +8,12 @@ const activeInputWidth = 20;
 const smallInputWidth = 3;
 
 const StyledInput = styled.input`
-  width: ${({ active }) => (active ? activeInputWidth : inputWidth)}rem;
-  padding: 0.85em 0 0.85em ${smallInputWidth}rem;
+  ${inputStyles}
   border: 1px solid ${({ theme }) => theme.border.grey2};
-  border-radius: ${sizes.borderRadius.default};
-  background-color: ${({ theme }) => theme.bg.default};
+  width: ${({ active }) => (active ? activeInputWidth : inputWidth)}rem;
+  padding: 0.6em 0 0.6em ${smallInputWidth}rem;
   transition-property: width;
   transition-duration: 0.4s;
-
-  &::placeholder {
-    color: ${({ theme }) => theme.text.grey};
-    font-size: 0.95rem;
-  }
-
-  &:focus {
-    &::placeholder {
-      color: #999;
-    }
-  }
 
   @media screen and (max-width: ${mediaQueries.search}) {
     cursor: ${({ active }) => (active ? "text" : "pointer")};
@@ -38,7 +26,7 @@ const StyledInput = styled.input`
 
 const Input = ({ active, setActive }) => {
   const handleKeyDown = useCallback(({ key, shiftKey }) => {
-    if (key === "Tab" && !shiftKey) {
+    if (key === "Tab") {
       setActive(false);
     }
   }, []);

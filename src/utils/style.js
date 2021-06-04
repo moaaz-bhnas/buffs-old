@@ -1,6 +1,10 @@
 import { createGlobalStyle, css } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+  }
+
   html {
     font-size: 1rem;
 
@@ -19,7 +23,6 @@ export const GlobalStyle = createGlobalStyle`
     background-color: #faf9f7;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
   }
 `;
 
@@ -118,6 +121,23 @@ export const rawList = css`
 export const rawLink = css`
   text-decoration: none;
   color: inherit;
+`;
+
+export const inputStyles = css`
+  font-size: 1rem;
+  border-radius: ${sizes.borderRadius.default};
+  background-color: ${({ theme }) => theme.bg.default};
+
+  &::placeholder {
+    color: ${({ theme }) => theme.text.grey};
+    font-size: 0.95rem;
+  }
+
+  &:focus {
+    &::placeholder {
+      color: #999;
+    }
+  }
 `;
 
 export const offScreen = css`

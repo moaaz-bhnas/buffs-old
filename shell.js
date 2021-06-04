@@ -1,36 +1,16 @@
-db.createCollection("movies", {
+db.createCollection("reviews", {
   validator: {
     $jsonSchema: {
       bsonType: "object",
-      required: [
-        "userId",
-        "tmdbId",
-        "name",
-        "backdrop",
-        "rating",
-        "review",
-        "postingDate",
-        "genre",
-        "cast",
-        "directors",
-        "imdbRating",
-      ],
+      required: ["userId", "movieId", "rating", "review", "postingDate"],
       properties: {
         userId: {
           bsonType: "objectId",
           description: "must be an object id and is required",
         },
-        tmdbId: {
-          bsonType: "int",
-          description: "must be an integer of 3 digits and is required",
-        },
-        name: {
-          bsonType: "string",
-          description: "must be a string and is required",
-        },
-        backdrop: {
-          bsonType: "string",
-          description: "must be a string and is required",
+        movieId: {
+          bsonType: "objectId",
+          description: "must be an object id and is required",
         },
         rating: {
           bsonType: "decimal",
@@ -43,6 +23,37 @@ db.createCollection("movies", {
         postingDate: {
           bsonType: "date",
           description: "must be a date and is required",
+        },
+      },
+    },
+  },
+});
+
+db.createCollection("movies", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: [
+        "tmdbId",
+        "name",
+        "backdrop",
+        "genre",
+        "cast",
+        "directors",
+        "imdbRating",
+      ],
+      properties: {
+        tmdbId: {
+          bsonType: "int",
+          description: "must be an integer of 3 digits and is required",
+        },
+        name: {
+          bsonType: "string",
+          description: "must be a string and is required",
+        },
+        backdrop: {
+          bsonType: "string",
+          description: "must be a string and is required",
         },
         genres: {
           bsonType: "array",
