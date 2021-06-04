@@ -5,12 +5,12 @@ import PropTypes from "prop-types";
 
 const inputWidth = 16;
 const activeInputWidth = 20;
-const smallInputWidth = 3.5;
+const smallInputWidth = 3;
 
 const StyledInput = styled.input`
-  width: ${({ active }) => (active ? activeInputWidth : inputWidth)}em;
-  padding: 1.2em 0 1.2em ${smallInputWidth}em;
-  border: none;
+  width: ${({ active }) => (active ? activeInputWidth : inputWidth)}rem;
+  padding: 0.85em 0 0.85em ${smallInputWidth}rem;
+  border: 1px solid ${({ theme }) => theme.border.grey2};
   border-radius: ${sizes.borderRadius.default};
   background-color: ${({ theme }) => theme.bg.default};
   transition-property: width;
@@ -29,7 +29,9 @@ const StyledInput = styled.input`
 
   @media screen and (max-width: ${mediaQueries.search}) {
     cursor: ${({ active }) => (active ? "text" : "pointer")};
-    width: ${({ active }) => (active ? "100%" : `${smallInputWidth}em`)};
+    width: ${({ active }) => (active ? "100%" : `${smallInputWidth}rem`)};
+    height: 3rem;
+    border-radius: 3rem;
     transition-duration: 0s;
   }
 `;

@@ -3,7 +3,9 @@ import styled from "styled-components";
 import { containerStyles } from "../../utils/style";
 import Header from "../header/Header";
 
-const Main = styled.main``;
+const Main = styled.main`
+  padding: 1em 0;
+`;
 
 const Container = styled.div`
   ${containerStyles}
@@ -13,9 +15,10 @@ const Layout = ({ children }) => {
   return (
     <>
       <Header />
-      <Container>
-        <Main>{children}</Main>
-      </Container>
+
+      <Main>
+        <Container>{children}</Container>
+      </Main>
     </>
   );
 };

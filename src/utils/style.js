@@ -35,7 +35,9 @@ export const theme = {
     grey2: "#d8dadd",
     grey3: "#c8c7c6",
   },
-  border: {},
+  border: {
+    grey2: "#d8dadd",
+  },
   icon: {
     default: "#606266",
     bottomLight: "#777677",
@@ -55,7 +57,10 @@ export const sizes = {
     default: "60em",
   },
   borderRadius: {
-    default: "3em",
+    default: "3px",
+  },
+  width: {
+    card: "30em",
   },
   height: {
     header: "3.7em",
@@ -73,6 +78,12 @@ export const transitions = {
   },
   stroke: {
     default: ".1s",
+  },
+};
+
+export const shadows = {
+  card: {
+    default: "0 1px 2px rgba(0, 0, 0, .2)",
   },
 };
 

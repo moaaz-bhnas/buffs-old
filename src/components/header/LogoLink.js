@@ -6,8 +6,8 @@ import { mediaQueries } from "../../utils/style";
 
 const StyledLink = styled.a`
   display: flex;
-  width: 3rem;
-  height: 3rem;
+  /* width: 3rem;
+  height: 3rem; */
   justify-content: center;
   align-items: center;
 

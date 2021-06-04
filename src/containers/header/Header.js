@@ -1,12 +1,13 @@
 import { memo } from "react";
 import styled from "styled-components";
+import Auth from "../../components/header/Auth";
 import LogoLink from "../../components/header/LogoLink";
 import { containerStyles, offScreen, sizes } from "../../utils/style";
 import Search from "../search/Search";
 
 const StyledHeader = styled.header`
   background-color: ${(props) => props.theme.bg.header};
-  border-bottom: 1px solid ${({ theme }) => theme.bg.grey2};
+  border-bottom: 1px solid ${({ theme }) => theme.border.grey2};
 `;
 
 const Title = styled.h1`
@@ -31,8 +32,10 @@ const Header = () => {
     <StyledHeader>
       <Title>Buffs</Title>
       <Navigation>
+        <NavTitle>Main Navigation</NavTitle>
         <LogoLink />
         <Search />
+        <Auth />
       </Navigation>
     </StyledHeader>
   );

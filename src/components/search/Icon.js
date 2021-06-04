@@ -6,7 +6,7 @@ import SearchIcon from "../svgs/Search";
 
 const Container = styled.div`
   position: absolute;
-  left: 12.83px;
+  left: 0.84375rem;
   cursor: text;
 
   .searchForm_svg {
