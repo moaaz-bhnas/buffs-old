@@ -111,6 +111,5 @@ export const rawLink = css`
 
 export const offScreen = css`
   position: absolute;
-  left: ${({ dir }) => (dir === "ltr" ? "-200rem" : null)};
-  right: ${({ dir }) => (dir === "rtl" ? "-200rem" : null)};
+  left: -200rem;
 `;

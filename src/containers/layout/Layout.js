@@ -1,6 +1,6 @@
 import { memo } from "react";
 import styled from "styled-components";
-import { containerStyles } from "../../utils/styles";
+import { containerStyles } from "../../utils/style";
 import Header from "../header/Header";
 
 const Main = styled.main``;
