@@ -144,3 +144,11 @@ export const offScreen = css`
   position: absolute;
   left: -200rem;
 `;
+
+export const reviewContainerStyles = css`
+  background-color: #fff;
+  border: 1px solid ${({ theme }) => theme.border.grey2};
+  width: ${sizes.width.card};
+  padding: 0.8em 1em;
+  border-radius: ${sizes.borderRadius.default};
+`;

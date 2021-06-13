@@ -36,8 +36,9 @@ db.createCollection("movies", {
       required: [
         "tmdbId",
         "name",
+        "poster",
         "backdrop",
-        "genre",
+        "genres",
         "cast",
         "directors",
         "imdbRating",
@@ -48,6 +49,10 @@ db.createCollection("movies", {
           description: "must be an integer of 3 digits and is required",
         },
         name: {
+          bsonType: "string",
+          description: "must be a string and is required",
+        },
+        poster: {
           bsonType: "string",
           description: "must be a string and is required",
         },
