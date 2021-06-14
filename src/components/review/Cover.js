@@ -12,11 +12,14 @@ const StyledCover = styled(motion.div)`
   width: ${height * aspectRatio}px;
   position: relative;
   background-color: #ddd;
+  margin-right: 1em;
+  margin-top: 10px;
+  /* To align cover top with the top of the stars
+    (star container height (48) - star height (28)) / 2
+  */
 `;
 
 const Cover = ({ coverPath }) => {
-  console.log(`https://image.tmdb.org/t/p/w92${coverPath}`);
-
   return (
     <StyledCover>
       <Image
@@ -29,7 +32,6 @@ const Cover = ({ coverPath }) => {
         layout="fill"
         objectFit="contain"
         quality={100}
-        priority={true}
       />
     </StyledCover>
   );
