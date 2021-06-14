@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 
 const StyledInput = styled(motion.input)`
   ${inputStyles}
+
   border: none;
   width: 100%;
   padding: 0.75em;
