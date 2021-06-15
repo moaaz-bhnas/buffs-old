@@ -2,7 +2,7 @@ import { memo } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import PropTypes from "prop-types";
-import { shadows } from "../../utils/style";
+import { shadows, sizes } from "../../utils/style";
 
 const aspectRatio = 0.66666;
 const height = 125;
@@ -18,12 +18,17 @@ const StyledCover = styled.div`
     (star container height (48) - star height (28)) / 2
   */
   box-shadow: ${shadows.cover.default};
+
+  .review__cover {
+    border-radius: ${sizes.borderRadius.default};
+  }
 `;
 
 const Cover = ({ coverPath }) => {
   return (
     <StyledCover>
       <Image
+        className="review__cover"
         src={
           coverPath
             ? `https://image.tmdb.org/t/p/w92${coverPath}`

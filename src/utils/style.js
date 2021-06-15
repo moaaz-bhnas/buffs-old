@@ -37,6 +37,7 @@ export const theme = {
     header: "#fff",
     grey2: "#d8dadd",
     grey3: "#c8c7c6",
+    dark: "#333",
   },
   border: {
     grey2: "#d8dadd",
@@ -90,6 +91,9 @@ export const shadows = {
   },
   cover: {
     default: "0 0 5px rgba(0, 0, 0, 0.2)",
+  },
+  input: {
+    success: "0 0 0 2px rgb(73, 175, 65, 1)",
   },
 };
 

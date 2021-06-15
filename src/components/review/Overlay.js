@@ -2,6 +2,7 @@ import { memo } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { AnimatePresence, motion } from "framer-motion";
+import { visibilityVariants } from "../../utils/animation";
 
 const StyledOverlay = styled(motion.div)`
   position: fixed;
@@ -13,33 +14,17 @@ const StyledOverlay = styled(motion.div)`
   z-index: 1;
 `;
 
-const variants = {
-  hidden: {
-    opacity: 0,
-    transition: {
-      duration: 0.15,
-    },
-  },
-  visible: {
-    opacity: 1,
-    transition: {
-      duration: 0.15,
-    },
-  },
-};
-
-const Overlay = ({ expanded, reset }) => {
+const Overlay = ({ expanded, setExpanded }) => {
   return (
     <AnimatePresence>
       {expanded && (
         <StyledOverlay
-          key="overlay"
-          variants={variants}
+          variants={visibilityVariants}
           initial="hidden"
           animate="visible"
           exit="hidden"
           aria-hidden="true"
-          onClick={() => reset()}
+          onClick={() => setExpanded(false)}
         />
       )}
     </AnimatePresence>
@@ -48,8 +33,8 @@ const Overlay = ({ expanded, reset }) => {
 
 Overlay.propTypes = {
   expanded: PropTypes.bool,
-  reset: PropTypes.func,
-  // setExpanded: PropTypes.func,
+  // reset: PropTypes.func,
+  setExpanded: PropTypes.func,
   // setSelectedMovie: PropTypes.func,
 };
 

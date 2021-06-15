@@ -1,15 +1,17 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { memo, useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
+import Overlay from "../../components/review/Overlay";
 import Title from "../../components/review/Title";
 import Input from "../../components/review/Input";
 import Results from "../../components/review/Results";
 import Cover from "../../components/review/Cover";
 import Rating from "../../components/review/Rating";
+import WriteUp from "../../components/review/WriteUp";
 import { sizes } from "../../utils/style";
 import { search } from "../../api/index";
-import Overlay from "../../components/review/Overlay";
 import { visibilityVariants } from "../../utils/animation";
+import Button from "../../components/review/Button";
 
 const Form = styled.form`
   background-color: #fff;
@@ -22,10 +24,18 @@ const Form = styled.form`
 `;
 
 const Row = styled(motion.div)`
-  margin-top: 0.25em;
+  margin-top: 0.375rem;
+  margin-bottom: 1rem;
 
   display: flex;
   /* align-items: center; */
+`;
+
+const Column = styled.div`
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
 `;
 
 const Review = () => {
@@ -36,11 +46,13 @@ const Review = () => {
   const [expanded, setExpanded] = useState(false);
 
   const [rating, setRating] = useState(0);
-  console.log("rating: ", rating);
+  const [writeUp, setWriteUp] = useState("");
+  console.log("writeUp: ", writeUp);
 
   useEffect(
     async function fetchAndSetResults() {
       if (query === "") {
+        setSelectedMovie(null);
         return setResults([]);
       }
 
@@ -65,26 +77,43 @@ const Review = () => {
     [results]
   );
 
-  const reset = useCallback(() => {
-    setQuery("");
-    setSelectedMovie(null);
-    setExpanded(false);
-  }, []);
-
-  const coverPath = selectedMovie && selectedMovie.poster_path;
+  useEffect(
+    function reset() {
+      if (!selectedMovie) {
+        setRating(0);
+        setWriteUp("");
+      }
+    },
+    [selectedMovie]
+  );
 
   return (
     <>
-      <Overlay expanded={expanded} reset={reset} />
+      <Overlay expanded={expanded} setExpanded={setExpanded} />
       <Form onSubmit={(event) => event.preventDefault()}>
         <Title expanded={expanded} />
-        <Input query={query} setQuery={setQuery} setExpanded={setExpanded} />
+        <Input
+          query={query}
+          setQuery={setQuery}
+          setExpanded={setExpanded}
+          valid={expanded && selectedMovie != null}
+        />
         <Results results={results} />
-        {selectedMovie && (
-          <Row variants={visibilityVariants} initial="hidden" animate="visible">
-            <Cover coverPath={coverPath} />
-            <Rating rating={rating} setRating={setRating} />
-          </Row>
+        {expanded && selectedMovie && (
+          <>
+            <Row
+              variants={visibilityVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              <Cover coverPath={selectedMovie.poster_path} />
+              <Column>
+                <Rating rating={rating} setRating={setRating} />
+                <WriteUp writeUp={writeUp} setWriteUp={setWriteUp} />
+              </Column>
+            </Row>
+            <Button disabled={rating === 0} />
+          </>
         )}
       </Form>
     </>

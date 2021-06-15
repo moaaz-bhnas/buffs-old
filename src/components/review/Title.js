@@ -16,11 +16,9 @@ const Title = ({ expanded }) => {
     <>
       {expanded && (
         <StyledTitle
-          layout
           variants={visibilityVariants}
           initial="hidden"
           animate="visible"
-          exit="hidden"
         >
           Review Movie
         </StyledTitle>

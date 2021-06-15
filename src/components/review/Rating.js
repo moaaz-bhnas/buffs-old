@@ -8,8 +8,6 @@ const StyledRating = styled.div`
   display: flex;
   align-items: flex-start;
 
-  flex: 1;
-
   > div {
     flex: 1;
   }
