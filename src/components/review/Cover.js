@@ -2,9 +2,10 @@ import { memo } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import PropTypes from "prop-types";
+import { shadows } from "../../utils/style";
 
 const aspectRatio = 0.66666;
-const height = 100;
+const height = 125;
 
 const StyledCover = styled.div`
   height: ${height}px;
@@ -16,6 +17,7 @@ const StyledCover = styled.div`
   /* To align cover top with the top of the stars
     (star container height (48) - star height (28)) / 2
   */
+  box-shadow: ${shadows.cover.default};
 `;
 
 const Cover = ({ coverPath }) => {
@@ -29,7 +31,7 @@ const Cover = ({ coverPath }) => {
         }
         alt="Buffs logo"
         layout="fill"
-        objectFit="contain"
+        objectFit="cover"
         quality={100}
       />
     </StyledCover>

@@ -86,7 +86,10 @@ export const transitions = {
 
 export const shadows = {
   card: {
-    default: "0 1px 2px rgba(0, 0, 0, .2)",
+    default: "0 1px 2px rgba(0, 0, 0, 0.2)",
+  },
+  cover: {
+    default: "0 0 5px rgba(0, 0, 0, 0.2)",
   },
 };
 
