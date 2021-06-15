@@ -9,6 +9,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "framer-motion": "^4.1.17",
+    "mongodb": "^3.6.9",
     "next": "latest",
     "next-auth": "^3.24.1",
     "prop-types": "^15.7.2",

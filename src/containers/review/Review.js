@@ -16,6 +16,7 @@ import createMovieObject from "../../utils/helpers/createMovieObject";
 import user from "../../utils/data/user";
 import movieNameWithReleaseYear from "../../utils/helpers/movieNameWithReleaseDate";
 import dateToYear from "../../utils/helpers/dateToYear";
+import axios from "axios";
 
 const Form = styled.form`
   background-color: #fff;
@@ -116,13 +117,25 @@ const Review = () => {
         userId,
         movieDetails: await movieDetails,
         movieCredits: await movieCredits,
-        rating,
-        writeUp,
       });
 
       console.log("movie: ", movie);
+
+      try {
+        const res = await fetch("http://localhost:3000/api/movie", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(movie),
+        });
+        console.log("res: ", res);
+      } catch (error) {
+        console.log(error);
+      }
     },
-    [selectedMovie]
+    [selectedMovie, rating, writeUp]
   );
 
   return (

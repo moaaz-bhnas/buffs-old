@@ -2,8 +2,6 @@ export default function createMovieObject({
   userId,
   movieDetails,
   movieCredits,
-  rating,
-  review,
 }) {
   const cast = movieCredits.cast.slice(0, 3).map((actor) => ({
     tmdbId: actor.id,
@@ -23,8 +21,6 @@ export default function createMovieObject({
     imdbRating: movieDetails.vote_average,
     cast,
     director: { tmdbId: director.id, name: director.name },
-    rating,
-    review,
   };
 
   return movie;
