@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { memo } from "react";
 import styled from "styled-components";
 import Image from "next/image";
@@ -7,7 +6,7 @@ import PropTypes from "prop-types";
 const aspectRatio = 0.66666;
 const height = 100;
 
-const StyledCover = styled(motion.div)`
+const StyledCover = styled.div`
   height: ${height}px;
   width: ${height * aspectRatio}px;
   position: relative;

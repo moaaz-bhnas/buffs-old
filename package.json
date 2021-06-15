@@ -11,6 +11,7 @@
     "framer-motion": "^4.1.17",
     "next": "latest",
     "next-auth": "^3.24.1",
+    "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-is": "^17.0.2",
