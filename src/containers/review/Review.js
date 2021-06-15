@@ -9,9 +9,13 @@ import Cover from "../../components/review/Cover";
 import Rating from "../../components/review/Rating";
 import WriteUp from "../../components/review/WriteUp";
 import { sizes } from "../../utils/style";
-import { search } from "../../api/index";
+import { getMovieCredits, getMovieDetails, search } from "../../api/index";
 import { visibilityVariants } from "../../utils/animation";
 import Button from "../../components/review/Button";
+import createMovieObject from "../../utils/helpers/createMovieObject";
+import user from "../../utils/data/user";
+import movieNameWithReleaseYear from "../../utils/helpers/movieNameWithReleaseDate";
+import dateToYear from "../../utils/helpers/dateToYear";
 
 const Form = styled.form`
   background-color: #fff;
@@ -44,12 +48,12 @@ const Review = () => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  console.log("selectedMovie: ", selectedMovie);
 
   const [expanded, setExpanded] = useState(false);
 
   const [rating, setRating] = useState(0);
   const [writeUp, setWriteUp] = useState("");
-  console.log("writeUp: ", writeUp);
 
   useEffect(
     async function fetchAndSetResults() {
@@ -73,7 +77,10 @@ const Review = () => {
 
   const getSelectedMovie = useCallback(
     (query) => {
-      const selectedMovie = results.find((result) => result.title === query);
+      const selectedMovie = results.find(
+        ({ title, release_date }) =>
+          movieNameWithReleaseYear(title, dateToYear(release_date)) === query
+      );
       return selectedMovie;
     },
     [results]
@@ -96,9 +103,27 @@ const Review = () => {
     }
   }, []);
 
-  const handleSubmit = useCallback((event) => {
-    event.preventDefault();
-  }, []);
+  const handleSubmit = useCallback(
+    async (event) => {
+      event.preventDefault();
+
+      const { id: tmdbId } = selectedMovie;
+      const movieDetails = getMovieDetails(tmdbId);
+      const movieCredits = getMovieCredits(tmdbId);
+
+      const { id: userId } = user;
+      const movie = createMovieObject({
+        userId,
+        movieDetails: await movieDetails,
+        movieCredits: await movieCredits,
+        rating,
+        writeUp,
+      });
+
+      console.log("movie: ", movie);
+    },
+    [selectedMovie]
+  );
 
   return (
     <>

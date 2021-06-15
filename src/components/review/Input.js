@@ -2,7 +2,6 @@ import { forwardRef, memo } from "react";
 import styled, { css } from "styled-components";
 import { inputStyles, shadows } from "../../utils/style";
 import user from "../../utils/data/user";
-import PropTypes from "prop-types";
 
 const successStyles = css`
   outline: none;
@@ -30,13 +29,6 @@ const Input = ({ query, setQuery, setExpanded, valid }, ref) => {
       onFocus={() => setExpanded(true)}
     />
   );
-};
-
-Input.propTypes = {
-  query: PropTypes.string,
-  setQuery: PropTypes.func,
-  setExpanded: PropTypes.func,
-  valid: PropTypes.bool,
 };
 
 export default memo(forwardRef(Input));

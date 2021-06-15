@@ -36,8 +36,7 @@ db.createCollection("movies", {
       required: [
         "tmdbId",
         "name",
-        "poster",
-        "backdrop",
+        "posterPath",
         "genres",
         "cast",
         "directors",
@@ -52,11 +51,7 @@ db.createCollection("movies", {
           bsonType: "string",
           description: "must be a string and is required",
         },
-        poster: {
-          bsonType: "string",
-          description: "must be a string and is required",
-        },
-        backdrop: {
+        posterPath: {
           bsonType: "string",
           description: "must be a string and is required",
         },
