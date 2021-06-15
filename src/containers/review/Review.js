@@ -1,5 +1,5 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { memo, useCallback, useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Overlay from "../../components/review/Overlay";
 import Title from "../../components/review/Title";
@@ -39,6 +39,8 @@ const Column = styled.div`
 `;
 
 const Review = () => {
+  const inputRef = useRef(null);
+
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
@@ -87,12 +89,24 @@ const Review = () => {
     [selectedMovie]
   );
 
+  const handleKeyDown = useCallback(({ key }) => {
+    if (key === "Escape") {
+      setExpanded(false);
+      inputRef.current.blur();
+    }
+  }, []);
+
+  const handleSubmit = useCallback((event) => {
+    event.preventDefault();
+  }, []);
+
   return (
     <>
       <Overlay expanded={expanded} setExpanded={setExpanded} />
-      <Form onSubmit={(event) => event.preventDefault()}>
+      <Form onSubmit={handleSubmit} onKeyDown={handleKeyDown}>
         <Title expanded={expanded} />
         <Input
+          ref={inputRef}
           query={query}
           setQuery={setQuery}
           setExpanded={setExpanded}

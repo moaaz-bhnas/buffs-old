@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { forwardRef, memo } from "react";
 import styled, { css } from "styled-components";
 import { inputStyles, shadows } from "../../utils/style";
 import user from "../../utils/data/user";
@@ -17,9 +17,10 @@ const StyledInput = styled.input`
   ${({ valid }) => valid && successStyles}
 `;
 
-const Input = ({ query, setQuery, setExpanded, valid }) => {
+const Input = ({ query, setQuery, setExpanded, valid }, ref) => {
   return (
     <StyledInput
+      ref={ref}
       valid={valid}
       aria-label={`what did you watch today, ${user.name}?`}
       placeholder={`What did you watch today, ${user.name}?`}
@@ -38,4 +39,4 @@ Input.propTypes = {
   valid: PropTypes.bool,
 };
 
-export default memo(Input);
+export default memo(forwardRef(Input));
