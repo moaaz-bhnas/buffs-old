@@ -16,7 +16,6 @@ import createMovieObject from "../../utils/helpers/createMovieObject";
 import user from "../../utils/data/user";
 import movieNameWithReleaseYear from "../../utils/helpers/movieNameWithReleaseDate";
 import dateToYear from "../../utils/helpers/dateToYear";
-import axios from "axios";
 
 const Form = styled.form`
   background-color: #fff;
@@ -25,7 +24,7 @@ const Form = styled.form`
   padding: 0.8rem 1rem;
   border-radius: ${sizes.borderRadius.default};
   position: relative;
-  z-index: 2;
+  z-index: 1;
 `;
 
 const Row = styled(motion.div)`

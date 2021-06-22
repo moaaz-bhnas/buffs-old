@@ -8,6 +8,9 @@ import Search from "../search/Search";
 const StyledHeader = styled.header`
   background-color: ${(props) => props.theme.bg.header};
   border-bottom: 1px solid ${({ theme }) => theme.border.grey2};
+
+  position: relative;
+  z-index: 2;
 `;
 
 const Title = styled.h1`
