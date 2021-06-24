@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { memo, useCallback, useEffect, useRef, useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Overlay from "../../components/review/Overlay";
 import Title from "../../components/review/Title";
 import Input from "../../components/review/Input";
@@ -17,14 +17,19 @@ import user from "../../utils/data/user";
 import movieNameWithReleaseYear from "../../utils/helpers/movieNameWithReleaseDate";
 import dateToYear from "../../utils/helpers/dateToYear";
 
+const expandedStyles = css`
+  position: relative;
+  z-index: 2;
+`;
+
 const Form = styled.form`
   background-color: #fff;
   border: 1px solid ${({ theme }) => theme.border.grey2};
   width: ${sizes.width.card};
   padding: 0.8rem 1rem;
   border-radius: ${sizes.borderRadius.default};
-  position: relative;
-  z-index: 1;
+
+  ${({ expanded }) => expanded && expandedStyles}
 `;
 
 const Row = styled(motion.div)`
@@ -146,7 +151,11 @@ const Review = () => {
   return (
     <>
       <Overlay expanded={expanded} setExpanded={setExpanded} />
-      <Form onSubmit={handleSubmit} onKeyDown={handleKeyDown}>
+      <Form
+        expanded={expanded}
+        onSubmit={handleSubmit}
+        onKeyDown={handleKeyDown}
+      >
         <Title expanded={expanded} />
         <Input
           ref={inputRef}
