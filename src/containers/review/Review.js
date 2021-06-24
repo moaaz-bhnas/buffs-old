@@ -120,6 +120,8 @@ const Review = () => {
       // post movie to database
       const documentId = await postMovieToDb(movie);
 
+      const { id } = user;
+
       // create a review object
 
       // post review to database
