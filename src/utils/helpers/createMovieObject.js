@@ -1,8 +1,4 @@
-export default function createMovieObject({
-  userId,
-  movieDetails,
-  movieCredits,
-}) {
+export default function createMovieObject({ movieDetails, movieCredits }) {
   const cast = movieCredits.cast.slice(0, 3).map((actor) => ({
     tmdbId: actor.id,
     name: actor.name,
@@ -13,7 +9,6 @@ export default function createMovieObject({
   );
 
   const movie = {
-    userId,
     tmdbId: movieDetails.id,
     name: movieDetails.title,
     genres: movieDetails.genres,

@@ -4,7 +4,6 @@ db.runCommand({
     $jsonSchema: {
       bsonType: "object",
       required: [
-        "userId",
         "tmdbId",
         "name",
         "posterPath",
@@ -14,10 +13,6 @@ db.runCommand({
         "imdbRating",
       ],
       properties: {
-        userId: {
-          bsonType: "int",
-          description: "must be an integer of 3 digits and is required",
-        },
         tmdbId: {
           bsonType: "int",
           description: "must be an integer of 3 digits and is required",
@@ -53,11 +48,12 @@ db.runCommand({
   validationLevel: "moderate",
 });
 
-db.createCollection("reviews", {
+db.runCommand({
+  collMod: "reviews",
   validator: {
     $jsonSchema: {
       bsonType: "object",
-      required: ["userId", "movieId", "rating", "review", "postingDate"],
+      required: ["userId", "movieId", "rating", "writeUp", "postingDate"],
       properties: {
         userId: {
           bsonType: "objectId",
@@ -71,7 +67,7 @@ db.createCollection("reviews", {
           bsonType: "decimal",
           description: "must be a decimal and is required",
         },
-        review: {
+        writeUp: {
           bsonType: "string",
           description: "must be a string and is required",
         },
@@ -82,63 +78,6 @@ db.createCollection("reviews", {
       },
     },
   },
-});
-
-db.createCollection("movies", {
-  validator: {
-    $jsonSchema: {
-      bsonType: "object",
-      required: [
-        "tmdbId",
-        "name",
-        "posterPath",
-        "genres",
-        "cast",
-        "directors",
-        "imdbRating",
-      ],
-      properties: {
-        tmdbId: {
-          bsonType: "int",
-          description: "must be an integer of 3 digits and is required",
-        },
-        name: {
-          bsonType: "string",
-          description: "must be a string and is required",
-        },
-        posterPath: {
-          bsonType: "string",
-          description: "must be a string and is required",
-        },
-        genres: {
-          bsonType: "array",
-          description: "must be an array and is required",
-          items: {
-            bsonType: "string",
-            description: "must be a string and is required",
-          },
-        },
-        cast: {
-          bsonType: "array",
-          description: "must be an array and is required",
-          items: {
-            bsonType: "string",
-            description: "must be a string and is required",
-          },
-        },
-        directors: {
-          bsonType: "array",
-          description: "must be an array and is required",
-          items: {
-            bsonType: "string",
-            description: "must be a string and is required",
-          },
-        },
-        imdbRating: {
-          bsonType: "decimal",
-          description: "must be a decimal and is required",
-        },
-      },
-    },
-  },
+  validationAction: "warn",
+  validationLevel: "moderate",
 });

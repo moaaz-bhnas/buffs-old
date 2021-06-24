@@ -111,31 +111,35 @@ const Review = () => {
       const movieDetails = getMovieDetails(tmdbId);
       const movieCredits = getMovieCredits(tmdbId);
 
-      const { id: userId } = user;
+      // create a movie object
       const movie = createMovieObject({
-        userId,
         movieDetails: await movieDetails,
         movieCredits: await movieCredits,
       });
 
-      console.log("movie: ", movie);
+      // post movie to database
+      const documentId = await postMovieToDb(movie);
 
-      try {
-        const res = await fetch("http://localhost:3000/api/movie", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(movie),
-        });
-        console.log("res: ", res);
-      } catch (error) {
-        console.log(error);
-      }
+      // create a review object
+
+      // post review to database
     },
     [selectedMovie, rating, writeUp]
   );
+
+  const postMovieToDb = useCallback(async (movie) => {
+    const res = await fetch("http://localhost:3000/api/movie", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(movie),
+    });
+    const { data } = await res.json();
+
+    return data.insertedId;
+  }, []);
 
   return (
     <>
