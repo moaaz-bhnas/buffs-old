@@ -10,7 +10,7 @@ const StyledHeader = styled.header`
   border-bottom: 1px solid ${({ theme }) => theme.border.grey2};
 
   position: relative;
-  z-index: 2;
+  z-index: 1;
 `;
 
 const Title = styled.h1`

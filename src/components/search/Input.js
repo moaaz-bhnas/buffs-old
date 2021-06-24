@@ -1,31 +1,29 @@
 import { memo, useCallback } from "react";
-import styled from "styled-components";
-import { inputStyles, mediaQueries } from "../../utils/style";
+import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
+import { inputStyles, mediaQueries } from "../../utils/style";
 
-const inputWidth = 16;
-const activeInputWidth = 20;
-const smallInputWidth = 3;
+const inactiveStyles = css`
+  padding: 0;
+  width: 0;
+`;
 
 const StyledInput = styled.input`
-  ${inputStyles}
-  border: 1px solid ${({ theme }) => theme.border.grey2};
-  width: ${({ active }) => (active ? activeInputWidth : inputWidth)}rem;
-  padding: 0.6em 0 0.6em ${smallInputWidth}rem;
-  transition-property: width;
-  transition-duration: 0.4s;
+  ${inputStyles};
+  border: none;
+  background-color: transparent;
+  padding: 0.6em;
+
+  width: 100%;
+  height: 100%;
 
   @media screen and (max-width: ${mediaQueries.search}) {
-    cursor: ${({ active }) => (active ? "text" : "pointer")};
-    width: ${({ active }) => (active ? "100%" : `${smallInputWidth}rem`)};
-    height: 3rem;
-    border-radius: 3rem;
-    transition-duration: 0s;
+    ${({ active }) => (!active ? inactiveStyles : null)}
   }
 `;
 
 const Input = ({ active, setActive }) => {
-  const handleKeyDown = useCallback(({ key, shiftKey }) => {
+  const handleKeyDown = useCallback(({ key }) => {
     if (key === "Tab") {
       setActive(false);
     }

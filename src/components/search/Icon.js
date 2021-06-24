@@ -5,8 +5,7 @@ import { mediaQueries } from "../../utils/style";
 import SearchIcon from "../svgs/Search";
 
 const Container = styled.div`
-  position: absolute;
-  left: 0.84375rem;
+  padding: 0 0.6em;
   cursor: text;
 
   .searchForm_svg {
@@ -16,10 +15,11 @@ const Container = styled.div`
 
   @media screen and (max-width: ${mediaQueries.search}) {
     cursor: ${({ active }) => (active ? "text" : "pointer")};
+    padding: ${({ active }) => (active ? "0 0.6em" : 0)};
 
     .searchForm_svg {
       fill: ${({ theme }) => theme.icon.default};
-      width: 21px;
+      width: ${({ active }) => (!active ? "21px" : null)};
     }
   }
 `;
