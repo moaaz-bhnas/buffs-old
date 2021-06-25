@@ -7,14 +7,6 @@ export const GlobalStyle = createGlobalStyle`
 
   html {
     font-size: 1rem;
-
-    @media screen and (max-width: 768px) {
-      font-size: .95rem;
-    }
-
-    @media screen and (max-width: 480px) {
-      font-size: .9rem;
-    }
   }
 
   body {
@@ -38,6 +30,7 @@ export const theme = {
     grey2: "#d8dadd",
     grey3: "#c8c7c6",
     dark: "#333",
+    twitter: "#0D91E3",
   },
   border: {
     grey2: "#d8dadd",
@@ -77,6 +70,9 @@ export const mediaQueries = {
 };
 
 export const transitions = {
+  opacity: {
+    default: ".3s",
+  },
   bg: {
     default: ".1s",
   },

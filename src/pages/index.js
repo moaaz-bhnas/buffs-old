@@ -1,14 +1,23 @@
-import styled from "styled-components";
 import Layout from "../containers/layout/Layout";
 import Review from "../containers/review/Review";
 import { connectToDatabase } from "../db/dbConnect";
-
-const Title = styled.h2``;
+import { signIn, signOut, useSession } from "next-auth/client";
 
 export default function Home({}) {
+  const [session, loading] = useSession();
+
   return (
     <Layout>
       <Review />
+
+      {!session ? (
+        <button onClick={signIn}>Sign In</button>
+      ) : (
+        <>
+          Signed in as {session.user.email}{" "}
+          <button onClick={signOut}>Sign Out</button>
+        </>
+      )}
     </Layout>
   );
 }

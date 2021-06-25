@@ -25,9 +25,12 @@ const Container = styled.label`
   width: ${({ active }) => (active ? "20rem" : "16rem")};
   background-color: ${({ theme }) => theme.bg.default};
 
+  transition: width 0.4s;
+
   @media screen and (max-width: ${mediaQueries.search}) {
     height: 3rem;
     ${({ active }) => (active ? activeStyles : inactiveStyles)}
+    transition: none;
   }
 `;
 
