@@ -1,13 +1,13 @@
 import Layout from "../containers/layout/Layout";
-import SignInForm from "../containers/signin/SignIn";
+import SignUpForm from "../containers/signup/SignUp";
 import { getProviders } from "next-auth/client";
 
-const SignIn = ({ providers }) => {
+const SignUp = ({ providers }) => {
   console.log("providers: ", providers);
 
   return (
     <Layout>
-      <SignInForm providers={providers} />
+      <SignUpForm providers={providers} />
     </Layout>
   );
 };
@@ -19,4 +19,4 @@ export async function getServerSideProps() {
   };
 }
 
-export default SignIn;
+export default SignUp;
