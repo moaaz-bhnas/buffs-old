@@ -1,6 +1,6 @@
 import Layout from "../containers/layout/Layout";
 import SignUpForm from "../containers/signup/SignUp";
-import { getProviders } from "next-auth/client";
+import { getProviders, getSession } from "next-auth/client";
 
 const SignUp = ({ providers }) => {
   console.log("providers: ", providers);
@@ -12,7 +12,17 @@ const SignUp = ({ providers }) => {
   );
 };
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+  if (session) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/",
+      },
+    };
+  }
+
   const providers = await getProviders();
   return {
     props: { providers },

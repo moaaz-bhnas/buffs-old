@@ -1,7 +1,7 @@
 import { forwardRef, memo } from "react";
 import styled, { css } from "styled-components";
 import { inputStyles, shadows } from "../../utils/style";
-import user from "../../utils/data/user";
+import { useSession } from "next-auth/client";
 
 const successStyles = css`
   outline: none;
@@ -17,12 +17,17 @@ const StyledInput = styled.input`
 `;
 
 const Input = ({ query, setQuery, setExpanded, valid }, ref) => {
+  const [session, loading] = useSession();
+
+  const fullName = session.user.name;
+  const firstName = fullName.split(" ")[0];
+
   return (
     <StyledInput
       ref={ref}
       valid={valid}
-      aria-label={`what did you watch today, ${user.name}?`}
-      placeholder={`What did you watch today, ${user.name}?`}
+      aria-label={`what did you watch today, ${firstName}?`}
+      placeholder={`What did you watch today, ${firstName}?`}
       list="review__results"
       value={query}
       onChange={({ target: { value } }) => setQuery(value)}

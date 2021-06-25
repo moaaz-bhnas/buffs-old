@@ -13,9 +13,9 @@ import { getMovieCredits, getMovieDetails, search } from "../../api/index";
 import { visibilityVariants } from "../../utils/animation";
 import Button from "../../components/review/Button";
 import createMovieObject from "../../utils/helpers/createMovieObject";
-import user from "../../utils/data/user";
 import movieNameWithReleaseYear from "../../utils/helpers/movieNameWithReleaseDate";
 import dateToYear from "../../utils/helpers/dateToYear";
+import { useSession } from "next-auth/client";
 
 const expandedStyles = css`
   position: relative;
@@ -48,6 +48,9 @@ const Column = styled.div`
 `;
 
 const Review = () => {
+  const [session, loading] = useSession();
+  const { user } = session;
+
   const inputRef = useRef(null);
 
   const [query, setQuery] = useState("");
