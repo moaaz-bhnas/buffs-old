@@ -15,7 +15,7 @@ const StyledForm = styled.form`
   position: relative;
   z-index: 1;
 
-  @media screen and (max-width: ${mediaQueries.search}) {
+  @media screen and (max-width: ${mediaQueries.header}) {
     display: none;
   }
 `;

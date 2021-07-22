@@ -6,7 +6,7 @@ import { mediaQueries, rawButton } from "../../utils/style";
 
 const Button = styled.button`
   display: none;
-  @media screen and (max-width: ${mediaQueries.search}) {
+  @media screen and (max-width: ${mediaQueries.header}) {
     display: ${(props) => props.formActive && "block"};
     ${rawButton};
     margin-right: 1em;
