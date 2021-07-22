@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/client";
 import { memo } from "react";
 import styled from "styled-components";
 import Auth from "../../components/header/Auth";
@@ -31,6 +32,8 @@ const NavTitle = styled.h2`
 `;
 
 const Header = () => {
+  const [session, loading] = useSession();
+
   return (
     <StyledHeader>
       <Title>Buffs</Title>
@@ -38,7 +41,7 @@ const Header = () => {
         <NavTitle>Main Navigation</NavTitle>
         <LogoLink />
         <Search />
-        <Auth />
+        {session ? "icons" : <Auth />}
       </Navigation>
     </StyledHeader>
   );

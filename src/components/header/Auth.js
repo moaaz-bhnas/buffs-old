@@ -1,8 +1,7 @@
 import { memo } from "react";
 import styled from "styled-components";
 import Link from "next/link";
-import { linkStyles, mediaQueries, rawButton, sizes } from "../../utils/style";
-import { useSession, signOut } from "next-auth/client";
+import { linkStyles, rawButton, sizes } from "../../utils/style";
 
 const StyledAuth = styled.p`
   margin: 0;
@@ -20,30 +19,15 @@ const SignInLink = styled(StyledLink)`
   background-color: ${({ theme }) => theme.bg.dark};
 `;
 
-const SignOutButton = styled.button`
-  ${rawButton}
-  ${linkStyles}
-  padding: .75em .5em;
-  border-radius: ${sizes.borderRadius.default};
-`;
-
 const Auth = () => {
-  const [session, loading] = useSession();
-
   return (
     <StyledAuth>
-      {session ? (
-        <SignOutButton onClick={signOut}>Sign out</SignOutButton>
-      ) : (
-        <>
-          <Link passHref href="/signin">
-            <SignInLink>Log in</SignInLink>
-          </Link>{" "}
-          <Link passHref href="/signup">
-            <StyledLink>Create account</StyledLink>
-          </Link>
-        </>
-      )}
+      <Link passHref href="/signin">
+        <SignInLink>Log in</SignInLink>
+      </Link>{" "}
+      <Link passHref href="/signup">
+        <StyledLink>Create account</StyledLink>
+      </Link>
     </StyledAuth>
   );
 };
