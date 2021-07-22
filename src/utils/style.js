@@ -65,8 +65,7 @@ export const sizes = {
 };
 
 export const mediaQueries = {
-  search: "730px",
-  header: "600px",
+  search: "650px",
 };
 
 export const transitions = {

@@ -14,3 +14,4 @@ export const addMovie = async (movie) => {
 };
 
 // Update review
+export const updateReview = async (id, review) => {};

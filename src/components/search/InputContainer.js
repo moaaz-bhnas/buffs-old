@@ -3,17 +3,7 @@ import styled, { css } from "styled-components";
 import Icon from "./Icon";
 import Input from "./Input";
 import PropTypes from "prop-types";
-import { mediaQueries, sizes } from "../../utils/style";
-
-const activeStyles = css`
-  width: 100%;
-`;
-
-const inactiveStyles = css`
-  cursor: pointer;
-  width: 3rem;
-  border-radius: 50%;
-`;
+import { sizes } from "../../utils/style";
 
 const Container = styled.label`
   display: flex;
@@ -25,13 +15,7 @@ const Container = styled.label`
   width: ${({ active }) => (active ? "20rem" : "16rem")};
   background-color: ${({ theme }) => theme.bg.default};
 
-  transition: width 0.4s;
-
-  @media screen and (max-width: ${mediaQueries.search}) {
-    height: 3rem;
-    ${({ active }) => (active ? activeStyles : inactiveStyles)}
-    transition: none;
-  }
+  transition: width 0.3s;
 `;
 
 const InputContainer = ({ active, setActive }) => {

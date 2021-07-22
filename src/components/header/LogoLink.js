@@ -12,11 +12,7 @@ const StyledLink = styled.a`
   align-items: center;
 
   @media screen and (max-width: ${mediaQueries.search}) {
-    margin-right: 0; // the margin ain't necessary anymore as the dropdown won't display besides the logo
-  }
-
-  @media screen and (max-width: ${mediaQueries.header}) {
-    position: absolute;
+    margin-right: auto;
   }
 `;
 

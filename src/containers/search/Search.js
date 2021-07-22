@@ -1,19 +1,9 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { mediaQueries } from "../../utils/style";
 import BackButton from "../../components/search/BackButton";
 import Dropdown from "../../components/search/Dropdown";
 import InputContainer from "../../components/search/InputContainer";
-
-const activeMobileStyles = css`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: #fff;
-  padding-right: 1em !important;
-`;
 
 const StyledForm = styled.form`
   margin-right: auto;
@@ -26,13 +16,7 @@ const StyledForm = styled.form`
   z-index: 1;
 
   @media screen and (max-width: ${mediaQueries.search}) {
-    ${({ active }) => active && activeMobileStyles}
-  }
-
-  @media screen and (max-width: ${mediaQueries.header}) {
-    margin-right: initial;
-    margin-left: auto;
-    padding-right: 0;
+    display: none;
   }
 `;
 
@@ -68,7 +52,6 @@ const Form = () => {
   return (
     <StyledForm
       onKeyDown={handleKeyDown}
-      active={active}
       ref={formRef}
       onSubmit={(event) => event.preventDefault()}
     >
