@@ -12,7 +12,7 @@ const Home = ({ title = "inbox", className = "svg" }) => {
       title={title}
       className={className}
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 512.001 512.001"
+      viewBox="-50 -50 612.001 612.001"
     >
       <Path
         d="M9.47,192.489c-5.539,2.215-9.248,7.49-9.461,13.451c-0.212,5.963,3.115,11.488,8.482,14.09l176.547,85.623L490.696,0.002
