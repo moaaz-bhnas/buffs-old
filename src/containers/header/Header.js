@@ -3,6 +3,7 @@ import { memo } from "react";
 import styled from "styled-components";
 import Auth from "../../components/header/Auth";
 import LogoLink from "../../components/header/LogoLink";
+import SocialList from "../../components/header/SocialList";
 import { containerStyles, offScreen, sizes } from "../../utils/style";
 import Search from "../search/Search";
 
@@ -41,7 +42,7 @@ const Header = () => {
         <NavTitle>Main Navigation</NavTitle>
         <LogoLink />
         <Search />
-        {session ? "icons" : <Auth />}
+        {session ? <SocialList /> : <Auth />}
       </Navigation>
     </StyledHeader>
   );
