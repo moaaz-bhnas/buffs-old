@@ -66,7 +66,7 @@ export const sizes = {
 };
 
 export const mediaQueries = {
-  header: "650px",
+  main: "650px",
 };
 
 export const transitions = {

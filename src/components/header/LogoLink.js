@@ -11,7 +11,7 @@ const StyledLink = styled.a`
   justify-content: center;
   align-items: center;
 
-  @media screen and (max-width: ${mediaQueries.header}) {
+  @media screen and (max-width: ${mediaQueries.main}) {
     margin-right: auto;
   }
 `;
