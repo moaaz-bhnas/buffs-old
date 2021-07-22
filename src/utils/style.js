@@ -34,6 +34,7 @@ export const theme = {
   },
   border: {
     grey2: "#d8dadd",
+    dark: "#333",
   },
   icon: {
     default: "#606266",

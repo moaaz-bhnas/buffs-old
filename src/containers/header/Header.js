@@ -6,10 +6,6 @@ import LogoLink from "../../components/header/LogoLink";
 import SocialList from "../social-list/SocialList";
 import { containerStyles, offScreen, sizes } from "../../utils/style";
 import Search from "../search/Search";
-import FilledPaperPlane from "../../components/svgs/FilledPaperPlane";
-import EmptyPaperPlane from "../../components/svgs/EmptyPaperPlane";
-import FilledHeart from "../../components/svgs/FilledHeart";
-import EmptyHeart from "../../components/svgs/EmptyHeart";
 
 const StyledHeader = styled.header`
   background-color: ${(props) => props.theme.bg.header};
@@ -36,16 +32,6 @@ const NavTitle = styled.h2`
   ${offScreen}
 `;
 
-const socialList = [
-  {
-    ActiveIcon: FilledPaperPlane,
-    InactiveIcon: EmptyPaperPlane,
-    name: "inbox",
-  },
-  { ActiveIcon: FilledHeart, InactiveIcon: EmptyHeart, name: "notifications" },
-  // { ActiveIcon: Heart, InactiveIcon: "", name: "account" },
-];
-
 const Header = () => {
   const [session, loading] = useSession();
 
@@ -56,7 +42,7 @@ const Header = () => {
         <NavTitle>Main Navigation</NavTitle>
         <LogoLink />
         <Search />
-        {session ? <SocialList list={socialList} /> : <Auth />}
+        {session ? <SocialList /> : <Auth />}
       </Navigation>
     </StyledHeader>
   );

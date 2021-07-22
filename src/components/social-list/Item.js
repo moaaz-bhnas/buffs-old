@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { rawButton } from "../../utils/style";
@@ -24,12 +24,37 @@ const Button = styled.button`
 `;
 
 const Item = ({ item }) => {
-  const { name, ActiveIcon } = item;
+  const itemRef = useRef(null);
+  const [active, setActive] = useState(false);
+
+  const handleClickOutside = useCallback((event) => {
+    const { target } = event;
+
+    if (!itemRef.current.contains(target)) {
+      setActive(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!active) return;
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [active]);
+
+  const { name, ActiveIcon, InactiveIcon } = item;
 
   return (
-    <StyledItem>
-      <Button type="button">
-        <ActiveIcon />
+    <StyledItem ref={itemRef}>
+      <Button
+        type="button"
+        aria-label={`toggle ${name} panel`}
+        onClick={() => setActive(!active)}
+      >
+        {active ? <ActiveIcon active /> : <InactiveIcon />}
       </Button>
     </StyledItem>
   );

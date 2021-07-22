@@ -1,8 +1,12 @@
 import { memo } from "react";
 import styled from "styled-components";
 import { rawList } from "../../utils/style";
-import PropTypes from "prop-types";
 import Item from "../../components/social-list/Item";
+import FilledPaperPlane from "../../components/svgs/FilledPaperPlane";
+import EmptyPaperPlane from "../../components/svgs/EmptyPaperPlane";
+import FilledHeart from "../../components/svgs/FilledHeart";
+import EmptyHeart from "../../components/svgs/EmptyHeart";
+import Avatar from "../..//components/avatar/Avatar";
 
 const List = styled.ul`
   ${rawList}
@@ -10,7 +14,17 @@ const List = styled.ul`
   display: flex;
 `;
 
-const SocialList = ({ list }) => {
+const list = [
+  {
+    ActiveIcon: FilledPaperPlane,
+    InactiveIcon: EmptyPaperPlane,
+    name: "inbox",
+  },
+  { ActiveIcon: FilledHeart, InactiveIcon: EmptyHeart, name: "notifications" },
+  { ActiveIcon: Avatar, InactiveIcon: Avatar, name: "account" },
+];
+
+const SocialList = () => {
   return (
     <List>
       {list.map((item) => (
@@ -19,9 +33,4 @@ const SocialList = ({ list }) => {
     </List>
   );
 };
-
-SocialList.propTypes = {
-  list: PropTypes.array,
-};
-
 export default memo(SocialList);
