@@ -6,13 +6,13 @@ const Svg = styled.svg``;
 
 const Path = styled.path``;
 
-const Home = ({ title = "inbox", className = "svg" }) => {
+const FilledPaperPlane = ({ title = "inbox", className = "svg" }) => {
   return (
     <Svg
       title={title}
       className={className}
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="-50 -50 612.001 612.001"
+      viewBox="0 0 512 512"
     >
       <Path
         d="M9.47,192.489c-5.539,2.215-9.248,7.49-9.461,13.451c-0.212,5.963,3.115,11.488,8.482,14.09l176.547,85.623L490.696,0.002
@@ -26,9 +26,9 @@ const Home = ({ title = "inbox", className = "svg" }) => {
   );
 };
 
-Home.propTypes = {
+FilledPaperPlane.propTypes = {
   title: PropTypes.string,
   className: PropTypes.string,
 };
 
-export default memo(Home);
+export default memo(FilledPaperPlane);
