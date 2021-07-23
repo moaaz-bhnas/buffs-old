@@ -13,6 +13,10 @@ const List = styled.ul`
 
   display: flex;
 
+  .svg {
+    fill: ${({ theme }) => theme.bg.dark};
+  }
+
   @media screen and (max-width: ${mediaQueries.main}) {
     display: none;
   }

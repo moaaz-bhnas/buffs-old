@@ -12,6 +12,9 @@ import Item from "./Item";
 
 const StyledList = styled.ul`
   ${rawList}
+
+  display: flex;
+  justify-content: space-evenly;
 `;
 
 const list = [

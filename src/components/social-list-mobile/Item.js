@@ -16,8 +16,8 @@ const StyledLink = styled.a`
   ${rawLink}
 
   padding: 0;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 3rem;
+  height: 3rem;
 
   display: flex;
   justify-content: center;
