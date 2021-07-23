@@ -40,4 +40,5 @@ const SocialListMobile = () => {
     </List>
   );
 };
+
 export default memo(SocialListMobile);
