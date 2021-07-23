@@ -1,6 +1,7 @@
 import { memo } from "react";
 import styled from "styled-components";
 import { containerStyles } from "../../utils/style";
+import BottomNavigation from "../bottom-navigation/BottomNavigation";
 import Header from "../header/Header";
 
 const Main = styled.main`
@@ -19,6 +20,8 @@ const Layout = ({ children }) => {
       <Main>
         <Container>{children}</Container>
       </Main>
+
+      <BottomNavigation />
     </>
   );
 };

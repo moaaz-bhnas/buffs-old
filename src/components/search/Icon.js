@@ -2,7 +2,7 @@ import { memo } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { mediaQueries } from "../../utils/style";
-import SearchIcon from "../svgs/Search";
+import SearchIcon from "../svgs/Loupe";
 
 const Container = styled.div`
   padding: 0 0.6em;
