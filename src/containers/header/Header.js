@@ -6,6 +6,7 @@ import LogoLink from "../../components/header/LogoLink";
 import SocialList from "../social-list/SocialList";
 import { containerStyles, offScreen, sizes } from "../../utils/style";
 import Search from "../search/Search";
+import SocialListMobile from "../social-list-mobile/SocialListMobile";
 
 const StyledHeader = styled.header`
   background-color: ${(props) => props.theme.bg.header};
@@ -42,7 +43,14 @@ const Header = () => {
         <NavTitle>Main Navigation</NavTitle>
         <LogoLink />
         <Search />
-        {session ? <SocialList /> : <Auth />}
+        {session ? (
+          <>
+            <SocialList />
+            <SocialListMobile />
+          </>
+        ) : (
+          <Auth />
+        )}
       </Navigation>
     </StyledHeader>
   );

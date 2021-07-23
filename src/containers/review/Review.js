@@ -8,7 +8,7 @@ import Results from "../../components/review/Results";
 import Cover from "../../components/review/Cover";
 import Rating from "../../components/review/Rating";
 import WriteUp from "../../components/review/WriteUp";
-import { sizes } from "../../utils/style";
+import { mediaQueries, sizes } from "../../utils/style";
 import { getMovieCredits, getMovieDetails, search } from "../../api/index";
 import { visibilityVariants } from "../../utils/animation";
 import Button from "../../components/review/Button";
@@ -16,10 +16,19 @@ import createMovieObject from "../../utils/helpers/createMovieObject";
 import movieNameWithReleaseYear from "../../utils/helpers/movieNameWithReleaseDate";
 import dateToYear from "../../utils/helpers/dateToYear";
 import { useSession } from "next-auth/client";
+import PropTypes from "prop-types";
 
 const expandedStyles = css`
   position: relative;
   z-index: 2;
+`;
+
+const Container = styled.div`
+  &.home__review {
+    @media screen and (max-width: ${mediaQueries.main}) {
+      display: none;
+    }
+  }
 `;
 
 const Form = styled.form`
@@ -47,7 +56,7 @@ const Column = styled.div`
   flex-direction: column;
 `;
 
-const Review = () => {
+const Review = ({ className }) => {
   const [session, loading] = useSession();
   const { user } = session;
 
@@ -152,7 +161,7 @@ const Review = () => {
   }, []);
 
   return (
-    <>
+    <Container className={className}>
       <Overlay expanded={expanded} setExpanded={setExpanded} />
       <Form
         expanded={expanded}
@@ -185,8 +194,12 @@ const Review = () => {
           </>
         )}
       </Form>
-    </>
+    </Container>
   );
+};
+
+Review.propTypes = {
+  className: PropTypes.string,
 };
 
 export default memo(Review);

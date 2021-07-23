@@ -1,6 +1,6 @@
 import { memo } from "react";
 import styled from "styled-components";
-import { rawList } from "../../utils/style";
+import { mediaQueries, rawList } from "../../utils/style";
 import Item from "../../components/social-list/Item";
 import FilledPaperPlane from "../../components/svgs/FilledPaperPlane";
 import EmptyPaperPlane from "../../components/svgs/EmptyPaperPlane";
@@ -12,6 +12,10 @@ const List = styled.ul`
   ${rawList}
 
   display: flex;
+
+  @media screen and (max-width: ${mediaQueries.main}) {
+    display: none;
+  }
 `;
 
 const list = [

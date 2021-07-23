@@ -5,7 +5,7 @@ import { getSession } from "next-auth/client";
 export default function Home({ session }) {
   return (
     <Layout>
-      <Review />
+      <Review className="home__review" />
     </Layout>
   );
 }
