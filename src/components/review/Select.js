@@ -4,7 +4,7 @@ import AsyncSelect from "react-select/async";
 import { search } from "../../api";
 import PropTypes from "prop-types";
 
-const Select = ({ value, onChange, onFocus }, ref) => {
+const Select = forwardRef(({ value, onChange, onFocus }, ref) => {
   const [session] = useSession();
   const fullName = session.user.name;
   const firstName = fullName.split(" ")[0];
@@ -39,7 +39,7 @@ const Select = ({ value, onChange, onFocus }, ref) => {
       escapeClearsValue
     />
   );
-};
+});
 
 Select.propTypes = {
   value: PropTypes.object,
@@ -47,4 +47,4 @@ Select.propTypes = {
   onFocus: PropTypes.func,
 };
 
-export default memo(forwardRef(Select));
+export default memo(Select);
