@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { memo } from "react";
+import { components } from "react-select";
 import styled from "styled-components";
 import { imageBaseUrl } from "../../utils/data/tmdb";
 import PropTypes from "prop-types";
@@ -7,15 +8,9 @@ import { sizes } from "../../utils/style";
 import dateToYear from "../../utils/helpers/dateToYear";
 
 const StyledOption = styled.div`
-  padding: 0.5rem;
   cursor: pointer;
 
   display: flex;
-  /* align-items: center; */
-
-  &:hover {
-    background-color: #eee;
-  }
 
   .review__optionImage {
     border-radius: ${sizes.borderRadius.default};
@@ -41,8 +36,7 @@ const ReleaseYear = styled.p`
 
 const Option = (props) => {
   console.log("props: ", props);
-  const { data, innerRef, innerProps } = props;
-  const { label, poster_path, release_date } = data;
+  const { label, poster_path, release_date } = props.data;
   const imageWidth = 50;
 
   const src = poster_path
@@ -50,23 +44,25 @@ const Option = (props) => {
     : "/images/logo.png";
 
   return (
-    <StyledOption ref={innerRef} {...innerProps}>
-      <Image
-        className="review__optionImage"
-        src={src}
-        alt=""
-        width={imageWidth}
-        height={imageWidth * (3 / 2)}
-        layout="fixed"
-        objectFit="cover"
-        quality={100}
-        priority={true}
-      />
-      <Text>
-        <Title>{label}</Title>
-        <ReleaseYear>{dateToYear(release_date)}</ReleaseYear>
-      </Text>
-    </StyledOption>
+    <components.Option {...props}>
+      <StyledOption>
+        <Image
+          className="review__optionImage"
+          src={src}
+          alt=""
+          width={imageWidth}
+          height={imageWidth * (3 / 2)}
+          layout="fixed"
+          objectFit="cover"
+          quality={100}
+          priority={true}
+        />
+        <Text>
+          <Title>{label}</Title>
+          <ReleaseYear>{dateToYear(release_date)}</ReleaseYear>
+        </Text>
+      </StyledOption>
+    </components.Option>
   );
 };
 
