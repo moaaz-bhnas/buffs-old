@@ -3,8 +3,6 @@ import { memo, useCallback, useEffect, useRef, useState } from "react";
 import styled, { css } from "styled-components";
 import Overlay from "../../components/review/Overlay";
 import Title from "../../components/review/Title";
-import Input from "../../components/review/Input";
-import Results from "../../components/review/Results";
 import Cover from "../../components/review/Cover";
 import Rating from "../../components/review/Rating";
 import WriteUp from "../../components/review/WriteUp";
@@ -18,6 +16,7 @@ import dateToYear from "../../utils/helpers/dateToYear";
 import { useSession } from "next-auth/client";
 import PropTypes from "prop-types";
 import createReviewObject from "../../utils/helpers/createReviewObject";
+import Select from "../../components/review/Select";
 
 const expandedStyles = css`
   position: relative;
@@ -61,10 +60,8 @@ const Review = ({ className }) => {
   const [session, loading] = useSession();
   const { user } = session;
 
-  const inputRef = useRef(null);
+  const selectRef = useRef(null);
 
-  const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   console.log("selectedMovie: ", selectedMovie);
 
@@ -72,37 +69,6 @@ const Review = ({ className }) => {
 
   const [rating, setRating] = useState(0);
   const [writeUp, setWriteUp] = useState("");
-
-  useEffect(
-    async function fetchAndSetResults() {
-      if (query === "") {
-        setSelectedMovie(null);
-        return setResults([]);
-      }
-
-      const selectedMovie = getSelectedMovie(query);
-      if (selectedMovie) {
-        setSelectedMovie(selectedMovie);
-        return setResults([]);
-      }
-
-      setSelectedMovie(null);
-      const { results } = await search(query);
-      setResults(results);
-    },
-    [query]
-  );
-
-  const getSelectedMovie = useCallback(
-    (query) => {
-      const selectedMovie = results.find(
-        ({ title, release_date }) =>
-          movieNameWithReleaseYear(title, dateToYear(release_date)) === query
-      );
-      return selectedMovie;
-    },
-    [results]
-  );
 
   useEffect(
     function reset() {
@@ -117,7 +83,7 @@ const Review = ({ className }) => {
   const handleKeyDown = useCallback(({ key }) => {
     if (key === "Escape") {
       setExpanded(false);
-      inputRef.current.blur();
+      selectRef.current.blur();
     }
   }, []);
 
@@ -193,14 +159,12 @@ const Review = ({ className }) => {
         onKeyDown={handleKeyDown}
       >
         <Title expanded={expanded} />
-        <Input
-          ref={inputRef}
-          query={query}
-          setQuery={setQuery}
-          setExpanded={setExpanded}
-          valid={expanded && selectedMovie != null}
+        <Select
+          value={selectedMovie}
+          onChange={(movie) => setSelectedMovie(movie)}
+          onFocus={() => setExpanded(true)}
+          ref={selectRef}
         />
-        <Results results={results} />
         {expanded && selectedMovie && (
           <>
             <Row
