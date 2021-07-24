@@ -4,13 +4,14 @@ import AsyncSelect from "react-select/async";
 import { components } from "react-select";
 import { search } from "../../api";
 import PropTypes from "prop-types";
-import { sizes } from "../../utils/style";
+import { sizes, theme } from "../../utils/style";
 import Option from "./Option";
 
 const customStyles = {
   control: (provided) => ({
     ...provided,
     borderRadius: sizes.borderRadius.default,
+    backgroundColor: theme.bg.default,
   }),
 };
 
@@ -48,7 +49,6 @@ const Select = forwardRef(({ value, onChange, onFocus }, ref) => {
       aria-label="search for a movie"
       placeholder={`What did you watch today, ${firstName}?`}
       aria-live="polite"
-      cacheOptions
       inputValue={query}
       onInputChange={(value) => setQuery(value)}
       loadOptions={loadOptions}
