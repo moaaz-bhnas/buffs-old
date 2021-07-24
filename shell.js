@@ -53,7 +53,7 @@ db.runCommand({
   validator: {
     $jsonSchema: {
       bsonType: "object",
-      required: ["userId", "movieId", "rating", "writeUp", "postingDate"],
+      required: ["userId", "movieId", "rating", "timestamp"],
       properties: {
         userId: {
           bsonType: "objectId",
@@ -71,7 +71,7 @@ db.runCommand({
           bsonType: "string",
           description: "must be a string and is required",
         },
-        postingDate: {
+        timestamp: {
           bsonType: "date",
           description: "must be a date and is required",
         },

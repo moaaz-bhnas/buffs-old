@@ -17,6 +17,7 @@ import movieNameWithReleaseYear from "../../utils/helpers/movieNameWithReleaseDa
 import dateToYear from "../../utils/helpers/dateToYear";
 import { useSession } from "next-auth/client";
 import PropTypes from "prop-types";
+import createReviewObject from "../../utils/helpers/createReviewObject";
 
 const expandedStyles = css`
   position: relative;
@@ -135,13 +136,22 @@ const Review = ({ className }) => {
       });
 
       // post movie to database
-      const documentId = await postMovieToDb(movie);
+      const movieDocumentId = await postMovieToDb(movie);
 
-      const { id } = user;
+      const { id: userId } = user;
 
       // create a review object
+      const review = createReviewObject({
+        userId,
+        movieId: movieDocumentId,
+        rating,
+        writeUp,
+      });
 
       // post review to database
+      const reviewDocumentId = await postReviewToDb(review);
+
+      console.log("reviewDocumentId: ", reviewDocumentId);
     },
     [selectedMovie, rating, writeUp]
   );
@@ -154,6 +164,20 @@ const Review = ({ className }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(movie),
+    });
+    const { data } = await res.json();
+
+    return data.insertedId;
+  }, []);
+
+  const postReviewToDb = useCallback(async (review) => {
+    const res = await fetch("http://localhost:3000/api/review", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(review),
     });
     const { data } = await res.json();
 
