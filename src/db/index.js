@@ -7,7 +7,7 @@ export const addMovie = async (movie) => {
   const result = await movies.insertOne(movie);
 
   console.log(
-    `${result.insertedCount} documents were inserted with the _id: ${result.insertedId}`
+    `${result.insertedCount} documents were inserted to movies collection with the _id: ${result.insertedId}`
   );
 
   return result;
