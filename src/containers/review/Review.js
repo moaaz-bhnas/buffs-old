@@ -63,7 +63,6 @@ const Review = ({ className }) => {
   const selectRef = useRef(null);
 
   const [selectedMovie, setSelectedMovie] = useState(null);
-  console.log("selectedMovie: ", selectedMovie);
 
   const [expanded, setExpanded] = useState(false);
 
