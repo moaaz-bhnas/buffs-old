@@ -11,8 +11,6 @@ import { getMovieCredits, getMovieDetails, search } from "../../api/index";
 import { visibilityVariants } from "../../utils/animation";
 import Button from "../../components/review/Button";
 import createMovieObject from "../../utils/helpers/createMovieObject";
-import movieNameWithReleaseYear from "../../utils/helpers/movieNameWithReleaseDate";
-import dateToYear from "../../utils/helpers/dateToYear";
 import { useSession } from "next-auth/client";
 import PropTypes from "prop-types";
 import createReviewObject from "../../utils/helpers/createReviewObject";
