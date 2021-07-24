@@ -1,48 +1,17 @@
 import { forwardRef, memo, useCallback, useEffect, useState } from "react";
-import Image from "next/image";
 import { useSession } from "next-auth/client";
 import AsyncSelect from "react-select/async";
 import { components } from "react-select";
 import { search } from "../../api";
 import PropTypes from "prop-types";
-import dateToYear from "../../utils/helpers/dateToYear";
-import movieNameWithReleaseDate from "../../utils/helpers/movieNameWithReleaseDate";
 import { sizes } from "../../utils/style";
-import styled from "styled-components";
-import { imageBaseUrl } from "../../utils/data/tmdb";
-
-const Option = styled.div`
-  padding: 1em;
-`;
+import Option from "./Option";
 
 const customStyles = {
   control: (provided) => ({
     ...provided,
     borderRadius: sizes.borderRadius.default,
   }),
-};
-
-const CustomOption = (props) => {
-  console.log("props: ", props);
-  const { data, innerRef, innerProps } = props;
-  const { label, poster_path } = data;
-  const imageWidth = 50;
-
-  return (
-    <Option ref={innerRef} {...innerProps}>
-      <Image
-        src={`${imageBaseUrl}w92${poster_path}`}
-        alt=""
-        width={imageWidth}
-        height={imageWidth * (3 / 2)}
-        layout="fixed"
-        objectFit="cover"
-        quality={100}
-        priority={true}
-      />
-      {label}
-    </Option>
-  );
 };
 
 const Select = forwardRef(({ value, onChange, onFocus }, ref) => {
@@ -65,15 +34,10 @@ const Select = forwardRef(({ value, onChange, onFocus }, ref) => {
     setResults(results);
 
     const options = results.map((result) => {
-      const label = movieNameWithReleaseDate(
-        result.title,
-        dateToYear(result.release_date)
-      );
-
       return {
         ...result,
         value: result.id,
-        label,
+        label: result.title,
       };
     });
     return options;
@@ -101,7 +65,7 @@ const Select = forwardRef(({ value, onChange, onFocus }, ref) => {
         IndicatorSeparator: dropdownIndicatorVisible
           ? components.IndicatorSeparator
           : () => null,
-        Option: CustomOption,
+        Option,
       }}
       isClearable
       escapeClearsValue
