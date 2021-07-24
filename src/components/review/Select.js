@@ -12,6 +12,7 @@ const customStyles = {
     ...provided,
     borderRadius: sizes.borderRadius.default,
     backgroundColor: theme.bg.default,
+    minHeight: 42,
   }),
 };
 
