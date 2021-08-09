@@ -35,7 +35,6 @@ const ReleaseYear = styled.p`
 `;
 
 const Option = (props) => {
-  console.log("props: ", props);
   const { label, poster_path, release_date } = props.data;
   const imageWidth = 50;
 

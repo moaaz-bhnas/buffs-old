@@ -63,6 +63,7 @@ const Review = ({ className }) => {
   const [selectedMovie, setSelectedMovie] = useState(null);
 
   const [expanded, setExpanded] = useState(false);
+  const [menuExpanded, setMenuExpanded] = useState(false);
 
   const [rating, setRating] = useState(0);
   const [writeUp, setWriteUp] = useState("");
@@ -77,12 +78,15 @@ const Review = ({ className }) => {
     [selectedMovie]
   );
 
-  const handleKeyDown = useCallback(({ key }) => {
-    if (key === "Escape") {
-      setExpanded(false);
-      selectRef.current.blur();
-    }
-  }, []);
+  const handleKeyDown = useCallback(
+    ({ key }) => {
+      if (key === "Escape" && !menuExpanded) {
+        setExpanded(false);
+        selectRef.current.blur();
+      }
+    },
+    [menuExpanded]
+  );
 
   const handleSubmit = useCallback(
     async (event) => {
@@ -157,9 +161,11 @@ const Review = ({ className }) => {
       >
         <Title expanded={expanded} />
         <Select
+          id="review__select"
           value={selectedMovie}
           onChange={(movie) => setSelectedMovie(movie)}
           onFocus={() => setExpanded(true)}
+          setMenuExpanded={setMenuExpanded}
           ref={selectRef}
         />
         {expanded && selectedMovie && (
