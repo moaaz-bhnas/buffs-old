@@ -59,6 +59,7 @@ const Review = ({ className }) => {
   const { user } = session;
 
   const selectRef = useRef(null);
+  const buttonRef = useRef(null);
 
   const [selectedMovie, setSelectedMovie] = useState(null);
 
@@ -79,13 +80,26 @@ const Review = ({ className }) => {
   );
 
   const handleKeyDown = useCallback(
-    ({ key }) => {
+    (event) => {
+      const { target, key, shiftKey } = event;
+      const { inputRef } = selectRef.current.select.select;
+      const firstInteractive = inputRef;
+      const lastInteractive = selectedMovie ? buttonRef.current : inputRef;
+
+      if (key === "Tab" && shiftKey && target === firstInteractive) {
+        setExpanded(false);
+      }
+
+      if (key === "Tab" && !shiftKey && target === lastInteractive) {
+        setExpanded(false);
+      }
+
       if (key === "Escape" && !menuExpanded) {
         setExpanded(false);
         selectRef.current.blur();
       }
     },
-    [menuExpanded]
+    [selectedMovie, menuExpanded, selectRef.current, buttonRef.current]
   );
 
   const handleSubmit = useCallback(
@@ -181,7 +195,7 @@ const Review = ({ className }) => {
                 <WriteUp writeUp={writeUp} setWriteUp={setWriteUp} />
               </Column>
             </Row>
-            <Button disabled={rating === 0} />
+            <Button ref={buttonRef} disabled={rating === 0} />
           </>
         )}
       </Form>

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { memo } from "react";
+import { forwardRef, memo } from "react";
 import styled from "styled-components";
 import { visibilityVariants } from "../../utils/animation";
 import { rawButton, sizes } from "../../utils/style";
@@ -21,9 +21,10 @@ const StyledButton = styled(motion.button)`
   }
 `;
 
-const Button = ({ disabled }) => {
+const Button = forwardRef(({ disabled }, ref) => {
   return (
     <StyledButton
+      ref={ref}
       type="submit"
       disabled={disabled}
       variants={visibilityVariants}
@@ -33,7 +34,7 @@ const Button = ({ disabled }) => {
       Submit
     </StyledButton>
   );
-};
+});
 
 Button.propTypes = {
   disabled: PropTypes.bool,
