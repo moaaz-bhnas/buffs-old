@@ -1,5 +1,6 @@
 import { connectToDatabase } from "./dbConnect";
 
+// addMovie
 export const addMovie = async (movie) => {
   const { db } = await connectToDatabase();
 
@@ -25,4 +26,46 @@ export const addReview = async (review) => {
   );
 
   return result;
+};
+
+// getReviews
+export const getReviews = async (offset) => {
+  const { db } = await connectToDatabase();
+
+  const reviews = db.collection("reviews");
+
+  const pipeline = [
+    {
+      $sort: {
+        _id: -1,
+      },
+    },
+    {
+      $limit: 20,
+    },
+    {
+      $lookup: {
+        from: "movies",
+        let: { movieObjectId: { $toObjectId: "$movieId" } },
+        pipeline: [
+          {
+            $match: { $expr: { $eq: ["$_id", "$$movieObjectId"] } },
+          },
+          {
+            $project: {
+              name: 1,
+              genres: 1,
+              posterPath: 1,
+            },
+          },
+          // { 
+          //   $unwind: "$genres",
+          // },
+        ],
+        as: "movieDetails",
+      },
+    },
+  ];
+
+  // const results = reviews.aggregate([$sort]);
 };
