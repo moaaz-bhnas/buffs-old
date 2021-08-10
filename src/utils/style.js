@@ -29,6 +29,7 @@ export const theme = {
     header: "#fff",
     grey2: "#d8dadd",
     grey3: "#c8c7c6",
+    grey4: "#727274",
     dark: "#333",
     twitter: "#0D91E3",
   },

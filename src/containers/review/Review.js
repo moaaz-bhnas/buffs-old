@@ -212,7 +212,7 @@ const Review = ({ className }) => {
           </>
         )}
       </Form>
-      {loading && <Loader />}
+      <Loader loading={loading} />
     </Container>
   );
 };
