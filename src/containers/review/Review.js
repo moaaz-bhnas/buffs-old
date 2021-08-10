@@ -15,6 +15,7 @@ import { useSession } from "next-auth/client";
 import PropTypes from "prop-types";
 import createReviewObject from "../../utils/helpers/createReviewObject";
 import Select from "../../components/review/Select";
+import Loader from "../../components/review/Loader";
 
 const expandedStyles = css`
   position: relative;
@@ -30,6 +31,7 @@ const Container = styled.div`
 `;
 
 const Form = styled.form`
+  position: relative;
   background-color: #fff;
   border: 1px solid ${({ theme }) => theme.border.grey2};
   width: ${sizes.width.card};
@@ -55,7 +57,7 @@ const Column = styled.div`
 `;
 
 const Review = ({ className }) => {
-  const [session, loading] = useSession();
+  const [session] = useSession();
   const { user } = session;
 
   const selectRef = useRef(null);
@@ -68,6 +70,8 @@ const Review = ({ className }) => {
 
   const [rating, setRating] = useState(0);
   const [writeUp, setWriteUp] = useState("");
+
+  const [loading, setLoading] = useState(false);
 
   useEffect(
     function reset() {
@@ -105,8 +109,11 @@ const Review = ({ className }) => {
   const handleSubmit = useCallback(
     async (event) => {
       event.preventDefault();
+      setLoading(true);
 
       const { id: tmdbId } = selectedMovie;
+      reset();
+
       const movieDetails = getMovieDetails(tmdbId);
       const movieCredits = getMovieCredits(tmdbId);
 
@@ -131,8 +138,9 @@ const Review = ({ className }) => {
 
       // post review to database
       const reviewDocumentId = await postReviewToDb(review);
-
       console.log("reviewDocumentId: ", reviewDocumentId);
+
+      setLoading(false);
     },
     [selectedMovie, rating, writeUp]
   );
@@ -163,6 +171,11 @@ const Review = ({ className }) => {
     const { data } = await res.json();
 
     return data.insertedId;
+  }, []);
+
+  const reset = useCallback(() => {
+    setSelectedMovie(null);
+    setExpanded(false);
   }, []);
 
   return (
@@ -199,6 +212,7 @@ const Review = ({ className }) => {
           </>
         )}
       </Form>
+      {loading && <Loader />}
     </Container>
   );
 };

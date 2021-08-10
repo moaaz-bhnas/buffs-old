@@ -3,6 +3,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import { AnimatePresence, motion } from "framer-motion";
 import { visibilityVariants } from "../../utils/animation";
+import { overlays } from "../../utils/style";
 
 const StyledOverlay = styled(motion.div)`
   position: fixed;
@@ -10,7 +11,7 @@ const StyledOverlay = styled(motion.div)`
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${overlays.review.default};
   z-index: 2;
 `;
 

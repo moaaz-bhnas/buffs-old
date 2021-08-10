@@ -93,6 +93,12 @@ export const shadows = {
   },
 };
 
+export const overlays = {
+  review: {
+    default: "rgba(255, 255, 255, .85)",
+  },
+};
+
 export const linkStyles = css`
   color: inherit;
   text-decoration: none;
