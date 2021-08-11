@@ -1,15 +1,11 @@
 import Layout from "../containers/layout/Layout";
-import Review from "../containers/review/Review";
 import { getSession } from "next-auth/client";
-import getReviews from "../utils/helpers/getReviews";
-import Form from "../containers/review/containers/Default";
+import Review from "../containers/review/Review";
 
-export default function Home({ session, reviews }) {
-  console.log("reviews: ", reviews);
-
+export default function Add({ session }) {
   return (
     <Layout>
-      <Review>{(props) => <Form {...props} />}</Review>
+      <Review className="add__review" />
     </Layout>
   );
 }
@@ -26,12 +22,9 @@ export async function getServerSideProps(context) {
     };
   }
 
-  const reviews = await getReviews({ skip: 0, limit: 20 });
-
   return {
     props: {
       session,
-      reviews,
     },
   };
 }
