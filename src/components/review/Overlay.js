@@ -34,9 +34,7 @@ const Overlay = ({ expanded, setExpanded }) => {
 
 Overlay.propTypes = {
   expanded: PropTypes.bool,
-  // reset: PropTypes.func,
   setExpanded: PropTypes.func,
-  // setSelectedMovie: PropTypes.func,
 };
 
 export default memo(Overlay);

@@ -1,27 +1,16 @@
 import { forwardRef, memo, useCallback, useEffect, useState } from "react";
-import { useSession } from "next-auth/client";
 import AsyncSelect from "react-select/async";
 import { components } from "react-select";
 import { search } from "../../api";
 import PropTypes from "prop-types";
-import { sizes, theme } from "../../utils/style";
+import { sizes } from "../../utils/style";
 import Option from "./Option";
 
-const customStyles = {
-  control: (provided) => ({
-    ...provided,
-    borderRadius: sizes.borderRadius.default,
-    backgroundColor: theme.bg.default,
-    minHeight: 42,
-  }),
-};
-
 const Select = forwardRef(
-  ({ id, value, onChange, onFocus, setMenuExpanded }, ref) => {
-    const [session] = useSession();
-    const fullName = session.user.name;
-    const firstName = fullName.split(" ")[0];
-
+  (
+    { id, value, onChange, onFocus, setMenuExpanded, styles, placeholder },
+    ref
+  ) => {
     const [query, setQuery] = useState("");
     const [results, setResults] = useState([]);
 
@@ -49,10 +38,19 @@ const Select = forwardRef(
       return options;
     }, []);
 
+    const customStyles = {
+      control: (provided) => ({
+        ...provided,
+        borderRadius: sizes.borderRadius.default,
+        backgroundColor: styles.backgroundColor || "#fff",
+        minHeight: styles.minHeight || 44,
+      }),
+    };
+
     return (
       <AsyncSelect
         aria-label="search for a movie"
-        placeholder={`What did you watch today, ${firstName}?`}
+        placeholder={placeholder}
         aria-live="polite"
         inputValue={query}
         onInputChange={(value) => setQuery(value)}
@@ -86,6 +84,8 @@ Select.propTypes = {
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
   setMenuExpnaded: PropTypes.func,
+  styles: PropTypes.object,
+  placeholder: PropTypes.string,
 };
 
 export default memo(Select);

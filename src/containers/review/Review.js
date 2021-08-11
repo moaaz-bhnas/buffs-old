@@ -25,45 +25,41 @@ const Review = ({ children }) => {
     [selectedMovie]
   );
 
-  const handleSubmit = useCallback(
-    async (event) => {
-      event.preventDefault();
-      setLoading(true);
+  const handleSubmit = useCallback(async () => {
+    setLoading(true);
 
-      const { id: tmdbId } = selectedMovie;
-      reset();
+    const { id: tmdbId } = selectedMovie;
+    setSelectedMovie(null);
 
-      const movieDetails = getMovieDetails(tmdbId);
-      const movieCredits = getMovieCredits(tmdbId);
+    const movieDetails = getMovieDetails(tmdbId);
+    const movieCredits = getMovieCredits(tmdbId);
 
-      // create a movie object
-      const movie = createMovieObject({
-        movieDetails: await movieDetails,
-        movieCredits: await movieCredits,
-      });
+    // create a movie object
+    const movie = createMovieObject({
+      movieDetails: await movieDetails,
+      movieCredits: await movieCredits,
+    });
 
-      // post movie to database
-      const movieDocumentId = await postMovieToDb(movie);
+    // post movie to database
+    const movieDocumentId = await postMovieToDb(movie);
 
-      const { user } = session;
-      const { id: userId } = user;
+    const { user } = session;
+    const { id: userId } = user;
 
-      // create a review object
-      const review = createReviewObject({
-        userId,
-        movieId: movieDocumentId,
-        rating,
-        writeUp,
-      });
+    // create a review object
+    const review = createReviewObject({
+      userId,
+      movieId: movieDocumentId,
+      rating,
+      writeUp,
+    });
 
-      // post review to database
-      const reviewDocumentId = await postReviewToDb(review);
-      console.log("reviewDocumentId: ", reviewDocumentId);
+    // post review to database
+    const reviewDocumentId = await postReviewToDb(review);
+    console.log("reviewDocumentId: ", reviewDocumentId);
 
-      setLoading(false);
-    },
-    [selectedMovie, rating, writeUp]
-  );
+    setLoading(false);
+  }, [selectedMovie, rating, writeUp]);
 
   const postMovieToDb = useCallback(async (movie) => {
     const res = await fetch("http://localhost:3000/api/movie", {
@@ -91,10 +87,6 @@ const Review = ({ children }) => {
     const { data } = await res.json();
 
     return data.insertedId;
-  }, []);
-
-  const reset = useCallback(() => {
-    setSelectedMovie(null);
   }, []);
 
   return children({
