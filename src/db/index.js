@@ -40,6 +40,24 @@ export const getReviews = async (skip, limit) => {
     { $limit: Number(limit) },
     {
       $lookup: {
+        let: { userObjectId: { $toObjectId: "$userId" } },
+        from: "users",
+        pipeline: [
+          {
+            $match: { $expr: { $eq: ["$_id", "$$userObjectId"] } },
+          },
+          {
+            $project: {
+              name: 1,
+              image: 1,
+            },
+          },
+        ],
+        as: "userDetails",
+      },
+    },
+    {
+      $lookup: {
         let: { movieObjectId: { $toObjectId: "$movieId" } },
         from: "movies",
         pipeline: [
@@ -48,7 +66,6 @@ export const getReviews = async (skip, limit) => {
           },
           {
             $project: {
-              _id: 0,
               name: 1,
               genres: "$genres.name",
               posterPath: 1,
@@ -58,8 +75,9 @@ export const getReviews = async (skip, limit) => {
         as: "movieDetails",
       },
     },
+    { $unwind: "$userDetails" },
     { $unwind: "$movieDetails" },
-    { $project: { movieId: 0 } },
+    { $project: { userId: 0, movieId: 0 } },
   ];
 
   try {
