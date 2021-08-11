@@ -96,7 +96,7 @@ export const shadows = {
 
 export const overlays = {
   review: {
-    default: "rgba(255, 255, 255, .85)",
+    default: "rgba(0, 0, 0, .5)",
   },
 };
 

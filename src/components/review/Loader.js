@@ -5,11 +5,11 @@ import BeatLoader from "react-spinners/BeatLoader";
 import { theme } from "../../utils/style";
 import PropTypes from "prop-types";
 
-const override = css`
-  display: block;
-  margin: 0 auto;
-  border-color: red;
-`;
+// const override = css`
+//   display: block;
+//   margin: 0 auto;
+//   border-color: red;
+// `;
 
 const StyledLoader = styled.div`
   margin-top: 1rem;
@@ -21,7 +21,7 @@ const Loader = ({ loading }) => {
       <BeatLoader
         color={theme.bg.grey4}
         loading={loading}
-        css={override}
+        // css={override}
         size={10}
       />
     </StyledLoader>

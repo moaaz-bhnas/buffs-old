@@ -1,4 +1,4 @@
-import { addReview } from "../../../db";
+import { addReview, getReviews } from "../../../db";
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -12,5 +12,18 @@ export default async function handler(req, res) {
       } catch (error) {
         res.status(400).json({ success: false });
       }
+      break;
+
+    case "GET":
+      const { skip, limit } = req.query;
+
+      try {
+        const results = await getReviews(skip, limit);
+
+        res.status(201).json({ success: true, data: results });
+      } catch (error) {
+        res.status(400).json({ success: false });
+      }
+      break;
   }
 }

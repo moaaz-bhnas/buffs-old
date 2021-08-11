@@ -58,7 +58,6 @@ const Column = styled.div`
 
 const Review = ({ className }) => {
   const [session] = useSession();
-  const { user } = session;
 
   const selectRef = useRef(null);
   const buttonRef = useRef(null);
@@ -126,6 +125,7 @@ const Review = ({ className }) => {
       // post movie to database
       const movieDocumentId = await postMovieToDb(movie);
 
+      const { user } = session;
       const { id: userId } = user;
 
       // create a review object
