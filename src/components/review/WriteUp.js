@@ -1,6 +1,6 @@
 import { memo } from "react";
 import styled from "styled-components";
-import { inputStyles } from "../../utils/style";
+import { inputStyles, mediaQueries } from "../../utils/style";
 import PropTypes from "prop-types";
 
 const TestArea = styled.textarea`
@@ -9,6 +9,10 @@ const TestArea = styled.textarea`
   padding: 0.4em;
 
   flex: 1;
+
+  @media screen and (max-width: ${mediaQueries.reviewForm.row}) {
+    min-height: 7.5rem;
+  }
 `;
 
 const WriteUp = ({ writeUp, setWriteUp }) => {

@@ -11,6 +11,7 @@ db.runCommand({
         "cast",
         "director",
         "imdbRating",
+        "releaseDate",
       ],
       properties: {
         tmdbId: {
@@ -40,6 +41,10 @@ db.runCommand({
         imdbRating: {
           bsonType: "decimal",
           description: "must be a decimal and is required",
+        },
+        releaseDate: {
+          bsonType: "string",
+          description: "must be a string and is required",
         },
       },
     },

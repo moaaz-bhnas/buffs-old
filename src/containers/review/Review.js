@@ -29,7 +29,6 @@ const Review = ({ children }) => {
     setLoading(true);
 
     const { id: tmdbId } = selectedMovie;
-    setSelectedMovie(null);
 
     const movieDetails = getMovieDetails(tmdbId);
     const movieCredits = getMovieCredits(tmdbId);
@@ -58,6 +57,7 @@ const Review = ({ children }) => {
     const reviewDocumentId = await postReviewToDb(review);
     console.log("reviewDocumentId: ", reviewDocumentId);
 
+    setSelectedMovie(null);
     setLoading(false);
   }, [selectedMovie, rating, writeUp]);
 
@@ -99,10 +99,6 @@ const Review = ({ children }) => {
     setWriteUp,
     loading,
   });
-};
-
-Review.propTypes = {
-  className: PropTypes.string,
 };
 
 export default memo(Review);

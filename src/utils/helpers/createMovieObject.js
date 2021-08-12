@@ -12,6 +12,7 @@ export default function createMovieObject({ movieDetails, movieCredits }) {
     tmdbId: movieDetails.id,
     name: movieDetails.title,
     genres: movieDetails.genres,
+    releaseDate: movieDetails.release_date,
     posterPath: movieDetails.poster_path,
     imdbRating: movieDetails.vote_average,
     cast,

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import ReactStars from "react-rating-stars-component";
 import PropTypes from "prop-types";
 import Image from "next/image";
+import { mediaQueries } from "../../utils/style";
 
 const StyledRating = styled.div`
   display: flex;
@@ -32,6 +33,10 @@ const P = styled.p`
   height: ${starContainerHeight}px;
   display: flex;
   align-items: center;
+
+  @media screen and (max-width: ${mediaQueries.reviewForm.rating}) {
+    display: none;
+  }
 `;
 
 const StyledStar = styled.div`
@@ -39,6 +44,13 @@ const StyledStar = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media screen and (max-width: ${mediaQueries.reviewForm.rating}) {
+    > div {
+      width: 25px !important;
+      height: 25px !important;
+    }
+  }
 `;
 
 const Star = ({ state }) => {

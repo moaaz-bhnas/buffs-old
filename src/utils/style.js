@@ -68,6 +68,10 @@ export const sizes = {
 
 export const mediaQueries = {
   main: "768px",
+  reviewForm: {
+    row: "550px",
+    rating: "420px",
+  },
 };
 
 export const transitions = {
@@ -112,6 +116,11 @@ export const containerStyles = css`
   margin-right: auto;
   padding-left: 1em;
   padding-right: 1em;
+
+  @media screen and (max-width: ${mediaQueries.main}) {
+    padding-left: 0.8em;
+    padding-right: 0.8em;
+  }
 `;
 
 export const rawButton = css`

@@ -69,6 +69,7 @@ export const getReviews = async (skip, limit) => {
               name: 1,
               genres: "$genres.name",
               posterPath: 1,
+              releaseYear: { $substrBytes: ["$releaseDate", 0, 4] },
             },
           },
         ],

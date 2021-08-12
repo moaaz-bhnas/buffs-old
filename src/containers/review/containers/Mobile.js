@@ -1,19 +1,22 @@
 import { motion } from "framer-motion";
-import { memo, useCallback, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import styled, { css } from "styled-components";
 import Cover from "../../../components/review/Cover";
 import Rating from "../../../components/review/Rating";
 import WriteUp from "../../../components/review/WriteUp";
-import { sizes } from "../../../utils/style";
+import { mediaQueries, sizes } from "../../../utils/style";
 import { visibilityVariants } from "../../../utils/animation";
 import Button from "../../../components/review/Button";
 import PropTypes from "prop-types";
 import Select from "../../../components/review/Select";
 import Loader from "../../../components/review/Loader";
+import { useRouter } from "next/dist/client/router";
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 `;
 
 const StyledForm = styled.form`
@@ -26,6 +29,10 @@ const Row = styled(motion.div)`
   margin-bottom: 1rem;
 
   display: flex;
+
+  @media screen and (max-width: ${mediaQueries.reviewForm.row}) {
+    flex-direction: column;
+  }
 `;
 
 const Column = styled.div`
@@ -33,6 +40,10 @@ const Column = styled.div`
 
   display: flex;
   flex-direction: column;
+
+  @media screen and (max-width: ${mediaQueries.reviewForm.stars}) {
+    margin-top: 1rem;
+  }
 `;
 
 const Form = ({
@@ -45,6 +56,7 @@ const Form = ({
   setWriteUp,
   loading,
 }) => {
+  const router = useRouter();
   const selectRef = useRef(null);
 
   const [expanded, setExpanded] = useState(false);
@@ -54,7 +66,7 @@ const Form = ({
     async (event) => {
       event.preventDefault();
       await onSubmit();
-      setExpanded(false);
+      router.push("/");
     },
     [selectedMovie]
   );
