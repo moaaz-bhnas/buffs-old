@@ -1,12 +1,6 @@
-import { useSession } from "next-auth/client";
 import { memo } from "react";
 import styled from "styled-components";
-import Auth from "../../components/header/Auth";
-import LogoLink from "../../components/header/LogoLink";
-import SocialList from "../social-list/SocialList";
 import { containerStyles, offScreen, sizes } from "../../utils/style";
-import Search from "../search/Search";
-import SocialListMobile from "../social-list-mobile/SocialListMobile";
 
 const StyledHeader = styled.header`
   background-color: ${(props) => props.theme.bg.header};
@@ -20,38 +14,19 @@ const Title = styled.h1`
   ${offScreen}
 `;
 
-const Navigation = styled.nav`
-  ${containerStyles};
+const Container = styled.div`
+  ${containerStyles}
+  height: ${sizes.height.header};
   display: flex;
   align-items: center;
-  justify-content: center;
-  height: ${sizes.height.header};
   position: relative;
 `;
 
-const NavTitle = styled.h2`
-  ${offScreen}
-`;
-
-const Header = () => {
-  const [session, loading] = useSession();
-
+const Header = ({ children }) => {
   return (
     <StyledHeader>
       <Title>Buffs</Title>
-      <Navigation>
-        <NavTitle>Main Navigation</NavTitle>
-        <LogoLink />
-        <Search />
-        {session ? (
-          <>
-            <SocialList />
-            <SocialListMobile />
-          </>
-        ) : (
-          <Auth />
-        )}
-      </Navigation>
+      <Container>{children}</Container>
     </StyledHeader>
   );
 };
