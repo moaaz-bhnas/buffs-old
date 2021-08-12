@@ -138,7 +138,7 @@ const Form = ({
             <Button ref={buttonRef} disabled={rating === 0} />
           </>
         )}
-        <Loader loading={true} />
+        <Loader loading={loading} />
       </StyledForm>
     </Container>
   );
