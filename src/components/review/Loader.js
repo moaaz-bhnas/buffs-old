@@ -5,12 +5,12 @@ import { theme } from "../../utils/style";
 import PropTypes from "prop-types";
 
 const StyledLoader = styled.div`
-  margin-top: ${({ loading }) => loading && "1rem"};
+  margin-top: ${({ isLoading }) => (isLoading ? "1rem" : null)};
 `;
 
 const Loader = ({ loading }) => {
   return (
-    <StyledLoader loading={loading}>
+    <StyledLoader isLoading={loading}>
       <BeatLoader color={theme.bg.grey4} loading={loading} size={10} />
     </StyledLoader>
   );
