@@ -1,11 +1,10 @@
-import Image from "next/image";
 import { memo } from "react";
 import { components } from "react-select";
 import styled from "styled-components";
-import { imageBaseUrl } from "../../utils/data/tmdb";
 import PropTypes from "prop-types";
 import { sizes } from "../../utils/style";
 import dateToYear from "../../utils/helpers/dateToYear";
+import Cover from "../cover/Cover";
 
 const StyledOption = styled.div`
   cursor: pointer;
@@ -36,26 +35,11 @@ const ReleaseYear = styled.p`
 
 const Option = (props) => {
   const { label, poster_path, release_date } = props.data;
-  const imageWidth = 50;
-
-  const src = poster_path
-    ? `${imageBaseUrl}w92${poster_path}`
-    : "/images/logo.png";
 
   return (
     <components.Option {...props}>
       <StyledOption>
-        <Image
-          className="review__optionImage"
-          src={src}
-          alt=""
-          width={imageWidth}
-          height={imageWidth * (3 / 2)}
-          layout="fixed"
-          objectFit="cover"
-          quality={100}
-          priority={true}
-        />
+        <Cover height={75} coverPath={poster_path} tmdbWidth={92} />
         <Text>
           <Title>{label}</Title>
           <ReleaseYear>{dateToYear(release_date)}</ReleaseYear>

@@ -4,6 +4,7 @@ import ReactStars from "react-rating-stars-component";
 import PropTypes from "prop-types";
 import Image from "next/image";
 import { mediaQueries } from "../../utils/style";
+import Star from "../star/Star";
 
 const StyledRating = styled.div`
   display: flex;
@@ -23,14 +24,12 @@ const StyledRating = styled.div`
   }
 `;
 
-const starContainerHeight = 48;
-const starHeight = 28;
-
 const P = styled.p`
   margin: 0 0.5em 0 0;
   font-weight: bold;
 
-  height: ${starContainerHeight}px;
+  // To match stars height
+  height: 48px;
   display: flex;
   align-items: center;
 
@@ -38,36 +37,6 @@ const P = styled.p`
     display: none;
   }
 `;
-
-const StyledStar = styled.div`
-  height: ${starContainerHeight}px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  @media screen and (max-width: ${mediaQueries.reviewForm.rating}) {
-    > div {
-      width: 25px !important;
-      height: 25px !important;
-    }
-  }
-`;
-
-const Star = ({ state }) => {
-  return (
-    <StyledStar>
-      <Image
-        className="review__star"
-        src={`/images/star-${state}.svg`}
-        alt={`${state} star`}
-        layout="fixed"
-        width={starHeight}
-        height={starHeight}
-        quality={100}
-      />
-    </StyledStar>
-  );
-};
 
 const Rating = ({ rating, setRating }) => {
   return (

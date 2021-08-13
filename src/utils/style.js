@@ -159,6 +159,14 @@ export const inputStyles = css`
   }
 `;
 
+export const cardStyles = css`
+  background-color: #fff;
+  width: ${sizes.width.card};
+  border: 1px solid ${({ theme }) => theme.border.grey2};
+  border-radius: ${sizes.borderRadius.default};
+  padding: 0.8rem 1rem;
+`;
+
 export const offScreen = css`
   position: absolute;
   left: -200rem;

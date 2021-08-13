@@ -3,10 +3,10 @@ import { memo, useCallback, useRef, useState } from "react";
 import styled, { css } from "styled-components";
 import Overlay from "../../../components/review-form/Overlay";
 import Title from "../../../components/review-form/Title";
-import Cover from "../../../components/review-form/Cover";
+import Cover from "../../../components/cover/Cover";
 import Rating from "../../../components/review-form/Rating";
 import WriteUp from "../../../components/review-form/WriteUp";
-import { mediaQueries, sizes, theme } from "../../../utils/style";
+import { cardStyles, mediaQueries, sizes, theme } from "../../../utils/style";
 import { visibilityVariants } from "../../../utils/animation";
 import Button from "../../../components/review-form/Button";
 import PropTypes from "prop-types";
@@ -26,12 +26,7 @@ const Container = styled.div`
 `;
 
 const StyledForm = styled.form`
-  position: relative;
-  background-color: #fff;
-  border: 1px solid ${({ theme }) => theme.border.grey2};
-  width: ${sizes.width.card};
-  padding: 0.8rem 1rem;
-  border-radius: ${sizes.borderRadius.default};
+  ${cardStyles}
 
   ${({ expanded }) => expanded && expandedStyles}
 `;
@@ -49,6 +44,14 @@ const Column = styled.div`
 
   display: flex;
   flex-direction: column;
+`;
+
+const CoverContainer = styled.div`
+  margin-right: 1em;
+  /* To align cover top with the top of the stars
+    (star container height (48) - star height (28)) / 2
+  */
+  margin-top: 10px;
 `;
 
 const Form = ({
@@ -129,7 +132,13 @@ const Form = ({
               initial="hidden"
               animate="visible"
             >
-              <Cover coverPath={selectedMovie.poster_path} />
+              <CoverContainer>
+                <Cover
+                  coverPath={selectedMovie.poster_path}
+                  height={125}
+                  tmdbWidth={92}
+                />
+              </CoverContainer>
               <Column>
                 <Rating rating={rating} setRating={setRating} />
                 <WriteUp writeUp={writeUp} setWriteUp={setWriteUp} />

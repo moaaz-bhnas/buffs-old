@@ -2,10 +2,22 @@ import { memo } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import MovieDetails from "../../components/review/MovieDetails";
+import { cardStyles } from "../../utils/style";
 
-const StyledReview = styled.li``;
+const StyledReview = styled.li`
+  margin-bottom: 1rem;
+`;
 
-const Article = styled.article``;
+const Article = styled.article`
+  ${cardStyles}
+`;
+
+const Hr = styled.hr`
+  border: none;
+  height: 1px;
+  background-color: ${({ theme }) => theme.bg.grey2};
+  margin: 1rem 0;
+`;
 
 const Review = ({ review }) => {
   console.log("review: ", review);
@@ -16,6 +28,8 @@ const Review = ({ review }) => {
     <StyledReview>
       <Article>
         <MovieDetails movieDetails={movieDetails} />
+
+        <Hr />
       </Article>
     </StyledReview>
   );

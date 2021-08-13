@@ -1,19 +1,49 @@
 import { memo } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import Cover from "../cover/Cover";
 
-const Row = styled.div``;
+const Row = styled.div`
+  display: flex;
+`;
 
-const Title = styled.h3``;
+const CoverContainer = styled.div`
+  margin-right: 1rem;
+`;
+
+const TextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Title = styled.h3`
+  margin: 0 0 0.25rem 0;
+`;
+
+const Genres = styled.p`
+  margin: 0;
+  color: ${({ theme }) => theme.text.grey};
+`;
 
 const MovieDetails = ({ movieDetails }) => {
-  const { name, releaseYear } = movieDetails;
+  const { name, releaseYear, posterPath, genres } = movieDetails;
 
   return (
     <Row>
-      <Title>
-        {name} ({releaseYear})
-      </Title>
+      <CoverContainer>
+        <Cover
+          height={120}
+          coverPath={posterPath}
+          tmdbWidth={185}
+          boxShadow={false}
+        />
+      </CoverContainer>
+      <TextContainer>
+        <Title>
+          {name} ({releaseYear})
+        </Title>
+        <Genres>{genres.join(", ")}</Genres>
+      </TextContainer>
     </Row>
   );
 };
