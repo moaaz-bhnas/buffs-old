@@ -2,6 +2,8 @@ import { connectToDatabase } from "./dbConnect";
 
 // addMovie
 export const addMovie = async (movie) => {
+  // Add a field for reviews ids
+
   const { db } = await connectToDatabase();
 
   const movies = db.collection("movies");
