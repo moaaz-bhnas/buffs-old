@@ -3,6 +3,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import MovieDetails from "../../components/review/MovieDetails";
 import { cardStyles } from "../../utils/style";
+import ReviewDetails from "../../components/review/ReviewDetails";
 
 const StyledReview = styled.li`
   margin-bottom: 1rem;
@@ -30,6 +31,8 @@ const Review = ({ review }) => {
         <MovieDetails movieDetails={movieDetails} />
 
         <Hr />
+
+        <ReviewDetails rating={rating} writeUp={writeUp} />
       </Article>
     </StyledReview>
   );

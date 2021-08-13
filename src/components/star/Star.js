@@ -38,7 +38,7 @@ const Star = ({ state }) => {
 };
 
 Star.propTypes = {
-  state: PropTypes.bool,
+  state: PropTypes.string,
 };
 
 export default memo(Star);

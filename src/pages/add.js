@@ -1,6 +1,6 @@
 import Layout from "../containers/layout/Layout";
 import { getSession } from "next-auth/client";
-import Review from "../containers/review-form/Review";
+import Review from "../containers/review-form/ReviewForm";
 import Form from "../containers/review-form/containers/Mobile";
 
 export default function Add({ session }) {

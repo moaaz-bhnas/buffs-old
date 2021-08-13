@@ -2,7 +2,6 @@ import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { getMovieCredits, getMovieDetails, search } from "../../api/index";
 import createMovieObject from "../../utils/helpers/createMovieObject";
 import { useSession } from "next-auth/client";
-import PropTypes from "prop-types";
 import createReviewObject from "../../utils/helpers/createReviewObject";
 
 const Review = ({ children }) => {

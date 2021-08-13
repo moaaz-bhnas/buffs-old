@@ -68,7 +68,7 @@ const Form = ({
       await onSubmit();
       router.push("/");
     },
-    [selectedMovie]
+    [selectedMovie, rating, writeUp]
   );
 
   return (

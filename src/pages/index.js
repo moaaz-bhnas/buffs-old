@@ -1,5 +1,5 @@
 import Layout from "../containers/layout/Layout";
-import Review from "../containers/review-form/Review";
+import Review from "../containers/review-form/ReviewForm";
 import Form from "../containers/review-form/containers/Default";
 import { getSession } from "next-auth/client";
 import getReviews from "../utils/helpers/getReviews";

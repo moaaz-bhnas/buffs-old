@@ -2,7 +2,6 @@ import { memo } from "react";
 import styled from "styled-components";
 import ReactStars from "react-rating-stars-component";
 import PropTypes from "prop-types";
-import Image from "next/image";
 import { mediaQueries } from "../../utils/style";
 import Star from "../star/Star";
 

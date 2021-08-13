@@ -103,7 +103,7 @@ const Form = ({
       await onSubmit();
       setExpanded(false);
     },
-    [selectedMovie]
+    [selectedMovie, rating, writeUp]
   );
 
   return (
