@@ -2,7 +2,7 @@ import { memo } from "react";
 import styled from "styled-components";
 import { offScreen } from "../../utils/style";
 import PropTypes from "prop-types";
-import List from "../../components/feed/List";
+import List from "../reviews-list/ReviewsList";
 
 const StyledFeed = styled.section``;
 
