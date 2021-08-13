@@ -4,7 +4,9 @@ import { offScreen } from "../../utils/style";
 import PropTypes from "prop-types";
 import List from "../reviews-list/ReviewsList";
 
-const StyledFeed = styled.section``;
+const StyledFeed = styled.section`
+  padding: 1rem 0;
+`;
 
 const Title = styled.h2`
   ${offScreen}

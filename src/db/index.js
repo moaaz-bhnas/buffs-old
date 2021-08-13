@@ -5,6 +5,9 @@ export const addMovie = async (movie) => {
   const { db } = await connectToDatabase();
 
   const movies = db.collection("movies");
+
+  // Logic to prevent repeating movies
+
   const result = await movies.insertOne(movie);
 
   console.log(

@@ -11,6 +11,7 @@ export default function Home({ session, reviews }) {
   return (
     <Layout>
       <Review>{(props) => <Form {...props} />}</Review>
+
       <Feed reviews={reviews} />
     </Layout>
   );
