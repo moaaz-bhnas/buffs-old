@@ -1,17 +1,17 @@
 import { motion } from "framer-motion";
 import { memo, useCallback, useRef, useState } from "react";
 import styled, { css } from "styled-components";
-import Overlay from "../../../components/review/Overlay";
-import Title from "../../../components/review/Title";
-import Cover from "../../../components/review/Cover";
-import Rating from "../../../components/review/Rating";
-import WriteUp from "../../../components/review/WriteUp";
+import Overlay from "../../../components/review-form/Overlay";
+import Title from "../../../components/review-form/Title";
+import Cover from "../../../components/review-form/Cover";
+import Rating from "../../../components/review-form/Rating";
+import WriteUp from "../../../components/review-form/WriteUp";
 import { mediaQueries, sizes, theme } from "../../../utils/style";
 import { visibilityVariants } from "../../../utils/animation";
-import Button from "../../../components/review/Button";
+import Button from "../../../components/review-form/Button";
 import PropTypes from "prop-types";
-import Select from "../../../components/review/Select";
-import Loader from "../../../components/review/Loader";
+import Select from "../../../components/review-form/Select";
+import Loader from "../../../components/review-form/Loader";
 import { useSession } from "next-auth/client";
 
 const expandedStyles = css`

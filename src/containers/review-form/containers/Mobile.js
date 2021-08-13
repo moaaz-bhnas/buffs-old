@@ -1,15 +1,15 @@
 import { motion } from "framer-motion";
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import styled, { css } from "styled-components";
-import Cover from "../../../components/review/Cover";
-import Rating from "../../../components/review/Rating";
-import WriteUp from "../../../components/review/WriteUp";
+import Cover from "../../../components/review-form/Cover";
+import Rating from "../../../components/review-form/Rating";
+import WriteUp from "../../../components/review-form/WriteUp";
 import { mediaQueries, sizes } from "../../../utils/style";
 import { visibilityVariants } from "../../../utils/animation";
-import Button from "../../../components/review/Button";
+import Button from "../../../components/review-form/Button";
 import PropTypes from "prop-types";
-import Select from "../../../components/review/Select";
-import Loader from "../../../components/review/Loader";
+import Select from "../../../components/review-form/Select";
+import Loader from "../../../components/review-form/Loader";
 import { useRouter } from "next/dist/client/router";
 
 const Container = styled.div`

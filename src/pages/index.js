@@ -1,8 +1,8 @@
 import Layout from "../containers/layout/Layout";
-import Review from "../containers/review/Review";
+import Review from "../containers/review-form/Review";
+import Form from "../containers/review-form/containers/Default";
 import { getSession } from "next-auth/client";
 import getReviews from "../utils/helpers/getReviews";
-import Form from "../containers/review/containers/Default";
 import Feed from "../containers/feed/Feed";
 
 export default function Home({ session, reviews }) {
