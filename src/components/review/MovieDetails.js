@@ -32,7 +32,7 @@ const MovieDetails = ({ movieDetails }) => {
     <Row>
       <CoverContainer>
         <Cover
-          height={120}
+          height={110}
           coverPath={posterPath}
           tmdbWidth={185}
           boxShadow={false}

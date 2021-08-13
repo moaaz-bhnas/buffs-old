@@ -18,6 +18,8 @@ export default function Home({ session, reviews }) {
 }
 
 export async function getServerSideProps(context) {
+  // Add a listener and aria-live
+
   const session = await getSession(context);
 
   if (!session) {

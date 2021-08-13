@@ -1,22 +1,31 @@
 import { memo } from "react";
-import ReactStars from "react-rating-stars-component";
 import styled from "styled-components";
-import Star from "../star/Star";
+import Rating from "./Rating";
+import PropTypes from "prop-types";
 
-const Container = styled.div``;
+const Container = styled.div`
+  .review__star {
+    margin-right: 0.2rem;
+  }
+`;
 
-const ReviewDetails = ({ rating }) => {
-  console.log(rating);
+const WriteUp = styled.p`
+  margin-bottom: 0;
+`;
+
+const ReviewDetails = ({ rating, writeUp }) => {
   return (
     <Container>
-      <ReactStars
-        count={4}
-        edit={false}
-        filledIcon={<Star state="filled" />}
-        emptyIcon={<Star state="filled" />}
-      />
+      <Rating rating={rating} />
+
+      <WriteUp>{writeUp}</WriteUp>
     </Container>
   );
+};
+
+ReviewDetails.propTypes = {
+  writeUp: PropTypes.string,
+  rating: PropTypes.number,
 };
 
 export default memo(ReviewDetails);

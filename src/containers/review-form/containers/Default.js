@@ -20,6 +20,7 @@ const expandedStyles = css`
 `;
 
 const Container = styled.div`
+  margin-bottom: 1rem;
   @media screen and (max-width: ${mediaQueries.main}) {
     display: none;
   }

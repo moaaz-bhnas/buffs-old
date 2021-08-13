@@ -37,14 +37,36 @@ const P = styled.p`
   }
 `;
 
+const StarContainer = styled.div`
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (max-width: ${mediaQueries.reviewForm.rating}) {
+    > div {
+      width: 25px !important;
+      height: 25px !important;
+    }
+  }
+`;
+
+const Icon = ({ state }) => {
+  return (
+    <StarContainer>
+      <Star state={state} height={28} />
+    </StarContainer>
+  );
+};
+
 const Rating = ({ rating, setRating }) => {
   return (
     <StyledRating>
       <P>Rate: </P>
       <ReactStars
         count={10}
-        emptyIcon={<Star state="empty" />}
-        filledIcon={<Star state="filled" />}
+        emptyIcon={<Icon state="empty" />}
+        filledIcon={<Icon state="filled" />}
         value={rating}
         onChange={(newRating) => setRating(newRating)}
       />
