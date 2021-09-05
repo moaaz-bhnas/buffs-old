@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import MovieDetails from "../../components/review/MovieDetails";
 import { cardStyles } from "../../utils/style";
 import ReviewDetails from "../../components/review/ReviewDetails";
+import UserDetails from "../../components/review/UserDetails";
 
 const StyledReview = styled.li`
   margin-bottom: 1rem;
@@ -23,11 +24,13 @@ const Hr = styled.hr`
 const Review = ({ review }) => {
   console.log("review: ", review);
 
-  const { movieDetails, rating, writeUp } = review;
+  const { userDetails, movieDetails, rating, writeUp } = review;
 
   return (
     <StyledReview>
       <Article>
+        <UserDetails userDetails={userDetails} />
+
         <MovieDetails movieDetails={movieDetails} />
 
         <Hr />
