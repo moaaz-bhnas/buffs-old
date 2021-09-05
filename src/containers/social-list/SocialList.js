@@ -6,7 +6,7 @@ import FilledPaperPlane from "../../components/svgs/FilledPaperPlane";
 import EmptyPaperPlane from "../../components/svgs/EmptyPaperPlane";
 import FilledHeart from "../../components/svgs/FilledHeart";
 import EmptyHeart from "../../components/svgs/EmptyHeart";
-import Avatar from "../../containers/header-avatar/HeaderAvatar";
+import Avatar from "../../containers/account-avatar/AccountAvatar";
 
 const List = styled.ul`
   ${rawList}

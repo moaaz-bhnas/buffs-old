@@ -6,7 +6,7 @@ import Title from "../../../components/review-form/Title";
 import Cover from "../../../components/cover/Cover";
 import Rating from "../../../components/review-form/Rating";
 import WriteUp from "../../../components/review-form/WriteUp";
-import { cardStyles, mediaQueries, sizes, theme } from "../../../utils/style";
+import { cardStyles, mediaQueries, theme } from "../../../utils/style";
 import { visibilityVariants } from "../../../utils/animation";
 import Button from "../../../components/review-form/Button";
 import PropTypes from "prop-types";

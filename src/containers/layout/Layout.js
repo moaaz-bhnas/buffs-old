@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/client";
 import { memo } from "react";
 import styled from "styled-components";
 import { containerStyles } from "../../utils/style";
@@ -14,6 +15,8 @@ const Container = styled.div`
 `;
 
 const Layout = ({ children, returnable = false, returnableTitle = "" }) => {
+  const [session] = useSession();
+
   return (
     <>
       {returnable ? (
@@ -26,7 +29,7 @@ const Layout = ({ children, returnable = false, returnableTitle = "" }) => {
         <Container>{children}</Container>
       </Main>
 
-      <BottomNavigation />
+      {session && <BottomNavigation />}
     </>
   );
 };

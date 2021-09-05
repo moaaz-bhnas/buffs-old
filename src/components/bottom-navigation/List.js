@@ -7,7 +7,7 @@ import FilledHeart from "../svgs/FilledHeart";
 import EmptyHeart from "../svgs/EmptyHeart";
 import BoldLoupe from "../svgs/BoldLoupe";
 import Loupe from "../svgs/Loupe";
-import Avatar from "../../containers/header-avatar/HeaderAvatar";
+import Avatar from "../../containers/account-avatar/AccountAvatar";
 import Item from "./Item";
 
 const StyledList = styled.ul`
