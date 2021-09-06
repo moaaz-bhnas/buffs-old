@@ -9,6 +9,8 @@ export const addMovie = async (movie) => {
   const movies = db.collection("movies");
 
   // Logic to prevent repeating movies
+  const dbMovie = await movies.findOne({ tmdbId: movie.tmdbId });
+  if (dbMovie) return dbMovie;
 
   const result = await movies.insertOne(movie);
 
@@ -23,8 +25,16 @@ export const addMovie = async (movie) => {
 export const addReview = async (review) => {
   const { db } = await connectToDatabase();
 
+  // Add review document
   const reviews = db.collection("reviews");
   const result = await reviews.insertOne(review);
+
+  // Update movie document's review array
+  const movies = db.collection("movies");
+  await movies.updateOne(
+    { _id: review.movieId },
+    { $push: { reviewsId: result.insertedId } }
+  );
 
   console.log(
     `${result.insertedCount} documents were inserted to reviews collection with the _id: ${result.insertedId}`

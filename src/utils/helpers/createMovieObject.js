@@ -17,6 +17,7 @@ export default function createMovieObject({ movieDetails, movieCredits }) {
     imdbRating: movieDetails.vote_average,
     cast,
     director: { tmdbId: director.id, name: director.name },
+    reviewsId: [],
   };
 
   return movie;
