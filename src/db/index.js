@@ -34,7 +34,7 @@ export const addReview = async (review) => {
   const movies = db.collection("movies");
   await movies.updateOne(
     { _id: ObjectId(review.movieId) },
-    { $push: { reviewsId: review.movieId } }
+    { $push: { reviewsId: result.insertedId } }
   );
 
   console.log(
