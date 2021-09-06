@@ -1,10 +1,11 @@
 import { memo } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import MovieDetails from "../../components/review/MovieDetails";
+import MovieDetails from "../../components/review/BarMovieDetails";
 import { cardStyles } from "../../utils/style";
-import ReviewDetails from "../../components/review/ReviewDetails";
-import UserDetails from "../../components/review/UserDetails";
+import ReviewDetails from "../../components/review/BarReviewDetails";
+import UserDetails from "../../components/review/BarUserDetails";
+import ReactionBar from "../../components/review/BarReaction";
 
 const StyledReview = styled.li`
   margin-bottom: 1.25rem;
@@ -36,6 +37,10 @@ const Review = ({ review }) => {
         <Hr />
 
         <ReviewDetails rating={rating} writeUp={writeUp} />
+
+        <Hr />
+
+        <ReactionBar />
       </Article>
     </StyledReview>
   );

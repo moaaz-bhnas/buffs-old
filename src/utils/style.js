@@ -27,6 +27,7 @@ export const theme = {
   bg: {
     default: "#F0F2F5",
     header: "#fff",
+    grey1: "#e8e9eb",
     grey2: "#d8dadd",
     grey3: "#c8c7c6",
     grey4: "#727274",

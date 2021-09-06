@@ -17,6 +17,7 @@ const TextContainer = styled.div`
 `;
 
 const Title = styled.h3`
+  font-size: 1.1rem;
   margin: 0 0 0.25rem 0;
   font-weight: normal;
 `;
