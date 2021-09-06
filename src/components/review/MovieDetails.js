@@ -18,6 +18,7 @@ const TextContainer = styled.div`
 
 const Title = styled.h3`
   margin: 0 0 0.25rem 0;
+  font-weight: normal;
 `;
 
 const Genres = styled.p`

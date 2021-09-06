@@ -18,7 +18,12 @@ const StyledCover = styled.div`
   }
 `;
 
-const Cover = ({ height = 125, coverPath, tmdbWidth, boxShadow = true }) => {
+const Cover = ({
+  height = 125,
+  coverPath,
+  tmdbWidth = 92,
+  boxShadow = true,
+}) => {
   return (
     <StyledCover height={height} boxShadow={boxShadow}>
       <Image

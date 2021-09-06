@@ -14,12 +14,13 @@ const Row = styled.header`
 
 const Column = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 `;
 
 const UsernameLink = styled.a`
-  font-weight: bold;
   ${rawLink};
+  font-weight: bold;
+  margin-right: 0.5rem;
 `;
 
 const AvatarLink = styled.a`
@@ -32,18 +33,18 @@ const ReviewDate = styled.time`
 `;
 
 const UserDetails = ({ userDetails, timestamp }) => {
-  const { id, name, image } = userDetails;
+  const { _id, name, image } = userDetails;
 
   return (
     <Row>
-      <Link passHref href={`/profile/${id}`}>
+      <Link passHref href={`/profile/${_id}`}>
         <AvatarLink>
           <Avatar image={image} size={40} />
         </AvatarLink>
       </Link>
 
       <Column>
-        <Link passHref href={`/profile/${id}`}>
+        <Link passHref href={`/profile/${_id}`}>
           <UsernameLink>{name}</UsernameLink>
         </Link>
         <ReviewDate dateTime={timestamp}>

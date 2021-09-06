@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
-import { memo, useCallback, useEffect, useRef, useState } from "react";
+import { memo, useCallback, useRef, useState } from "react";
 import styled, { css } from "styled-components";
-import Cover from "../../../components/review-form/Cover";
+import Cover from "../../../components/cover/Cover";
 import Rating from "../../../components/review-form/Rating";
 import WriteUp from "../../../components/review-form/WriteUp";
 import { mediaQueries, sizes } from "../../../utils/style";
@@ -33,6 +33,14 @@ const Row = styled(motion.div)`
   @media screen and (max-width: ${mediaQueries.reviewForm.row}) {
     flex-direction: column;
   }
+`;
+
+const CoverContainer = styled.div`
+  margin-right: 1em;
+  /* To align cover top with the top of the stars
+    (star container height (48) - star height (28)) / 2
+  */
+  margin-top: 10px;
 `;
 
 const Column = styled.div`
@@ -75,7 +83,7 @@ const Form = ({
     <Container>
       <StyledForm onSubmit={handleSubmit}>
         <Select
-          id="review__select"
+          id="review-mobile__select"
           value={selectedMovie}
           onChange={(movie) => setSelectedMovie(movie)}
           onFocus={() => setExpanded(true)}
@@ -92,7 +100,13 @@ const Form = ({
               initial="hidden"
               animate="visible"
             >
-              <Cover coverPath={selectedMovie.poster_path} />
+              <CoverContainer>
+                <Cover
+                  coverPath={selectedMovie.poster_path}
+                  height={125}
+                  tmdbWidth={92}
+                />
+              </CoverContainer>
               <Column>
                 <Rating rating={rating} setRating={setRating} />
                 <WriteUp writeUp={writeUp} setWriteUp={setWriteUp} />
