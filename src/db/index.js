@@ -1,4 +1,5 @@
 import { connectToDatabase } from "./dbConnect";
+const { ObjectId } = require("mongodb");
 
 // addMovie
 export const addMovie = async (movie) => {
@@ -10,7 +11,7 @@ export const addMovie = async (movie) => {
 
   // Logic to prevent repeating movies
   const dbMovie = await movies.findOne({ tmdbId: movie.tmdbId });
-  if (dbMovie) return dbMovie;
+  if (dbMovie) return dbMovie._id;
 
   const result = await movies.insertOne(movie);
 
@@ -18,7 +19,7 @@ export const addMovie = async (movie) => {
     `${result.insertedCount} documents were inserted to movies collection with the _id: ${result.insertedId}`
   );
 
-  return result;
+  return result.insertedId;
 };
 
 // addReview
@@ -32,15 +33,15 @@ export const addReview = async (review) => {
   // Update movie document's review array
   const movies = db.collection("movies");
   await movies.updateOne(
-    { _id: review.movieId },
-    { $push: { reviewsId: result.insertedId } }
+    { _id: ObjectId(review.movieId) },
+    { $push: { reviewsId: review.movieId } }
   );
 
   console.log(
     `${result.insertedCount} documents were inserted to reviews collection with the _id: ${result.insertedId}`
   );
 
-  return result;
+  return result.insertedId;
 };
 
 // getReviews

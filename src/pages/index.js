@@ -6,7 +6,7 @@ import getReviews from "../utils/helpers/getReviews";
 import Feed from "../containers/feed/Feed";
 
 export default function Home({ session, reviews }) {
-  console.log("reviews: ", reviews);
+  // console.log("reviews: ", reviews);
 
   return (
     <Layout>

@@ -22,7 +22,7 @@ const Hr = styled.hr`
 `;
 
 const Review = ({ review }) => {
-  console.log("review: ", review);
+  // console.log("review: ", review);
 
   const { userDetails, movieDetails, rating, writeUp, timestamp } = review;
 

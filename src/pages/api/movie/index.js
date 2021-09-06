@@ -6,9 +6,9 @@ export default async function handler(req, res) {
   switch (method) {
     case "POST":
       try {
-        const result = await addMovie(req.body);
+        const documentId = await addMovie(req.body);
 
-        res.status(201).json({ success: true, data: result });
+        res.status(201).json({ success: true, documentId });
       } catch (error) {
         res.status(400).json({ success: false });
       }

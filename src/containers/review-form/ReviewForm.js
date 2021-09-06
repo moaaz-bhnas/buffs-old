@@ -69,9 +69,9 @@ const Review = ({ children }) => {
       },
       body: JSON.stringify(movie),
     });
-    const { data } = await res.json();
+    const { documentId } = await res.json();
 
-    return data.insertedId;
+    return documentId;
   }, []);
 
   const postReviewToDb = useCallback(async (review) => {
@@ -83,9 +83,9 @@ const Review = ({ children }) => {
       },
       body: JSON.stringify(review),
     });
-    const { data } = await res.json();
+    const { documentId } = await res.json();
 
-    return data.insertedId;
+    return documentId;
   }, []);
 
   return children({
