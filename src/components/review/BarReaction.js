@@ -4,6 +4,7 @@ import { rawList } from "../../utils/style";
 import ItemComment from "./ItemComment";
 import ItemLove from "./ItemLove";
 import ItemSend from "./ItemSend";
+import PropTypes from "prop-types";
 
 const List = styled.ul`
   ${rawList}
@@ -17,14 +18,19 @@ const List = styled.ul`
   }
 `;
 
-const ReactionBar = () => {
+const ReactionBar = ({ toggleLover, loved }) => {
   return (
     <List>
-      <ItemLove />
+      <ItemLove toggleLover={toggleLover} loved={loved} />
       <ItemComment />
       <ItemSend />
     </List>
   );
+};
+
+ReactionBar.propTypes = {
+  toggleLover: PropTypes.func,
+  loved: PropTypes.bool,
 };
 
 export default memo(ReactionBar);

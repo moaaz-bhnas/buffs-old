@@ -1,4 +1,20 @@
-import { addReview, getReviews } from "../../../db";
+import { addLover, addReview, getReviews, removeLover } from "../../../db";
+
+const update = async (type, data) => {
+  switch (type) {
+    case "love": {
+      const { reviewId, userId } = data;
+      const modifiedCount = await addLover(reviewId, userId);
+      return modifiedCount;
+    }
+    case "unlove": {
+      console.log("unlove");
+      const { reviewId, userId } = data;
+      const modifiedCount = await removeLover(reviewId, userId);
+      return modifiedCount;
+    }
+  }
+};
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -25,5 +41,16 @@ export default async function handler(req, res) {
         res.status(400).json({ success: false });
       }
       break;
+
+    case "PUT":
+      const { type, data } = req.body;
+
+      try {
+        const modifiedCount = await update(type, data);
+
+        res.status(200).json({ success: true, modifiedCount });
+      } catch (err) {
+        res.status(400).json({ success: false });
+      }
   }
 }

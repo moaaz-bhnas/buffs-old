@@ -106,3 +106,35 @@ export const getReviews = async (skip, limit) => {
 
   return reviews;
 };
+
+export const addLover = async (reviewId, userId) => {
+  const { db } = await connectToDatabase();
+
+  try {
+    const reviews = db.collection("reviews");
+    var result = await reviews.updateOne(
+      { _id: ObjectId(reviewId) },
+      { $push: { lovers: userId } }
+    );
+  } catch (err) {
+    console.log(err);
+  }
+
+  return result.modifiedCount;
+};
+
+export const removeLover = async (reviewId, userId) => {
+  const { db } = await connectToDatabase();
+
+  try {
+    const reviews = db.collection("reviews");
+    var result = await reviews.updateOne(
+      { _id: ObjectId(reviewId) },
+      { $pull: { lovers: userId } }
+    );
+  } catch (err) {
+    console.log(err);
+  }
+
+  return result.modifiedCount;
+};

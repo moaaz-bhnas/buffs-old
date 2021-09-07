@@ -11,6 +11,7 @@ export default function createReviewObject({
     movieId,
     rating,
     writeUp,
+    lovers: [],
     timestamp,
   };
 

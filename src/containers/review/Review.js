@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useCallback } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import MovieDetails from "../../components/review/BarMovieDetails";
@@ -6,6 +6,7 @@ import { cardStyles } from "../../utils/style";
 import ReviewDetails from "../../components/review/BarReviewDetails";
 import UserDetails from "../../components/review/BarUserDetails";
 import ReactionBar from "../../components/review/BarReaction";
+import { useSession } from "next-auth/client";
 
 const StyledReview = styled.li`
   margin-bottom: 1.25rem;
@@ -23,9 +24,39 @@ const Hr = styled.hr`
 `;
 
 const Review = ({ review }) => {
-  // console.log("review: ", review);
+  console.log("review: ", review);
 
-  const { userDetails, movieDetails, rating, writeUp, timestamp } = review;
+  const {
+    _id: reviewId,
+    userDetails,
+    movieDetails,
+    rating,
+    writeUp,
+    timestamp,
+    lovers,
+  } = review;
+
+  const [session] = useSession();
+
+  const toggleLover = useCallback(async () => {
+    const userId = session.user.id;
+    const loved = lovers.includes(session.user.id);
+
+    const res = await fetch("http://localhost:3000/api/review", {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        type: loved ? "unlove" : "love",
+        data: { reviewId, userId },
+      }),
+    });
+
+    const { modifiedCount } = await res.json();
+    console.log("modifiedCount: ", modifiedCount);
+  }, []);
 
   return (
     <StyledReview>
@@ -40,7 +71,10 @@ const Review = ({ review }) => {
 
         <Hr />
 
-        <ReactionBar />
+        <ReactionBar
+          toggleLover={toggleLover}
+          loved={lovers.includes(session.user.id)}
+        />
       </Article>
     </StyledReview>
   );

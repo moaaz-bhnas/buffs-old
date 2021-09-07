@@ -2,6 +2,7 @@ import { memo } from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import { rawButton, sizes } from "../../utils/style";
+import PropTypes from "prop-types";
 
 const StyledButton = styled.button`
   ${rawButton}
@@ -23,9 +24,9 @@ const Text = styled.span`
   margin-left: 0.5rem;
 `;
 
-const Button = ({ text, icon }) => {
+const Button = ({ text, icon, onClick }) => {
   return (
-    <StyledButton type="button">
+    <StyledButton type="button" onClick={onClick}>
       <Image
         className="review__reaction-icon"
         src={icon}
@@ -37,6 +38,12 @@ const Button = ({ text, icon }) => {
       <Text>{text}</Text>
     </StyledButton>
   );
+};
+
+Button.propTypes = {
+  text: PropTypes.string,
+  icon: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 export default memo(Button);
