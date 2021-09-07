@@ -7,6 +7,8 @@ import PropTypes from "prop-types";
 const StyledButton = styled.button`
   ${rawButton}
 
+  color: inherit;
+
   width: 100%;
   padding: 0.7rem 0;
   border-radius: ${sizes.borderRadius.default};

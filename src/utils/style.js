@@ -33,6 +33,7 @@ export const theme = {
     grey4: "#727274",
     dark: "#333",
     twitter: "#0D91E3",
+    love: "#ed4956",
   },
   border: {
     grey2: "#d8dadd",

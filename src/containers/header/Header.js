@@ -2,11 +2,18 @@ import { memo } from "react";
 import styled from "styled-components";
 import { containerStyles, offScreen, sizes } from "../../utils/style";
 
+const HeaderContainer = styled.div`
+  padding-top: ${sizes.height.header};
+`;
+
 const StyledHeader = styled.header`
   background-color: ${(props) => props.theme.bg.header};
   border-bottom: 1px solid ${({ theme }) => theme.border.grey2};
 
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 1;
 `;
 
@@ -24,10 +31,12 @@ const Container = styled.div`
 
 const Header = ({ children }) => {
   return (
-    <StyledHeader>
-      <Title>Buffs</Title>
-      <Container>{children}</Container>
-    </StyledHeader>
+    <HeaderContainer>
+      <StyledHeader>
+        <Title>Buffs</Title>
+        <Container>{children}</Container>
+      </StyledHeader>
+    </HeaderContainer>
   );
 };
 

@@ -3,14 +3,16 @@ import styled from "styled-components";
 import Button from "./Button";
 import PropTypes from "prop-types";
 
-const Item = styled.li``;
+const Item = styled.li`
+  color: ${({ loved, theme }) => (loved ? theme.bg.love : null)};
+`;
 
 const ItemLove = ({ toggleLover, loved }) => {
   return (
-    <Item>
+    <Item loved={loved}>
       <Button
         text="Love"
-        icon={`/images/${loved ? "filled" : "empty"}-heart.svg`}
+        icon={`/images/heart-${loved ? "filled" : "empty"}.svg`}
         onClick={toggleLover}
       />
     </Item>
