@@ -12,13 +12,16 @@ const publishPusher = async (db, channel, pipline = []) => {
     console.log(next);
 
     switch (next.operationType) {
-      case "insert":
+      case "insert": {
         const document = next.fullDocument;
         pusher.trigger(channel, "inserted", document);
         break;
-      case "update":
-        pusher.trigger(channel, "updated", next.documentKey.Id);
+      }
+      case "update": {
+        const document = next.fullDocument;
+        pusher.trigger(channel, "updated", document);
         break;
+      }
     }
   });
 
