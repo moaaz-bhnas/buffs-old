@@ -1,4 +1,29 @@
 import { MongoClient } from "mongodb";
+import pusher from "../lib/pusher";
+import closeChangeStream from "../utils/helpers/closeChangeStream";
+
+const publishPusher = async (db, channel, pipline = []) => {
+  const reviewsCollection = db.collection(channel);
+  const changeStream = reviewsCollection.watch(pipline, {
+    fullDocument: "updateLookup",
+  });
+
+  changeStream.on("change", (next) => {
+    console.log(next);
+
+    switch (next.operationType) {
+      case "insert":
+        const document = next.fullDocument;
+        pusher.trigger(channel, "inserted", document);
+        break;
+      case "update":
+        pusher.trigger(channel, "updated", next.documentKey.Id);
+        break;
+    }
+  });
+
+  await closeChangeStream({ changeStream });
+};
 
 const MONGODB_URI = process.env.MONGODB_URI;
 const MONGODB_DB = process.env.MONGODB_DB;
@@ -38,10 +63,11 @@ export async function connectToDatabase() {
     };
 
     cached.promise = MongoClient.connect(MONGODB_URI, opts).then((client) => {
-      return {
-        client,
-        db: client.db(MONGODB_DB),
-      };
+      const db = client.db(MONGODB_DB);
+
+      publishPusher(db, "reviews");
+
+      return { client, db };
     });
   }
   cached.conn = await cached.promise;

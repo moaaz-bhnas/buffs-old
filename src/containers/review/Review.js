@@ -24,7 +24,7 @@ const Hr = styled.hr`
 `;
 
 const Review = ({ review }) => {
-  console.log("review: ", review);
+  // console.log("review: ", review);
 
   const {
     _id: reviewId,

@@ -8,7 +8,6 @@ const update = async (type, data) => {
       return modifiedCount;
     }
     case "unlove": {
-      console.log("unlove");
       const { reviewId, userId } = data;
       const modifiedCount = await removeLover(reviewId, userId);
       return modifiedCount;
