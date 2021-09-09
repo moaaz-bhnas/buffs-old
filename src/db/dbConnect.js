@@ -23,10 +23,8 @@ const publishReviewChannel = async (db, channel = "reviews", pipline = []) => {
         break;
       }
       case "update": {
-        const {
-          updateDescription: { updatedFields },
-          fullDocument: { _id },
-        } = change;
+        const updatedFields = change.updateDescription.updatedFields;
+        const _id = change.fullDocument._id;
         pusher.trigger(channel, "updated", { _id, updatedFields });
         break;
       }
