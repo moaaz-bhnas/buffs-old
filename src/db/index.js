@@ -1,4 +1,3 @@
-import async from "react-select/async";
 import { connectToDatabase } from "./dbConnect";
 const { ObjectId } = require("mongodb");
 

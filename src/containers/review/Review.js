@@ -24,8 +24,6 @@ const Hr = styled.hr`
 `;
 
 const Review = ({ review }) => {
-  // console.log("review: ", review);
-
   const {
     _id: reviewId,
     userDetails,
@@ -56,7 +54,7 @@ const Review = ({ review }) => {
 
     const { modifiedCount } = await res.json();
     console.log("modifiedCount: ", modifiedCount);
-  }, []);
+  }, [lovers]);
 
   return (
     <StyledReview>
@@ -73,7 +71,7 @@ const Review = ({ review }) => {
 
         <ReactionBar
           toggleLover={toggleLover}
-          loved={session && lovers.includes(session.user.id)}
+          loved={lovers.includes(session.user.id)}
         />
       </Article>
     </StyledReview>
@@ -84,4 +82,4 @@ Review.propTypes = {
   review: PropTypes.object,
 };
 
-export default memo(Review);
+export default Review;

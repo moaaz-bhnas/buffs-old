@@ -5,7 +5,7 @@ import closeChangeStream from "../utils/helpers/closeChangeStream";
 
 let changeStreamResumeToken = null;
 
-const publishReviewsPusher = async (db, channel, pipline = []) => {
+const publishReviewChannel = async (db, channel = "reviews", pipline = []) => {
   const collection = db.collection(channel);
   const changeStream = collection.watch(pipline, {
     fullDocument: "updateLookup",
@@ -18,20 +18,22 @@ const publishReviewsPusher = async (db, channel, pipline = []) => {
 
     switch (change.operationType) {
       case "insert": {
-        console.log("pusher - inserted");
         const document = await getReview(change.documentKey._id);
         pusher.trigger(channel, "inserted", document);
         break;
       }
       case "update": {
-        const document = change.fullDocument;
-        pusher.trigger(channel, "updated", document);
+        const {
+          updateDescription: { updatedFields },
+          fullDocument: { _id },
+        } = change;
+        pusher.trigger(channel, "updated", { _id, updatedFields });
         break;
       }
     }
   });
 
-  // await closeChangeStream({ changeStream });
+  await closeChangeStream({ changeStream, timeInMs: 600000 });
 };
 
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -74,7 +76,7 @@ export async function connectToDatabase() {
     cached.promise = MongoClient.connect(MONGODB_URI, opts).then((client) => {
       const db = client.db(MONGODB_DB);
 
-      publishReviewsPusher(db, "reviews");
+      publishReviewChannel(db);
 
       return { client, db };
     });

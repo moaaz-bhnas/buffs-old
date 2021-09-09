@@ -19,6 +19,20 @@ export default function Home({ session, reviews }) {
     [liveReviews]
   );
 
+  const updateReview = useCallback(
+    ({ _id, updatedFields }) => {
+      const reviewsCopy = liveReviews.map((review) => {
+        if (review._id === _id) {
+          const updatedReview = Object.assign(review, updatedFields);
+          return updatedReview;
+        }
+        return review;
+      });
+      setLiveReviews(reviewsCopy);
+    },
+    [liveReviews]
+  );
+
   useEffect(
     function subscribeToPusher() {
       const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY, {
@@ -28,6 +42,7 @@ export default function Home({ session, reviews }) {
 
       const channel = pusher.subscribe("reviews");
       channel.bind("inserted", addReview);
+      channel.bind("updated", updateReview);
     },
     [liveReviews]
   );
