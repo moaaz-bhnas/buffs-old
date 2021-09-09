@@ -1,31 +1,37 @@
 import { MongoClient } from "mongodb";
+import { getReview } from ".";
 import pusher from "../lib/pusher";
 import closeChangeStream from "../utils/helpers/closeChangeStream";
 
-const publishPusher = async (db, channel, pipline = []) => {
-  const reviewsCollection = db.collection(channel);
-  const changeStream = reviewsCollection.watch(pipline, {
+let changeStreamResumeToken = null;
+
+const publishReviewsPusher = async (db, channel, pipline = []) => {
+  const collection = db.collection(channel);
+  const changeStream = collection.watch(pipline, {
     fullDocument: "updateLookup",
+    resumeAfter: changeStreamResumeToken,
   });
 
-  changeStream.on("change", (next) => {
-    console.log(next);
+  changeStream.on("change", async (change) => {
+    console.log("change: ", change);
+    changeStreamResumeToken = change._id;
 
-    switch (next.operationType) {
+    switch (change.operationType) {
       case "insert": {
-        const document = next.fullDocument;
+        console.log("pusher - inserted");
+        const document = await getReview(change.documentKey._id);
         pusher.trigger(channel, "inserted", document);
         break;
       }
       case "update": {
-        const document = next.fullDocument;
+        const document = change.fullDocument;
         pusher.trigger(channel, "updated", document);
         break;
       }
     }
   });
 
-  await closeChangeStream({ changeStream });
+  // await closeChangeStream({ changeStream });
 };
 
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -68,7 +74,7 @@ export async function connectToDatabase() {
     cached.promise = MongoClient.connect(MONGODB_URI, opts).then((client) => {
       const db = client.db(MONGODB_DB);
 
-      publishPusher(db, "reviews");
+      publishReviewsPusher(db, "reviews");
 
       return { client, db };
     });

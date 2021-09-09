@@ -1,13 +1,17 @@
 import Pusher from "pusher";
 
-const { PUSHER_APP_ID, PUSHER_KEY, PUSHER_SECRET, PUSHER_CLUSTER } =
-  process.env;
+const {
+  NEXT_PUBLIC_PUSHER_APP_ID,
+  NEXT_PUBLIC_PUSHER_KEY,
+  NEXT_PUBLIC_PUSHER_SECRET,
+  NEXT_PUBLIC_PUSHER_CLUSTER,
+} = process.env;
 
 const pusher = new Pusher({
-  appId: PUSHER_APP_ID,
-  key: PUSHER_KEY,
-  secret: PUSHER_SECRET,
-  cluster: PUSHER_CLUSTER,
+  appId: NEXT_PUBLIC_PUSHER_APP_ID,
+  key: NEXT_PUBLIC_PUSHER_KEY,
+  secret: NEXT_PUBLIC_PUSHER_SECRET,
+  cluster: NEXT_PUBLIC_PUSHER_CLUSTER,
   useTLS: true,
 });
 

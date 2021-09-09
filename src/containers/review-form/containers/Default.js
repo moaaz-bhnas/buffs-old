@@ -66,8 +66,8 @@ const Form = ({
   loading,
 }) => {
   const [session] = useSession();
-  const fullName = session.user.name;
-  const firstName = fullName.split(" ")[0];
+  const fullName = session ? session.user.name : "";
+  const firstName = session ? fullName.split(" ")[0] : "";
 
   const selectRef = useRef(null);
   const buttonRef = useRef(null);

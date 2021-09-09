@@ -17,7 +17,7 @@ const Container = styled.div`
 const AccountAvatar = ({ active = false }) => {
   const [session] = useSession();
 
-  const { user } = session;
+  const user = session && session.user;
 
   return (
     <Container active={active}>

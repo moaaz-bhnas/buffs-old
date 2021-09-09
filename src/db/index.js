@@ -1,5 +1,50 @@
+import async from "react-select/async";
 import { connectToDatabase } from "./dbConnect";
 const { ObjectId } = require("mongodb");
+
+export const mergingPipeline = [
+  {
+    $lookup: {
+      let: { userObjectId: { $toObjectId: "$userId" } },
+      from: "users",
+      pipeline: [
+        {
+          $match: { $expr: { $eq: ["$_id", "$$userObjectId"] } },
+        },
+        {
+          $project: {
+            name: 1,
+            image: 1,
+          },
+        },
+      ],
+      as: "userDetails",
+    },
+  },
+  {
+    $lookup: {
+      let: { movieObjectId: { $toObjectId: "$movieId" } },
+      from: "movies",
+      pipeline: [
+        {
+          $match: { $expr: { $eq: ["$_id", "$$movieObjectId"] } },
+        },
+        {
+          $project: {
+            name: 1,
+            genres: "$genres.name",
+            posterPath: 1,
+            releaseYear: { $substrBytes: ["$releaseDate", 0, 4] },
+          },
+        },
+      ],
+      as: "movieDetails",
+    },
+  },
+  { $unwind: "$userDetails" },
+  { $unwind: "$movieDetails" },
+  { $project: { userId: 0, movieId: 0 } },
+];
 
 // addMovie
 export const addMovie = async (movie) => {
@@ -44,6 +89,24 @@ export const addReview = async (review) => {
   return result.insertedId;
 };
 
+// getReview (single)
+export const getReview = async (id) => {
+  const { db } = await connectToDatabase();
+
+  const pipeline = [{ $match: { _id: ObjectId(id) } }, ...mergingPipeline];
+
+  const reviewsCollection = db.collection("reviews");
+
+  try {
+    const reviewsCursor = await reviewsCollection.aggregate(pipeline);
+    var review = await reviewsCursor.next();
+  } catch (err) {
+    console.log(err);
+  }
+
+  return review;
+};
+
 // getReviews
 export const getReviews = async (skip, limit) => {
   const { db } = await connectToDatabase();
@@ -54,47 +117,7 @@ export const getReviews = async (skip, limit) => {
     { $sort: { _id: -1 } },
     { $skip: Number(skip) },
     { $limit: Number(limit) },
-    {
-      $lookup: {
-        let: { userObjectId: { $toObjectId: "$userId" } },
-        from: "users",
-        pipeline: [
-          {
-            $match: { $expr: { $eq: ["$_id", "$$userObjectId"] } },
-          },
-          {
-            $project: {
-              name: 1,
-              image: 1,
-            },
-          },
-        ],
-        as: "userDetails",
-      },
-    },
-    {
-      $lookup: {
-        let: { movieObjectId: { $toObjectId: "$movieId" } },
-        from: "movies",
-        pipeline: [
-          {
-            $match: { $expr: { $eq: ["$_id", "$$movieObjectId"] } },
-          },
-          {
-            $project: {
-              name: 1,
-              genres: "$genres.name",
-              posterPath: 1,
-              releaseYear: { $substrBytes: ["$releaseDate", 0, 4] },
-            },
-          },
-        ],
-        as: "movieDetails",
-      },
-    },
-    { $unwind: "$userDetails" },
-    { $unwind: "$movieDetails" },
-    { $project: { userId: 0, movieId: 0 } },
+    ...mergingPipeline,
   ];
 
   try {
@@ -107,6 +130,7 @@ export const getReviews = async (skip, limit) => {
   return reviews;
 };
 
+// addLover
 export const addLover = async (reviewId, userId) => {
   const { db } = await connectToDatabase();
 
@@ -123,6 +147,7 @@ export const addLover = async (reviewId, userId) => {
   return result.modifiedCount;
 };
 
+// removeLover
 export const removeLover = async (reviewId, userId) => {
   const { db } = await connectToDatabase();
 

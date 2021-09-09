@@ -73,7 +73,7 @@ const Review = ({ review }) => {
 
         <ReactionBar
           toggleLover={toggleLover}
-          loved={lovers.includes(session.user.id)}
+          loved={session && lovers.includes(session.user.id)}
         />
       </Article>
     </StyledReview>
