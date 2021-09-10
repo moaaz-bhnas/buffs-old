@@ -11,7 +11,7 @@ const ItemLove = ({ toggleLover, loved }) => {
   return (
     <Item loved={loved}>
       <Button
-        text="Love"
+        text="Like"
         icon={`/images/heart-${loved ? "filled" : "empty"}.svg`}
         onClick={toggleLover}
       />
