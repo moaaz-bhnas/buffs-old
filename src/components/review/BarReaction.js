@@ -1,10 +1,12 @@
-import { memo } from "react";
+import { memo, useCallback, useEffect, useRef } from "react";
 import styled from "styled-components";
-import { rawList } from "../../utils/style";
+import { rawButton, rawList } from "../../utils/style";
 import ItemComment from "./ItemComment";
 import ItemLove from "./ItemLove";
 import ItemSend from "./ItemSend";
 import PropTypes from "prop-types";
+
+const Bar = styled.div``;
 
 const List = styled.ul`
   ${rawList}
@@ -18,19 +20,54 @@ const List = styled.ul`
   }
 `;
 
-const ReactionBar = ({ toggleLover, loved }) => {
+const Lovers = styled.p`
+  margin-top: 0;
+`;
+
+const Button = styled.button`
+  ${rawButton}
+  color: ${({ theme }) => theme.text.grey};
+`;
+
+const ReactionBar = ({
+  toggleLover,
+  lovers,
+  loversObjects,
+  loved,
+  showLovers,
+}) => {
+  const numOfLovers = lovers.length;
   return (
-    <List>
-      <ItemLove toggleLover={toggleLover} loved={loved} />
-      <ItemComment />
-      <ItemSend />
-    </List>
+    <Bar>
+      {numOfLovers && (
+        <Lovers>
+          <Button
+            type="button"
+            onClick={showLovers}
+            aria-label="show likers"
+            aria-expanded={loversObjects.length}
+            aria-pressed={loversObjects.length}
+          >
+            {numOfLovers} like{numOfLovers > 1 ? "s" : ""}
+          </Button>
+        </Lovers>
+      )}
+
+      <List>
+        <ItemLove toggleLover={toggleLover} loved={loved} />
+        <ItemComment />
+        <ItemSend />
+      </List>
+    </Bar>
   );
 };
 
 ReactionBar.propTypes = {
   toggleLover: PropTypes.func,
+  lovers: PropTypes.array,
+  loversObjects: PropTypes.array,
   loved: PropTypes.bool,
+  showLovers: PropTypes.func,
 };
 
 export default memo(ReactionBar);

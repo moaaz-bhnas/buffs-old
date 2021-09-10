@@ -12,20 +12,21 @@ const StyledOverlay = styled(motion.div)`
   left: 0;
   right: 0;
   background-color: ${overlays.review.default};
-  z-index: 2;
+  z-index: ${({ zIndex }) => zIndex};
 `;
 
-const Overlay = ({ expanded, setExpanded }) => {
+const Overlay = ({ expanded, close, zIndex = 2 }) => {
   return (
     <AnimatePresence>
       {expanded && (
         <StyledOverlay
+          zIndex={zIndex}
           variants={visibilityVariants}
           initial="hidden"
           animate="visible"
           exit="hidden"
           aria-hidden="true"
-          onClick={() => setExpanded(false)}
+          onClick={close}
         />
       )}
     </AnimatePresence>
@@ -34,7 +35,8 @@ const Overlay = ({ expanded, setExpanded }) => {
 
 Overlay.propTypes = {
   expanded: PropTypes.bool,
-  setExpanded: PropTypes.func,
+  close: PropTypes.func,
+  zIndex: PropTypes.number,
 };
 
 export default memo(Overlay);

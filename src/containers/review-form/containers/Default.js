@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { memo, useCallback, useRef, useState } from "react";
 import styled, { css } from "styled-components";
-import Overlay from "../../../components/review-form/Overlay";
+import Overlay from "../../../components/overlay/Overlay";
 import Title from "../../../components/review-form/Title";
 import Cover from "../../../components/cover/Cover";
 import Rating from "../../../components/review-form/Rating";
@@ -109,7 +109,7 @@ const Form = ({
 
   return (
     <Container>
-      <Overlay expanded={expanded} setExpanded={setExpanded} />
+      <Overlay expanded={expanded} close={() => setExpanded(false)} />
       <StyledForm
         expanded={expanded}
         onSubmit={handleSubmit}

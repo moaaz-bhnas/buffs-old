@@ -20,11 +20,11 @@ const Column = styled.div`
 const UsernameLink = styled.a`
   ${rawLink};
   font-weight: bold;
-  margin-right: 0.5rem;
+  margin-right: 0.75rem;
 `;
 
 const AvatarLink = styled.a`
-  margin-right: 0.5rem;
+  margin-right: 0.75rem;
 `;
 
 const ReviewDate = styled.time`

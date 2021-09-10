@@ -1,4 +1,4 @@
-import { memo, useCallback } from "react";
+import { memo, useCallback, useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import MovieDetails from "../../components/review/BarMovieDetails";
@@ -7,6 +7,9 @@ import ReviewDetails from "../../components/review/BarReviewDetails";
 import UserDetails from "../../components/review/BarUserDetails";
 import ReactionBar from "../../components/review/BarReaction";
 import { useSession } from "next-auth/client";
+import getUsers from "../../utils/helpers/getUsers";
+import Overlay from "../../components/overlay/Overlay";
+import LoversPopup from "../lovers-popup/LoversPopup";
 
 const StyledReview = styled.li`
   margin-bottom: 1.25rem;
@@ -33,8 +36,9 @@ const Review = ({ review }) => {
     timestamp,
     lovers,
   } = review;
-
   const [session] = useSession();
+
+  const [loversObjects, setLoversObjects] = useState([]);
 
   const toggleLover = useCallback(async () => {
     const userId = session.user.id;
@@ -56,6 +60,15 @@ const Review = ({ review }) => {
     console.log("modifiedCount: ", modifiedCount);
   }, [lovers]);
 
+  const showLovers = useCallback(async (ids) => {
+    const users = await getUsers(ids);
+    setLoversObjects(users);
+  }, []);
+
+  const hideLovers = useCallback(() => {
+    setLoversObjects([]);
+  }, []);
+
   return (
     <StyledReview>
       <Article>
@@ -71,8 +84,17 @@ const Review = ({ review }) => {
 
         <ReactionBar
           toggleLover={toggleLover}
-          loved={lovers.includes(session.user.id)}
+          lovers={lovers}
+          loversObjects={loversObjects}
+          loved={session && lovers.includes(session.user.id)}
+          showLovers={() => showLovers(lovers)}
         />
+
+        <Overlay expanded={loversObjects.length > 0} close={hideLovers} />
+
+        {loversObjects.length > 0 && (
+          <LoversPopup loversObjects={loversObjects} hideLovers={hideLovers} />
+        )}
       </Article>
     </StyledReview>
   );

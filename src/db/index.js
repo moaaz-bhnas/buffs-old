@@ -162,3 +162,19 @@ export const removeLover = async (reviewId, userId) => {
 
   return result.modifiedCount;
 };
+
+// getUsers
+export const getUsers = async (ids) => {
+  const { db } = await connectToDatabase();
+
+  const objectIds = ids.map(ObjectId);
+  try {
+    const userCollection = db.collection("users");
+    const usersCursor = await userCollection.find({ _id: { $in: objectIds } });
+    var users = await usersCursor.toArray();
+  } catch (err) {
+    console.log(err);
+  }
+
+  return users;
+};

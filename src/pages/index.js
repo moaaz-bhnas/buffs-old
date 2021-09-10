@@ -20,11 +20,11 @@ export default function Home({ session, reviews }) {
   );
 
   const updateReview = useCallback(
-    ({ _id, updatedFields }) => {
+    (updatedReview) => {
       const reviewsCopy = liveReviews.map((review) => {
-        if (review._id === _id) {
-          const updatedReview = Object.assign(review, updatedFields);
-          return updatedReview;
+        if (review._id === updatedReview._id) {
+          review = Object.assign(review, updatedReview);
+          return review;
         }
         return review;
       });
