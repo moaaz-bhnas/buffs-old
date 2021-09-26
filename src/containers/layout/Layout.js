@@ -6,8 +6,6 @@ import BottomNavigation from "../bottom-navigation/BottomNavigation";
 import DefaultHeader from "../header/containers/Default";
 import ReturnableHeader from "../header/containers/Returnable";
 
-import { signIn } from "next-auth/client";
-
 const Main = styled.main`
   padding: 1em 0;
 `;
