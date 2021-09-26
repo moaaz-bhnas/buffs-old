@@ -25,7 +25,7 @@ const Layout = ({ children, returnable = false, returnableTitle = "" }) => {
         <DefaultHeader />
       )}
 
-      <button onClick={signOut}>Logout</button>
+      <button onClick={signOut}>Signout</button>
 
       <Main>
         <Container>{children}</Container>
