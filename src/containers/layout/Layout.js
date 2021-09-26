@@ -1,10 +1,12 @@
-import { useSession } from "next-auth/client";
+import { signOut, useSession } from "next-auth/client";
 import { memo } from "react";
 import styled from "styled-components";
 import { containerStyles } from "../../utils/style";
 import BottomNavigation from "../bottom-navigation/BottomNavigation";
 import DefaultHeader from "../header/containers/Default";
 import ReturnableHeader from "../header/containers/Returnable";
+
+import { signIn } from "next-auth/client";
 
 const Main = styled.main`
   padding: 1em 0;
@@ -24,6 +26,8 @@ const Layout = ({ children, returnable = false, returnableTitle = "" }) => {
       ) : (
         <DefaultHeader />
       )}
+
+      <button onClick={signOut}>Logout</button>
 
       <Main>
         <Container>{children}</Container>
