@@ -44,7 +44,7 @@ const Review = ({ review }) => {
     const userId = session.user.id;
     const loved = lovers.includes(session.user.id);
 
-    const res = await fetch("http://localhost:3000/api/review", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/review`, {
       method: "PUT",
       headers: {
         Accept: "application/json",

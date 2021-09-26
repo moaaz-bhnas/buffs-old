@@ -61,7 +61,7 @@ const Review = ({ children }) => {
   }, [selectedMovie, rating, writeUp]);
 
   const postMovieToDb = useCallback(async (movie) => {
-    const res = await fetch("http://localhost:3000/api/movie", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/movie`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -75,7 +75,7 @@ const Review = ({ children }) => {
   }, []);
 
   const postReviewToDb = useCallback(async (review) => {
-    const res = await fetch("http://localhost:3000/api/review", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/review`, {
       method: "POST",
       headers: {
         Accept: "application/json",

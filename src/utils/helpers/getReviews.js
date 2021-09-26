@@ -1,6 +1,6 @@
 export default async function getReviews({ skip, limit }) {
   const res = await fetch(
-    `http://localhost:3000/api/review?skip=${skip}&limit=${limit}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/review?skip=${skip}&limit=${limit}`,
     {
       method: "GET",
       headers: {
