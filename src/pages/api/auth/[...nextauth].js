@@ -6,6 +6,7 @@ const options = {
     Providers.Twitter({
       clientId: process.env.TWITTER_ID,
       clientSecret: process.env.TWITTER_SECRET,
+      callbackUrl: "https://buffs.vercel.app/api/auth/callback/twitter",
     }),
   ],
   database: process.env.MONGODB_URI,
