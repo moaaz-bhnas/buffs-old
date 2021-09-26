@@ -39,7 +39,7 @@ const ReactionBar = ({
   const numOfLovers = lovers.length;
   return (
     <Bar>
-      {numOfLovers && (
+      {numOfLovers > 0 && (
         <Lovers>
           <Button
             type="button"
