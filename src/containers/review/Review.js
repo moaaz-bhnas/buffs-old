@@ -13,12 +13,14 @@ import LoversPopup from "../lovers-popup/LoversPopup";
 
 const StyledReview = styled.li`
   margin-bottom: 1.25rem;
+  width: 100%;
 `;
 
 const Article = styled.article`
   ${cardStyles}
 
   @media screen and (max-width: ${mediaQueries.review.main}) {
+    width: calc(100% + ${sizes.padding.pageSmall} + ${sizes.padding.pageSmall});
     border-right: none;
     border-left: none;
     margin-right: -${sizes.padding.pageSmall};
