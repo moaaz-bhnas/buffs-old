@@ -25,6 +25,11 @@ export const theme = {
     brand: "#1f70e6",
     grey: "#737373",
     link: "#4d4dff",
+    rating1: "#F00000",
+    rating2: "#9E9600",
+    rating3: "#857E00",
+    rating4: "#43A83E",
+    rating5: "#2A6827",
   },
   bg: {
     default: "#F0F2F5",
@@ -174,7 +179,7 @@ export const inputStyles = css`
 
 export const cardStyles = css`
   background-color: #fff;
-  max-width: ${sizes.width.card};
+  width: ${sizes.width.card};
   border: 1px solid ${({ theme }) => theme.border.grey2};
   border-radius: ${sizes.borderRadius.default};
   padding: 0.8rem 1rem;

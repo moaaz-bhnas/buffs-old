@@ -3,7 +3,8 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import Cover from "../cover/Cover";
 
-const Row = styled.div`
+const Row = styled.figure`
+  margin: 0;
   display: flex;
 `;
 
@@ -11,7 +12,7 @@ const CoverContainer = styled.div`
   margin-right: 1rem;
 `;
 
-const TextContainer = styled.div`
+const TextContainer = styled.figcaption`
   display: flex;
   flex-direction: column;
 `;
