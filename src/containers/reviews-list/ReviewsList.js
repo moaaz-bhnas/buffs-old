@@ -1,11 +1,17 @@
 import { memo } from "react";
 import styled from "styled-components";
-import { rawList } from "../../utils/style";
+import { mediaQueries, rawList } from "../../utils/style";
 import PropTypes from "prop-types";
 import Review from "../review/Review";
 
 const StyledList = styled.ul`
   ${rawList}
+  display: flex;
+  flex-direction: column;
+
+  @media screen and (max-width: ${mediaQueries.main}) {
+    align-items: center;
+  }
 `;
 
 const List = ({ reviews }) => {

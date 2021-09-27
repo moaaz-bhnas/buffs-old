@@ -2,7 +2,7 @@ import { memo, useCallback, useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import MovieDetails from "../../components/review/BarMovieDetails";
-import { cardStyles } from "../../utils/style";
+import { cardStyles, mediaQueries, sizes } from "../../utils/style";
 import ReviewDetails from "../../components/review/BarReviewDetails";
 import UserDetails from "../../components/review/BarUserDetails";
 import ReactionBar from "../../components/review/BarReaction";
@@ -17,6 +17,13 @@ const StyledReview = styled.li`
 
 const Article = styled.article`
   ${cardStyles}
+
+  @media screen and (max-width: ${mediaQueries.review.main}) {
+    border-right: none;
+    border-left: none;
+    margin-right: -${sizes.padding.pageSmall};
+    margin-left: -${sizes.padding.pageSmall};
+  }
 `;
 
 const Hr = styled.hr`

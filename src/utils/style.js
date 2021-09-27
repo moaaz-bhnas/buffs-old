@@ -67,6 +67,10 @@ export const sizes = {
   height: {
     header: "3.7em",
   },
+  padding: {
+    page: "1em",
+    pageSmall: ".8em",
+  },
 };
 
 export const mediaQueries = {
@@ -74,6 +78,10 @@ export const mediaQueries = {
   reviewForm: {
     row: "550px",
     rating: "420px",
+  },
+  review: {
+    main: "480px",
+    reaction: "450px",
   },
 };
 
@@ -117,12 +125,12 @@ export const containerStyles = css`
   max-width: ${sizes.maxWidth.default};
   margin-left: auto;
   margin-right: auto;
-  padding-left: 1em;
-  padding-right: 1em;
+  padding-left: ${sizes.padding.page};
+  padding-right: ${sizes.padding.page};
 
   @media screen and (max-width: ${mediaQueries.main}) {
-    padding-left: 0.8em;
-    padding-right: 0.8em;
+    padding-left: ${sizes.padding.pageSmall};
+    padding-right: ${sizes.padding.pageSmall};
   }
 `;
 
@@ -164,7 +172,7 @@ export const inputStyles = css`
 
 export const cardStyles = css`
   background-color: #fff;
-  width: ${sizes.width.card};
+  max-width: ${sizes.width.card};
   border: 1px solid ${({ theme }) => theme.border.grey2};
   border-radius: ${sizes.borderRadius.default};
   padding: 0.8rem 1rem;
