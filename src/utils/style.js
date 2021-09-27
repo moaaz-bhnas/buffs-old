@@ -141,6 +141,7 @@ export const rawButton = css`
   border: none;
   background-color: transparent;
   cursor: pointer;
+  line-height: inherit;
 `;
 
 export const rawList = css`
