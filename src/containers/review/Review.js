@@ -1,6 +1,6 @@
-import { memo, useCallback, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
-import PropTypes from "prop-types";
+import PropTypes, { func } from "prop-types";
 import MovieDetails from "../../components/review/BarMovieDetails";
 import { cardStyles, mediaQueries, sizes } from "../../utils/style";
 import ReviewDetails from "../../components/review/BarReviewDetails";
@@ -13,7 +13,10 @@ import LoversPopup from "../lovers-popup/LoversPopup";
 
 const StyledReview = styled.li`
   margin-bottom: 1.25rem;
-  width: 100%;
+
+  @media screen and (max-width: ${mediaQueries.review.main}) {
+    width: 100%;
+  }
 `;
 
 const Article = styled.article`
@@ -48,6 +51,17 @@ const Review = ({ review }) => {
   const [session] = useSession();
 
   const [loversObjects, setLoversObjects] = useState([]);
+
+  useEffect(
+    function preventScrollingOnPopup() {
+      if (loversObjects.length) {
+        document.body.style.overflow = "hidden";
+      } else {
+        document.body.style.overflow = "initial";
+      }
+    },
+    [loversObjects]
+  );
 
   const toggleLover = useCallback(async () => {
     const userId = session.user.id;

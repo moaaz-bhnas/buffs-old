@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { forwardRef, memo } from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import PropTypes from "prop-types";
@@ -19,9 +19,14 @@ const Button = styled.button`
   right: 0;
 `;
 
-const CloseButton = ({ size = 20, hideLovers }) => {
+const CloseButton = forwardRef(({ size = 20, hideLovers }, ref) => {
   return (
-    <Button type="button" aria-label="close likers popup" onClick={hideLovers}>
+    <Button
+      type="button"
+      aria-label="close likers popup"
+      onClick={hideLovers}
+      ref={ref}
+    >
       <Image
         src="/images/close.svg"
         alt=""
@@ -32,7 +37,7 @@ const CloseButton = ({ size = 20, hideLovers }) => {
       />
     </Button>
   );
-};
+});
 
 CloseButton.propTypes = {
   hideLovers: PropTypes.func,

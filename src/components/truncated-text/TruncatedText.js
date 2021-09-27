@@ -12,7 +12,8 @@ const Button = styled.button`
   padding-left: 0;
   color: ${({ theme }) => theme.text.link};
 
-  &:hover {
+  &:hover,
+  &:focus {
     text-decoration: underline;
   }
 `;

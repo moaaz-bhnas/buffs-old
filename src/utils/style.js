@@ -86,8 +86,11 @@ export const mediaQueries = {
     rating: "420px",
   },
   review: {
-    main: "480px",
+    main: "31.6em",
     reaction: "450px",
+  },
+  loversPopup: {
+    main: "26.6em",
   },
 };
 

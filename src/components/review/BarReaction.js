@@ -27,6 +27,11 @@ const Lovers = styled.p`
 const Button = styled.button`
   ${rawButton}
   color: ${({ theme }) => theme.text.grey};
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
 `;
 
 const ReactionBar = ({

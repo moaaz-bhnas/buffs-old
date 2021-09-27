@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { forwardRef, memo } from "react";
 import Link from "next/link";
 import styled from "styled-components";
 import PropTypes from "prop-types";
@@ -22,7 +22,7 @@ const UsernameLink = styled.a`
   font-weight: 500;
 `;
 
-const Item = ({ user }) => {
+const Item = forwardRef(({ user }, ref) => {
   const { _id, name, image } = user;
 
   return (
@@ -33,11 +33,11 @@ const Item = ({ user }) => {
         </AvatarLink>
       </Link>
       <Link passHref href={`/profile/${_id}`}>
-        <UsernameLink>{name}</UsernameLink>
+        <UsernameLink ref={ref}>{name}</UsernameLink>
       </Link>
     </StyledItem>
   );
-};
+});
 
 Item.propTypes = {
   user: PropTypes.object,

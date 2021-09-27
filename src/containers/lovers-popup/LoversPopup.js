@@ -1,9 +1,9 @@
-import { memo } from "react";
+import { memo, useCallback, useEffect, useRef } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import CloseButton from "../../components/lovers-popup/CloseButton";
 import List from "../../components/lovers-popup/List";
-import { cardStyles } from "../../utils/style";
+import { cardStyles, mediaQueries } from "../../utils/style";
 
 const Popup = styled.div`
   ${cardStyles}
@@ -15,6 +15,10 @@ const Popup = styled.div`
   transform: translate(-50%, -50%);
 
   z-index: 2;
+
+  @media screen and (max-width: ${mediaQueries.loversPopup.main}) {
+    width: 95%;
+  }
 `;
 
 const Header = styled.div`
@@ -44,15 +48,54 @@ const Title = styled.h4`
 `;
 
 const LoversPopup = ({ loversObjects, hideLovers }) => {
+  const firstInteractive = useRef(null);
+  const lastInteractive = useRef(null);
+
+  useEffect(() => {
+    firstInteractive.current.focus();
+  }, []);
+
+  const handleKeyDown = useCallback(
+    (event, firstInteractive, lastInteractive, close) => {
+      const { target, key, shiftKey } = event;
+
+      if (key === "Tab" && shiftKey && target === firstInteractive) {
+        event.preventDefault();
+        lastInteractive.focus();
+      }
+
+      if (key === "Tab" && !shiftKey && target === lastInteractive) {
+        event.preventDefault();
+        firstInteractive.focus();
+      }
+
+      if (key === "Escape") {
+        close();
+      }
+    },
+    []
+  );
+
   return (
-    <Popup aria-live="polite" aria-atomic="true">
+    <Popup
+      aria-live="polite"
+      aria-atomic="true"
+      onKeyDown={(event) =>
+        handleKeyDown(
+          event,
+          firstInteractive.current,
+          lastInteractive.current,
+          hideLovers
+        )
+      }
+    >
       <Header>
         <Title>Likes</Title>
 
-        <CloseButton hideLovers={hideLovers} />
+        <CloseButton hideLovers={hideLovers} ref={firstInteractive} />
       </Header>
 
-      <List users={loversObjects} />
+      <List users={loversObjects} ref={lastInteractive} />
     </Popup>
   );
 };

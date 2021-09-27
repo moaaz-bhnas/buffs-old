@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { forwardRef, memo } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import Item from "./Item";
@@ -8,17 +8,21 @@ const StyledList = styled.ul`
   ${rawList}
 `;
 
-const List = ({ users }) => {
+const List = forwardRef(({ users }, ref) => {
   console.log("users: ", users);
 
   return (
     <StyledList>
-      {users.map((user) => (
-        <Item key={user._id} user={user} />
+      {users.map((user, index, array) => (
+        <Item
+          key={user._id}
+          user={user}
+          ref={index === array.length - 1 ? ref : null}
+        />
       ))}
     </StyledList>
   );
-};
+});
 
 List.propTypes = {
   users: PropTypes.array,
