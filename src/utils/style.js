@@ -23,7 +23,7 @@ export const theme = {
     default: "#333",
     brand: "#1f70e6",
     grey: "#737373",
-    link: "#0000EE",
+    link: "#4d4dff",
   },
   bg: {
     default: "#F0F2F5",

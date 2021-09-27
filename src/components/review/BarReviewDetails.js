@@ -17,6 +17,9 @@ const WriteUp = styled.p`
 
 const Button = styled.button`
   ${rawButton};
+  display: inline;
+  padding-right: 0;
+  padding-left: 0;
   color: ${({ theme }) => theme.text.link};
 
   &:hover {
@@ -32,7 +35,7 @@ const ReviewDetails = ({ rating, writeUp }) => {
       <Rating rating={rating} />
 
       <WriteUp>
-        {textTruncated ? truncateText(writeUp) : writeUp}
+        {textTruncated ? truncateText(writeUp) : writeUp}{" "}
         {textTruncated && (
           <Button type="button" onClick={() => setTextTruncated(false)}>
             Read more
