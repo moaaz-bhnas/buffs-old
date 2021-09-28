@@ -56,7 +56,7 @@ const LoversPopup = ({ loversObjects, hideLovers }) => {
   }, []);
 
   const handleKeyDown = useCallback(
-    (event, firstInteractive, lastInteractive, close) => {
+    function trapFocus(event, firstInteractive, lastInteractive, close) {
       const { target, key, shiftKey } = event;
 
       if (key === "Tab" && shiftKey && target === firstInteractive) {
