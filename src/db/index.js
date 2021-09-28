@@ -141,10 +141,18 @@ export const addLover = async (reviewId, userId) => {
   const { db } = await connectToDatabase();
 
   try {
+    // Add liker to the review document
     const reviews = db.collection("reviews");
     var result = await reviews.updateOne(
       { _id: ObjectId(reviewId) },
       { $push: { lovers: userId } }
+    );
+
+    // Add liked review to user document
+    const users = db.collection("users");
+    users.updateOne(
+      { _id: ObjectId(userId) },
+      { $push: { likedReviews: reviewId } }
     );
   } catch (err) {
     console.log(err);
@@ -158,10 +166,18 @@ export const removeLover = async (reviewId, userId) => {
   const { db } = await connectToDatabase();
 
   try {
+    // Remove liker from the review document
     const reviews = db.collection("reviews");
     var result = await reviews.updateOne(
       { _id: ObjectId(reviewId) },
       { $pull: { lovers: userId } }
+    );
+
+    // Remove liked review from the user document
+    const users = db.collection("users");
+    users.updateOne(
+      { _id: ObjectId(userId) },
+      { $pull: { likedReviews: reviewId } }
     );
   } catch (err) {
     console.log(err);
