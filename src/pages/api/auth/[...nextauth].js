@@ -6,18 +6,6 @@ const options = {
     Providers.Twitter({
       clientId: process.env.TWITTER_ID,
       clientSecret: process.env.TWITTER_SECRET,
-      profile(profile) {
-        return {
-          id: profile.id_str,
-          name: profile.name,
-          email: profile.email,
-          image: profile.profile_image_url_https.replace(
-            /_normal\.(jpg|png|gif)$/,
-            ".$1"
-          ),
-          profile: profile,
-        };
-      },
     }),
   ],
   database: process.env.MONGODB_URI,
