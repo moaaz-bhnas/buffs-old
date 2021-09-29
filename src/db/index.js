@@ -137,7 +137,7 @@ export const getReviews = async ({ skip, limit }) => {
 };
 
 // getUserReviews
-export const getUserReviews = async ({ username, skip, limit }) => {
+export const getUserReviews = async ({ username, skip = 0, limit = 20 }) => {
   const { db } = await connectToDatabase();
 
   const pipeline = [
