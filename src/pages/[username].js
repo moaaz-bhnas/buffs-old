@@ -5,7 +5,7 @@ import { getUserReviews } from "../db";
 import toJson from "../utils/helpers/toJson";
 
 export default function Profile({ session, reviews }) {
-  console.log("reviews: ", reviews);
+  // console.log("reviews: ", reviews);
 
   const router = useRouter();
   const { username } = router.query;

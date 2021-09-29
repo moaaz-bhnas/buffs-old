@@ -9,7 +9,7 @@ import ReactionBar from "../../components/review/BarReaction";
 import { useSession } from "next-auth/client";
 import getUsers from "../../utils/helpers/getUsers";
 import Overlay from "../../components/overlay/Overlay";
-import LoversPopup from "../lovers-popup/LoversPopup";
+import LikersPopup from "../likers-popup/LikersPopup";
 
 const StyledReview = styled.li`
   margin-bottom: 1.25rem;
@@ -46,26 +46,26 @@ const Review = ({ review }) => {
     rating,
     writeUp,
     timestamp,
-    lovers,
+    likers,
   } = review;
   const [session] = useSession();
 
-  const [loversObjects, setLoversObjects] = useState([]);
+  const [likersObjects, setLikersObjects] = useState([]);
 
   useEffect(
     function preventScrollingOnPopup() {
-      if (loversObjects.length) {
+      if (likersObjects.length) {
         document.body.style.overflow = "hidden";
       } else {
         document.body.style.overflow = "initial";
       }
     },
-    [loversObjects]
+    [likersObjects]
   );
 
-  const toggleLover = useCallback(async () => {
+  const toggleLiker = useCallback(async () => {
     const userId = session.user.id;
-    const loved = lovers.includes(session.user.id);
+    const liked = likers.includes(session.user.id);
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/review`, {
       method: "PUT",
@@ -74,22 +74,22 @@ const Review = ({ review }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        type: loved ? "unlove" : "love",
+        type: liked ? "unlike" : "like",
         data: { reviewId, userId },
       }),
     });
 
     const { modifiedCount } = await res.json();
     console.log("modifiedCount: ", modifiedCount);
-  }, [lovers]);
+  }, [likers]);
 
-  const showLovers = useCallback(async (ids) => {
+  const showLikers = useCallback(async (ids) => {
     const users = await getUsers(ids);
-    setLoversObjects(users);
+    setLikersObjects(users);
   }, []);
 
-  const hideLovers = useCallback(() => {
-    setLoversObjects([]);
+  const hideLikers = useCallback(() => {
+    setLikersObjects([]);
   }, []);
 
   return (
@@ -106,17 +106,17 @@ const Review = ({ review }) => {
         <Hr />
 
         <ReactionBar
-          toggleLover={toggleLover}
-          lovers={lovers}
-          loversObjects={loversObjects}
-          loved={session && lovers.includes(session.user.id)}
-          showLovers={() => showLovers(lovers)}
+          toggleLiker={toggleLiker}
+          likers={likers}
+          likersObjects={likersObjects}
+          liked={session && likers.includes(session.user.id)}
+          showLikers={() => showLikers(likers)}
         />
 
-        <Overlay expanded={loversObjects.length > 0} close={hideLovers} />
+        <Overlay expanded={likersObjects.length > 0} close={hideLikers} />
 
-        {loversObjects.length > 0 && (
-          <LoversPopup loversObjects={loversObjects} hideLovers={hideLovers} />
+        {likersObjects.length > 0 && (
+          <LikersPopup likersObjects={likersObjects} hideLikers={hideLikers} />
         )}
       </Article>
     </StyledReview>

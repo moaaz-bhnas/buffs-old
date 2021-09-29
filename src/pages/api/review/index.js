@@ -1,15 +1,15 @@
-import { addLover, addReview, getReviews, removeLover } from "../../../db";
+import { addLiker, addReview, getReviews, removeLiker } from "../../../db";
 
 const update = async (type, data) => {
   switch (type) {
-    case "love": {
+    case "like": {
       const { reviewId, userId } = data;
-      const modifiedCount = await addLover(reviewId, userId);
+      const modifiedCount = await addLiker(reviewId, userId);
       return modifiedCount;
     }
-    case "unlove": {
+    case "unlike": {
       const { reviewId, userId } = data;
-      const modifiedCount = await removeLover(reviewId, userId);
+      const modifiedCount = await removeLiker(reviewId, userId);
       return modifiedCount;
     }
   }

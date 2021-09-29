@@ -2,7 +2,7 @@ import { memo, useCallback, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { rawButton, rawList } from "../../utils/style";
 import ItemComment from "./ItemComment";
-import ItemLove from "./ItemLove";
+import ItemLike from "./ItemLike";
 import ItemSend from "./ItemSend";
 import PropTypes from "prop-types";
 
@@ -20,7 +20,7 @@ const List = styled.ul`
   }
 `;
 
-const Lovers = styled.p`
+const Likers = styled.p`
   margin-top: 0;
 `;
 
@@ -35,31 +35,31 @@ const Button = styled.button`
 `;
 
 const ReactionBar = ({
-  toggleLover,
-  lovers,
-  loversObjects,
-  loved,
-  showLovers,
+  toggleLiker,
+  likers,
+  likersObjects,
+  liked,
+  showLikers,
 }) => {
-  const numOfLovers = lovers.length;
+  const numOfLikers = likers.length;
   return (
     <Bar>
-      {numOfLovers > 0 && (
-        <Lovers>
+      {numOfLikers > 0 && (
+        <Likers>
           <Button
             type="button"
-            onClick={showLovers}
+            onClick={showLikers}
             aria-label="show likers"
-            aria-expanded={loversObjects.length}
-            aria-pressed={loversObjects.length}
+            aria-expanded={likersObjects.length}
+            aria-pressed={likersObjects.length}
           >
-            {numOfLovers} like{numOfLovers > 1 ? "s" : ""}
+            {numOfLikers} like{numOfLikers > 1 ? "s" : ""}
           </Button>
-        </Lovers>
+        </Likers>
       )}
 
       <List>
-        <ItemLove toggleLover={toggleLover} loved={loved} />
+        <ItemLike toggleLiker={toggleLiker} liked={liked} />
         <ItemComment />
         <ItemSend />
       </List>
@@ -68,11 +68,11 @@ const ReactionBar = ({
 };
 
 ReactionBar.propTypes = {
-  toggleLover: PropTypes.func,
-  lovers: PropTypes.array,
-  loversObjects: PropTypes.array,
-  loved: PropTypes.bool,
-  showLovers: PropTypes.func,
+  toggleLiker: PropTypes.func,
+  likers: PropTypes.array,
+  likersObjects: PropTypes.array,
+  liked: PropTypes.bool,
+  showLikers: PropTypes.func,
 };
 
 export default memo(ReactionBar);

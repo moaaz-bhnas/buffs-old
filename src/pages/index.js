@@ -10,7 +10,6 @@ import { getReviews } from "../db";
 import toJson from "../utils/helpers/toJson";
 
 export default function Home({ session, reviews }) {
-  console.log("session - user: ", session.user);
   const [liveReviews, setLiveReviews] = useState(reviews);
 
   const addReview = useCallback(

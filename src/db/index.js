@@ -160,7 +160,7 @@ export const getUserReviews = async ({ username, skip = 0, limit = 20 }) => {
         movieId: "$reviewsObjects.movieId",
         rating: "$reviewsObjects.rating",
         writeUp: "$reviewsObjects.writeUp",
-        lovers: "$reviewsObjects.lovers",
+        likers: "$reviewsObjects.likers",
         timestamp: "$reviewsObjects.timestamp",
       },
     },
@@ -178,8 +178,8 @@ export const getUserReviews = async ({ username, skip = 0, limit = 20 }) => {
   return reviews;
 };
 
-// addLover
-export const addLover = async (reviewId, userId) => {
+// addLiker
+export const addLiker = async (reviewId, userId) => {
   const { db } = await connectToDatabase();
 
   try {
@@ -187,7 +187,7 @@ export const addLover = async (reviewId, userId) => {
     const reviews = db.collection("reviews");
     var result = await reviews.updateOne(
       { _id: ObjectId(reviewId) },
-      { $push: { lovers: userId } }
+      { $push: { likers: userId } }
     );
 
     // Add liked review to user document
@@ -203,8 +203,8 @@ export const addLover = async (reviewId, userId) => {
   return result.modifiedCount;
 };
 
-// removeLover
-export const removeLover = async (reviewId, userId) => {
+// removeLiker
+export const removeLiker = async (reviewId, userId) => {
   const { db } = await connectToDatabase();
 
   try {
@@ -212,7 +212,7 @@ export const removeLover = async (reviewId, userId) => {
     const reviews = db.collection("reviews");
     var result = await reviews.updateOne(
       { _id: ObjectId(reviewId) },
-      { $pull: { lovers: userId } }
+      { $pull: { likers: userId } }
     );
 
     // Remove liked review from the user document

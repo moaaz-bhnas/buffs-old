@@ -1,8 +1,8 @@
 import { memo, useCallback, useEffect, useRef } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import CloseButton from "../../components/lovers-popup/CloseButton";
-import List from "../../components/lovers-popup/List";
+import CloseButton from "../../components/likers-popup/CloseButton";
+import List from "../../components/likers-popup/List";
 import { cardStyles, mediaQueries } from "../../utils/style";
 
 const Popup = styled.div`
@@ -16,7 +16,7 @@ const Popup = styled.div`
 
   z-index: 2;
 
-  @media screen and (max-width: ${mediaQueries.loversPopup.main}) {
+  @media screen and (max-width: ${mediaQueries.likersPopup.main}) {
     width: 95%;
   }
 `;
@@ -47,7 +47,7 @@ const Title = styled.h4`
   font-weight: 500;
 `;
 
-const LoversPopup = ({ loversObjects, hideLovers }) => {
+const LikersPopup = ({ likersObjects, hideLikers }) => {
   const firstInteractive = useRef(null);
   const lastInteractive = useRef(null);
 
@@ -55,26 +55,29 @@ const LoversPopup = ({ loversObjects, hideLovers }) => {
     firstInteractive.current.focus();
   }, []);
 
-  const handleKeyDown = useCallback(
-    function trapFocus(event, firstInteractive, lastInteractive, close) {
-      const { target, key, shiftKey } = event;
+  const handleKeyDown = useCallback(function trapFocus(
+    event,
+    firstInteractive,
+    lastInteractive,
+    close
+  ) {
+    const { target, key, shiftKey } = event;
 
-      if (key === "Tab" && shiftKey && target === firstInteractive) {
-        event.preventDefault();
-        lastInteractive.focus();
-      }
+    if (key === "Tab" && shiftKey && target === firstInteractive) {
+      event.preventDefault();
+      lastInteractive.focus();
+    }
 
-      if (key === "Tab" && !shiftKey && target === lastInteractive) {
-        event.preventDefault();
-        firstInteractive.focus();
-      }
+    if (key === "Tab" && !shiftKey && target === lastInteractive) {
+      event.preventDefault();
+      firstInteractive.focus();
+    }
 
-      if (key === "Escape") {
-        close();
-      }
-    },
-    []
-  );
+    if (key === "Escape") {
+      close();
+    }
+  },
+  []);
 
   return (
     <Popup
@@ -85,24 +88,24 @@ const LoversPopup = ({ loversObjects, hideLovers }) => {
           event,
           firstInteractive.current,
           lastInteractive.current,
-          hideLovers
+          hideLikers
         )
       }
     >
       <Header>
         <Title>Likes</Title>
 
-        <CloseButton hideLovers={hideLovers} ref={firstInteractive} />
+        <CloseButton hideLikers={hideLikers} ref={firstInteractive} />
       </Header>
 
-      <List users={loversObjects} ref={lastInteractive} />
+      <List users={likersObjects} ref={lastInteractive} />
     </Popup>
   );
 };
 
-LoversPopup.propTypes = {
-  loversObjects: PropTypes.array,
-  hideLovers: PropTypes.func,
+LikersPopup.propTypes = {
+  likersObjects: PropTypes.array,
+  hidelikers: PropTypes.func,
 };
 
-export default memo(LoversPopup);
+export default memo(LikersPopup);

@@ -19,12 +19,12 @@ const Button = styled.button`
   right: 0;
 `;
 
-const CloseButton = forwardRef(({ size = 20, hideLovers }, ref) => {
+const CloseButton = forwardRef(({ size = 20, hideLikers }, ref) => {
   return (
     <Button
       type="button"
       aria-label="close likers popup"
-      onClick={hideLovers}
+      onClick={hideLikers}
       ref={ref}
     >
       <Image
@@ -40,7 +40,7 @@ const CloseButton = forwardRef(({ size = 20, hideLovers }, ref) => {
 });
 
 CloseButton.propTypes = {
-  hideLovers: PropTypes.func,
+  hideLikers: PropTypes.func,
 };
 
 export default memo(CloseButton);
