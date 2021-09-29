@@ -114,7 +114,7 @@ export const getReview = async (id) => {
 };
 
 // getReviews
-export const getReviews = async (skip, limit) => {
+export const getReviews = async ({ skip, limit }) => {
   const { db } = await connectToDatabase();
 
   const reviewsCollection = db.collection("reviews");

@@ -9,13 +9,13 @@ export default function Profile({ session, reviews }) {
   return <Layout>{username}</Layout>;
 }
 
-export async function getStaticPaths(context) {
-  return {
-    paths: [],
-    fallback: true,
-  };
-}
+// export async function getStaticPaths(context) {
+//   return {
+//     paths: [],
+//     fallback: true,
+//   };
+// }
 
-export async function getStaticProps({ params }) {
-  const { username } = params;
-}
+// export async function getStaticProps({ params }) {
+//   const { username } = params;
+// }
