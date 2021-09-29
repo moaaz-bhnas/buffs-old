@@ -12,9 +12,10 @@ export const mergingPipeline = [
         },
         {
           $project: {
+            _id: 0,
+            username: 1,
             name: 1,
             image: 1,
-            username: 1,
           },
         },
       ],
