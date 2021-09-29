@@ -41,12 +41,11 @@ const Review = ({ children }) => {
     // post movie to database
     const movieDocumentId = await postMovieToDb(movie);
 
-    const { user } = session;
-    const { id: userId } = user;
+    const { username } = session.user;
 
     // create a review object
     const review = createReviewObject({
-      userId,
+      username,
       movieId: movieDocumentId,
       rating,
       writeUp,

@@ -33,18 +33,18 @@ const ReviewDate = styled.time`
 `;
 
 const UserDetails = ({ userDetails, timestamp }) => {
-  const { _id, name, image } = userDetails;
+  const { username, name, image } = userDetails;
 
   return (
     <Row>
-      <Link passHref href={`/profile/${_id}`}>
+      <Link passHref href={`/${username}`}>
         <AvatarLink>
           <Avatar image={image} size={40} />
         </AvatarLink>
       </Link>
 
       <Column>
-        <Link passHref href={`/profile/${_id}`}>
+        <Link passHref href={`/${username}`}>
           <UsernameLink>{name}</UsernameLink>
         </Link>
         <ReviewDate dateTime={timestamp}>

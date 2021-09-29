@@ -5,10 +5,10 @@ export default async function handler(req, res) {
 
   switch (method) {
     case "GET":
-      const { ids } = req.query;
+      const { usernames } = req.query;
 
       try {
-        const users = await getUsers(ids.split(","));
+        const users = await getUsers(usernames.split(","));
 
         res.status(201).json({ success: true, users });
       } catch (error) {

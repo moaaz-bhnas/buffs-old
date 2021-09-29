@@ -64,8 +64,8 @@ const Review = ({ review }) => {
   );
 
   const toggleLiker = useCallback(async () => {
-    const userId = session.user.id;
-    const liked = likers.includes(session.user.id);
+    const { username } = session.user;
+    const liked = likers.includes(username);
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/review`, {
       method: "PUT",
@@ -75,7 +75,7 @@ const Review = ({ review }) => {
       },
       body: JSON.stringify({
         type: liked ? "unlike" : "like",
-        data: { reviewId, userId },
+        data: { reviewId, username },
       }),
     });
 
@@ -83,8 +83,8 @@ const Review = ({ review }) => {
     console.log("modifiedCount: ", modifiedCount);
   }, [likers]);
 
-  const showLikers = useCallback(async (ids) => {
-    const users = await getUsers(ids);
+  const showLikers = useCallback(async (usernames) => {
+    const users = await getUsers(usernames);
     setLikersObjects(users);
   }, []);
 

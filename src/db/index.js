@@ -4,11 +4,11 @@ const { ObjectId } = require("mongodb");
 export const mergingPipeline = [
   {
     $lookup: {
-      let: { userObjectId: { $toObjectId: "$userId" } },
+      let: { username: "$username" },
       from: "users",
       pipeline: [
         {
-          $match: { $expr: { $eq: ["$_id", "$$userObjectId"] } },
+          $match: { $expr: { $eq: ["$username", "$$username"] } },
         },
         {
           $project: {
@@ -42,7 +42,7 @@ export const mergingPipeline = [
   },
   { $unwind: "$userDetails" },
   { $unwind: "$movieDetails" },
-  { $project: { userId: 0, movieId: 0 } },
+  { $project: { username: 0, movieId: 0 } },
 ];
 
 // addMovie
@@ -70,23 +70,27 @@ export const addMovie = async (movie) => {
 export const addReview = async (review) => {
   const { db } = await connectToDatabase();
 
-  // Add review document
-  const reviews = db.collection("reviews");
-  const result = await reviews.insertOne(review);
+  try {
+    // Add review document
+    const reviews = db.collection("reviews");
+    var result = await reviews.insertOne(review);
 
-  // Update movie document's reviews array
-  const movies = db.collection("movies");
-  movies.updateOne(
-    { _id: ObjectId(review.movieId) },
-    { $push: { reviews: result.insertedId } }
-  );
+    // Update movie document's reviews array
+    const movies = db.collection("movies");
+    movies.updateOne(
+      { _id: ObjectId(review.movieId) },
+      { $push: { reviews: result.insertedId } }
+    );
 
-  // Update user document's reviews array
-  const users = db.collection("users");
-  users.updateOne(
-    { _id: ObjectId(review.userId) },
-    { $push: { reviews: result.insertedId } }
-  );
+    // Update user document's reviews array
+    const users = db.collection("users");
+    users.updateOne(
+      { username: review.username },
+      { $push: { reviews: result.insertedId } }
+    );
+  } catch (error) {
+    console.error(error);
+  }
 
   console.log(
     `${result.insertedCount} documents were inserted to reviews collection with the _id: ${result.insertedId}`
@@ -156,7 +160,7 @@ export const getUserReviews = async ({ username, skip = 0, limit = 20 }) => {
     {
       $project: {
         _id: "$reviewsObjects._id",
-        userId: "$reviewsObjects.userId",
+        username: "$reviewsObjects.username",
         movieId: "$reviewsObjects.movieId",
         rating: "$reviewsObjects.rating",
         writeUp: "$reviewsObjects.writeUp",
@@ -179,7 +183,7 @@ export const getUserReviews = async ({ username, skip = 0, limit = 20 }) => {
 };
 
 // addLiker
-export const addLiker = async (reviewId, userId) => {
+export const addLiker = async (reviewId, username) => {
   const { db } = await connectToDatabase();
 
   try {
@@ -187,15 +191,12 @@ export const addLiker = async (reviewId, userId) => {
     const reviews = db.collection("reviews");
     var result = await reviews.updateOne(
       { _id: ObjectId(reviewId) },
-      { $push: { likers: userId } }
+      { $push: { likers: username } }
     );
 
     // Add liked review to user document
     const users = db.collection("users");
-    users.updateOne(
-      { _id: ObjectId(userId) },
-      { $push: { likedReviews: reviewId } }
-    );
+    users.updateOne({ username }, { $push: { likedReviews: reviewId } });
   } catch (err) {
     console.log(err);
   }
@@ -204,7 +205,7 @@ export const addLiker = async (reviewId, userId) => {
 };
 
 // removeLiker
-export const removeLiker = async (reviewId, userId) => {
+export const removeLiker = async (reviewId, username) => {
   const { db } = await connectToDatabase();
 
   try {
@@ -212,15 +213,12 @@ export const removeLiker = async (reviewId, userId) => {
     const reviews = db.collection("reviews");
     var result = await reviews.updateOne(
       { _id: ObjectId(reviewId) },
-      { $pull: { likers: userId } }
+      { $pull: { likers: username } }
     );
 
     // Remove liked review from the user document
     const users = db.collection("users");
-    users.updateOne(
-      { _id: ObjectId(userId) },
-      { $pull: { likedReviews: reviewId } }
-    );
+    users.updateOne({ username }, { $pull: { likedReviews: reviewId } });
   } catch (err) {
     console.log(err);
   }
@@ -229,13 +227,14 @@ export const removeLiker = async (reviewId, userId) => {
 };
 
 // getUsers
-export const getUsers = async (ids) => {
+export const getUsers = async (usernames) => {
   const { db } = await connectToDatabase();
 
-  const objectIds = ids.map(ObjectId);
   try {
     const userCollection = db.collection("users");
-    const usersCursor = await userCollection.find({ _id: { $in: objectIds } });
+    const usersCursor = await userCollection.find({
+      username: { $in: usernames },
+    });
     var users = await usersCursor.toArray();
   } catch (err) {
     console.log(err);

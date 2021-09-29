@@ -23,16 +23,16 @@ const UsernameLink = styled.a`
 `;
 
 const Item = forwardRef(({ user }, ref) => {
-  const { _id, name, image } = user;
+  const { username, name, image } = user;
 
   return (
     <StyledItem>
-      <Link passHref href={`/profile/${_id}`}>
+      <Link passHref href={`/${username}`}>
         <AvatarLink>
           <Avatar image={image} size={40} />
         </AvatarLink>
       </Link>
-      <Link passHref href={`/profile/${_id}`}>
+      <Link passHref href={`/${username}`}>
         <UsernameLink ref={ref}>{name}</UsernameLink>
       </Link>
     </StyledItem>

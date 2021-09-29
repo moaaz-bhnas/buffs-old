@@ -1,5 +1,5 @@
 export default function createReviewObject({
-  userId,
+  username,
   movieId,
   rating,
   writeUp,
@@ -7,7 +7,7 @@ export default function createReviewObject({
   const timestamp = new Date();
 
   const review = {
-    userId,
+    username,
     movieId,
     rating,
     writeUp,

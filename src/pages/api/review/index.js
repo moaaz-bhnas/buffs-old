@@ -3,13 +3,13 @@ import { addLiker, addReview, getReviews, removeLiker } from "../../../db";
 const update = async (type, data) => {
   switch (type) {
     case "like": {
-      const { reviewId, userId } = data;
-      const modifiedCount = await addLiker(reviewId, userId);
+      const { reviewId, username } = data;
+      const modifiedCount = await addLiker(reviewId, username);
       return modifiedCount;
     }
     case "unlike": {
-      const { reviewId, userId } = data;
-      const modifiedCount = await removeLiker(reviewId, userId);
+      const { reviewId, username } = data;
+      const modifiedCount = await removeLiker(reviewId, username);
       return modifiedCount;
     }
   }
@@ -17,6 +17,7 @@ const update = async (type, data) => {
 
 export default async function handler(req, res) {
   const { method } = req;
+  console.log("req.body: ", req.body);
 
   switch (method) {
     case "POST":

@@ -1,7 +1,9 @@
 // getUsers
-export default async function getUsers(ids) {
+export default async function getUsers(usernames) {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/user?ids=${ids.join(",")}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/user?usernames=${usernames.join(
+      ","
+    )}`,
     {
       method: "GET",
       headers: {

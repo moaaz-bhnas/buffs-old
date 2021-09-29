@@ -15,7 +15,7 @@ const List = forwardRef(({ users }, ref) => {
     <StyledList>
       {users.map((user, index, array) => (
         <Item
-          key={user._id}
+          key={user.username}
           user={user}
           ref={index === array.length - 1 ? ref : null}
         />

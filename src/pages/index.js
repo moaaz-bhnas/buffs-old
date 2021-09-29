@@ -74,6 +74,8 @@ export async function getServerSideProps(context) {
 
   const reviews = await getReviews({ skip: 0, limit: 20 });
 
+  console.log("reviews: ", reviews);
+
   return {
     props: {
       session,
