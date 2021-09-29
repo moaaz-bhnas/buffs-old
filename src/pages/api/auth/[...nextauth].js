@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
-import { updateUserWithUsername } from "../../../db";
+import { getUsername, updateUserWithUsername } from "../../../db";
 import generateUniqueUsername from "../../../utils/helpers/generateUniqueUsername";
 
 const options = {
@@ -17,16 +17,23 @@ const options = {
   },
   callbacks: {
     async session(session, user) {
-      session.user.id = user.id;
+      const { id } = user;
+
+      const username = await getUsername(id);
+
+      session.user.id = id;
+      session.user.username = username;
       return Promise.resolve(session);
     },
   },
   events: {
     async createUser(user) {
-      console.log("user: ", user, user.name);
+      console.log("createUser - user: ", user);
+
       const { usernameParts, username } = await generateUniqueUsername(
         user.name
       );
+      user.username = username;
       updateUserWithUsername(user.id, usernameParts, username);
     },
   },

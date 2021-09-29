@@ -1,13 +1,14 @@
 import Layout from "../containers/layout/Layout";
 import Review from "../containers/review-form/ReviewForm";
 import Form from "../containers/review-form/containers/Default";
-import { getSession } from "next-auth/client";
+import { getSession, useSession } from "next-auth/client";
 import getReviews from "../utils/helpers/getReviews";
 import Feed from "../containers/feed/Feed";
 import { useCallback, useEffect, useState } from "react";
 import Pusher from "pusher-js";
 
 export default function Home({ session, reviews }) {
+  console.log("session - user: ", session.user);
   const [liveReviews, setLiveReviews] = useState(reviews);
 
   const addReview = useCallback(
