@@ -261,6 +261,20 @@ export const updateUserWithUsername = async (id, usernameParts, username) => {
   return result.modifiedCount;
 };
 
+// getUser
+export const getUser = async (username) => {
+  const { db } = await connectToDatabase();
+
+  try {
+    const userCollection = db.collection("users");
+    var user = await userCollection.findOne({ username });
+  } catch (err) {
+    console.log(err);
+  }
+
+  return user;
+};
+
 export const getUsername = async (id) => {
   const { db } = await connectToDatabase();
 
