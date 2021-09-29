@@ -33,6 +33,7 @@ const ReviewDate = styled.time`
 `;
 
 const UserDetails = ({ userDetails, timestamp }) => {
+  console.log("userDetails: ", userDetails);
   const { username, name, image } = userDetails;
 
   return (

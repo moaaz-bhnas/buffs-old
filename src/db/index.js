@@ -14,6 +14,7 @@ export const mergingPipeline = [
           $project: {
             name: 1,
             image: 1,
+            username: 1,
           },
         },
       ],
