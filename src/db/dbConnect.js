@@ -1,12 +1,17 @@
 import { MongoClient } from "mongodb";
-import { getReview } from ".";
+import { getReview, updateUserWithUsername } from ".";
 import pusher from "../lib/pusher";
 import closeChangeStream from "../utils/helpers/closeChangeStream";
+import generateUniqueUsername from "../utils/helpers/generateUniqueUsername";
 
-let changeStreamResumeToken = null;
+const watchReviewsCollection = async (
+  db,
+  collectionName = "reviews",
+  pipline = []
+) => {
+  let changeStreamResumeToken = null;
 
-const publishReviewChannel = async (db, channel = "reviews", pipline = []) => {
-  const collection = db.collection(channel);
+  const collection = db.collection(collectionName);
   const changeStream = collection.watch(pipline, {
     fullDocument: "updateLookup",
     resumeAfter: changeStreamResumeToken,
@@ -19,12 +24,49 @@ const publishReviewChannel = async (db, channel = "reviews", pipline = []) => {
     switch (change.operationType) {
       case "insert": {
         const document = await getReview(change.documentKey._id);
-        pusher.trigger(channel, "inserted", document);
+        pusher.trigger(collectionName, "inserted", document);
         break;
       }
       case "update": {
         const document = change.fullDocument;
-        pusher.trigger(channel, "updated", document);
+        pusher.trigger(collectionName, "updated", document);
+        break;
+      }
+    }
+  });
+
+  await closeChangeStream({ changeStream, timeInMs: 600000 });
+};
+
+const watchUsersCollection = async (
+  db,
+  collectionName = "users",
+  pipline = []
+) => {
+  let changeStreamResumeToken = null;
+
+  const collection = db.collection(collectionName);
+  const changeStream = collection.watch(pipline, {
+    fullDocument: "updateLookup",
+    resumeAfter: changeStreamResumeToken,
+  });
+
+  changeStream.on("change", async (change) => {
+    console.log("change: ", change);
+    changeStreamResumeToken = change._id;
+
+    switch (change.operationType) {
+      case "insert": {
+        // Generate unique username and add it to the user's field
+        const { usernameParts, username } = await generateUniqueUsername(
+          change.fullDocument.name,
+          collection
+        );
+        updateUserWithUsername(
+          change.fullDocument._id,
+          usernameParts,
+          username
+        );
         break;
       }
     }
@@ -73,7 +115,8 @@ export async function connectToDatabase() {
     cached.promise = MongoClient.connect(MONGODB_URI, opts).then((client) => {
       const db = client.db(MONGODB_DB);
 
-      publishReviewChannel(db);
+      watchReviewsCollection(db);
+      // watchUsersCollection(db);
 
       return { client, db };
     });

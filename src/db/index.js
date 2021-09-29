@@ -201,3 +201,21 @@ export const getUsers = async (ids) => {
 
   return users;
 };
+
+// Give user a username
+export const updateUserWithUsername = async (id, usernameParts, username) => {
+  console.log("updateUserWithUsername - username: ", username);
+  const { db } = await connectToDatabase();
+
+  try {
+    const usersCollection = db.collection("users");
+    var result = await usersCollection.updateOne(
+      { _id: ObjectId(id) },
+      { $set: { usernameParts, username } }
+    );
+  } catch (error) {
+    console.error(error);
+  }
+
+  return result.modifiedCount;
+};
