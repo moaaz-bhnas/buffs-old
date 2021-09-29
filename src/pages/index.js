@@ -2,10 +2,12 @@ import Layout from "../containers/layout/Layout";
 import Review from "../containers/review-form/ReviewForm";
 import Form from "../containers/review-form/containers/Default";
 import { getSession, useSession } from "next-auth/client";
-import getReviews from "../utils/helpers/getReviews";
+// import getReviews from "../utils/helpers/getReviews";
 import Feed from "../containers/feed/Feed";
 import { useCallback, useEffect, useState } from "react";
 import Pusher from "pusher-js";
+import { getReviews } from "../db";
+import toJson from "../utils/helpers/toJson";
 
 export default function Home({ session, reviews }) {
   console.log("session - user: ", session.user);
@@ -76,7 +78,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       session,
-      reviews,
+      reviews: toJson(reviews),
     },
   };
 }
