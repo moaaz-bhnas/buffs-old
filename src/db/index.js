@@ -136,6 +136,48 @@ export const getReviews = async ({ skip, limit }) => {
   return reviews;
 };
 
+// getUserReviews
+export const getUserReviews = async ({ username, skip, limit }) => {
+  const { db } = await connectToDatabase();
+
+  const pipeline = [
+    { $match: { username } },
+    { $project: { reviews: 1 } },
+    { $unwind: "$reviews" },
+    {
+      $lookup: {
+        from: "reviews",
+        localField: "reviews",
+        foreignField: "_id",
+        as: "reviewsObjects",
+      },
+    },
+    { $unwind: "$reviewsObjects" },
+    {
+      $project: {
+        _id: "$reviewsObjects._id",
+        userId: "$reviewsObjects.userId",
+        movieId: "$reviewsObjects.movieId",
+        rating: "$reviewsObjects.rating",
+        writeUp: "$reviewsObjects.writeUp",
+        lovers: "$reviewsObjects.lovers",
+        timestamp: "$reviewsObjects.timestamp",
+      },
+    },
+    ...mergingPipeline,
+  ];
+
+  try {
+    const userCollection = db.collection("users");
+    const cursor = await userCollection.aggregate(pipeline);
+    var reviews = await cursor.toArray();
+  } catch (err) {
+    console.error(err);
+  }
+
+  return reviews;
+};
+
 // addLover
 export const addLover = async (reviewId, userId) => {
   const { db } = await connectToDatabase();
