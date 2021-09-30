@@ -1,4 +1,4 @@
-import { getUsers } from "../../../db";
+import { readUsers } from "../../../db/crud-functions/user";
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -8,7 +8,7 @@ export default async function handler(req, res) {
       const { usernames } = req.query;
 
       try {
-        const users = await getUsers(usernames.split(","));
+        const users = await readUsers(usernames.split(","));
 
         res.status(201).json({ success: true, users });
       } catch (error) {

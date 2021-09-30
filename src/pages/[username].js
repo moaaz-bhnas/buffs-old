@@ -1,7 +1,6 @@
-import { getSession } from "next-auth/client";
 import { useRouter } from "next/dist/client/router";
 import Layout from "../containers/layout/Layout";
-import { getUserReviews } from "../db";
+import { readUserReviews } from "../db/crud-functions/review";
 import toJson from "../utils/helpers/toJson";
 
 export default function Profile({ session, reviews }) {
@@ -23,7 +22,7 @@ export async function getStaticPaths(context) {
 export async function getStaticProps({ params }) {
   const { username } = params;
 
-  const reviews = await getUserReviews({ username });
+  const reviews = await readUserReviews({ username });
 
   return {
     props: {

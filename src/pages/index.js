@@ -2,12 +2,11 @@ import Layout from "../containers/layout/Layout";
 import Review from "../containers/review-form/ReviewForm";
 import Form from "../containers/review-form/containers/Default";
 import { getSession, useSession } from "next-auth/client";
-// import getReviews from "../utils/helpers/getReviews";
 import Feed from "../containers/feed/Feed";
 import { useCallback, useEffect, useState } from "react";
 import Pusher from "pusher-js";
-import { getReviews } from "../db";
 import toJson from "../utils/helpers/toJson";
+import { readReviews } from "../db/crud-functions/review";
 
 export default function Home({ session, reviews }) {
   const [liveReviews, setLiveReviews] = useState(reviews);
@@ -72,7 +71,7 @@ export async function getServerSideProps(context) {
     };
   }
 
-  const reviews = await getReviews({ skip: 0, limit: 20 });
+  const reviews = await readReviews({ skip: 0, limit: 20 });
 
   console.log("reviews: ", reviews);
 

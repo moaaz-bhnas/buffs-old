@@ -1,15 +1,26 @@
-import { addLiker, addReview, getReviews, removeLiker } from "../../../db";
+import {
+  createReview,
+  readReviews,
+  updateReview_addLiker,
+  updateReview_removeLiker,
+} from "../../../db/crud-functions/review";
 
 const update = async (type, data) => {
   switch (type) {
     case "like": {
       const { reviewId, username } = data;
-      const modifiedCount = await addLiker(reviewId, username);
+      const modifiedCount = await updateReview_addLiker({
+        reviewId,
+        username,
+      });
       return modifiedCount;
     }
     case "unlike": {
       const { reviewId, username } = data;
-      const modifiedCount = await removeLiker(reviewId, username);
+      const modifiedCount = await updateReview_removeLiker({
+        reviewId,
+        username,
+      });
       return modifiedCount;
     }
   }
@@ -22,7 +33,7 @@ export default async function handler(req, res) {
   switch (method) {
     case "POST":
       try {
-        const documentId = await addReview(req.body);
+        const documentId = await createReview(req.body);
 
         res.status(201).json({ success: true, documentId });
       } catch (error) {
@@ -34,7 +45,7 @@ export default async function handler(req, res) {
       const { skip, limit } = req.query;
 
       try {
-        const results = await getReviews(skip, limit);
+        const results = await readReviews(skip, limit);
 
         res.status(201).json({ success: true, data: results });
       } catch (error) {

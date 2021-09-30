@@ -1,6 +1,9 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
-import { getUsername, updateUserWithUsername } from "../../../db";
+import {
+  readUserById,
+  updateUser_addUsername,
+} from "../../../db/crud-functions/user";
 import generateUniqueUsername from "../../../utils/helpers/generateUniqueUsername";
 
 const options = {
@@ -19,10 +22,10 @@ const options = {
     async session(session, user) {
       const { id } = user;
 
-      const username = await getUsername(id);
+      const userMongoDocument = await readUserById(id);
 
       session.user.id = id;
-      session.user.username = username;
+      session.user.username = userMongoDocument.username;
       return Promise.resolve(session);
     },
   },
@@ -34,7 +37,7 @@ const options = {
         user.name
       );
       user.username = username;
-      updateUserWithUsername(user.id, usernameParts, username);
+      updateUser_addUsername({ id: user.id, usernameParts, username });
     },
   },
 };

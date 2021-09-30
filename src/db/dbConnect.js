@@ -1,8 +1,8 @@
 import { MongoClient } from "mongodb";
-import { getReview, updateUserWithUsername } from ".";
 import pusher from "../lib/pusher";
 import closeChangeStream from "../utils/helpers/closeChangeStream";
 import generateUniqueUsername from "../utils/helpers/generateUniqueUsername";
+import { readReview } from "./crud-functions/review";
 
 const watchReviewsCollection = async (
   db,
@@ -23,50 +23,13 @@ const watchReviewsCollection = async (
 
     switch (change.operationType) {
       case "insert": {
-        const document = await getReview(change.documentKey._id);
+        const document = await readReview(change.documentKey._id);
         pusher.trigger(collectionName, "inserted", document);
         break;
       }
       case "update": {
         const document = change.fullDocument;
         pusher.trigger(collectionName, "updated", document);
-        break;
-      }
-    }
-  });
-
-  await closeChangeStream({ changeStream, timeInMs: 600000 });
-};
-
-const watchUsersCollection = async (
-  db,
-  collectionName = "users",
-  pipline = []
-) => {
-  let changeStreamResumeToken = null;
-
-  const collection = db.collection(collectionName);
-  const changeStream = collection.watch(pipline, {
-    fullDocument: "updateLookup",
-    resumeAfter: changeStreamResumeToken,
-  });
-
-  changeStream.on("change", async (change) => {
-    console.log("change: ", change);
-    changeStreamResumeToken = change._id;
-
-    switch (change.operationType) {
-      case "insert": {
-        // Generate unique username and add it to the user's field
-        const { usernameParts, username } = await generateUniqueUsername(
-          change.fullDocument.name,
-          collection
-        );
-        updateUserWithUsername(
-          change.fullDocument._id,
-          usernameParts,
-          username
-        );
         break;
       }
     }
@@ -116,7 +79,6 @@ export async function connectToDatabase() {
       const db = client.db(MONGODB_DB);
 
       watchReviewsCollection(db);
-      // watchUsersCollection(db);
 
       return { client, db };
     });

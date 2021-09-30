@@ -1,4 +1,4 @@
-import { addMovie } from "../../../db";
+import { createMovie } from "../../../db/crud-functions/movie";
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   switch (method) {
     case "POST":
       try {
-        const documentId = await addMovie(req.body);
+        const documentId = await createMovie(req.body);
 
         res.status(201).json({ success: true, documentId });
       } catch (error) {

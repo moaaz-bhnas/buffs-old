@@ -109,7 +109,7 @@ const Review = ({ review }) => {
           toggleLiker={toggleLiker}
           likers={likers}
           likersObjects={likersObjects}
-          liked={session && likers.includes(session.user.id)}
+          liked={session && likers.includes(session.user.username)}
           showLikers={() => showLikers(likers)}
         />
 
