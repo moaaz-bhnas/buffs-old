@@ -3,7 +3,7 @@ import {
   readReviews,
   updateReview_addLiker,
   updateReview_removeLiker,
-} from "../../../db/crud-functions/review";
+} from "../../../db/crud-operations/review";
 
 const update = async (type, data) => {
   switch (type) {

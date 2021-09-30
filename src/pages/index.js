@@ -6,7 +6,7 @@ import Feed from "../containers/feed/Feed";
 import { useCallback, useEffect, useState } from "react";
 import Pusher from "pusher-js";
 import toJson from "../utils/helpers/toJson";
-import { readReviews } from "../db/crud-functions/review";
+import { readReviews } from "../db/crud-operations/review";
 
 export default function Home({ session, reviews }) {
   const [liveReviews, setLiveReviews] = useState(reviews);
@@ -72,8 +72,6 @@ export async function getServerSideProps(context) {
   }
 
   const reviews = await readReviews({ skip: 0, limit: 20 });
-
-  console.log("reviews: ", reviews);
 
   return {
     props: {

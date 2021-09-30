@@ -3,7 +3,7 @@ import Providers from "next-auth/providers";
 import {
   readUserById,
   updateUser_addUsername,
-} from "../../../db/crud-functions/user";
+} from "../../../db/crud-operations/user";
 import generateUniqueUsername from "../../../utils/helpers/generateUniqueUsername";
 
 const options = {

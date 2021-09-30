@@ -6,30 +6,41 @@ import {
   updateUser_removeLikedReview,
   updateUser_addReview,
 } from "./user";
-import { mergingPipeline } from "../utils";
+import { mergingPipeline, transactionOptions } from "../utils";
 
 /* Create --- */
 export const createReview = async (review) => {
-  const { db } = await connectToDatabase();
+  const { db, client } = await connectToDatabase();
   const reviews = db.collection("reviews");
 
+  const session = client.startSession();
+
+  let result;
   try {
-    // Add review document
-    var result = await reviews.insertOne(review);
+    const transactionResults = await session.withTransaction(async () => {
+      // Add review document
+      result = await reviews.insertOne(review, { session });
 
-    // Update movie document's reviews array
-    updateMovie_addReview({
-      movieId: review.movieId,
-      reviewId: result.insertedId,
-    });
+      // Update movie document's reviews array
+      updateMovie_addReview({
+        movieId: review.movieId,
+        reviewId: result.insertedId,
+        session,
+      });
 
-    // Update user document's reviews array
-    updateUser_addReview({
-      username: review.username,
-      reviewId: result.insertedId,
-    });
+      // Update user document's reviews array
+      updateUser_addReview({
+        username: review.username,
+        reviewId: result.insertedId,
+        session,
+      });
+    }, transactionOptions);
+
+    console.log("transactionResults: ", transactionResults);
   } catch (error) {
     console.error(error);
+  } finally {
+    await session.endSession();
   }
 
   console.log(
@@ -122,40 +133,58 @@ export const readUserReviews = async ({ username, skip = 0, limit = 20 }) => {
 
 /* Update --- */
 export const updateReview_addLiker = async ({ reviewId, username }) => {
-  const { db } = await connectToDatabase();
+  const { db, client } = await connectToDatabase();
 
+  const session = client.startSession();
+
+  let result;
   try {
-    // Add liker to the review document
-    const reviews = db.collection("reviews");
-    var result = await reviews.updateOne(
-      { _id: ObjectId(reviewId) },
-      { $push: { likers: username } }
-    );
+    const transactionResults = await session.withTransaction(async () => {
+      // Add liker to the review document
+      const reviews = db.collection("reviews");
+      result = await reviews.updateOne(
+        { _id: ObjectId(reviewId) },
+        { $push: { likers: username } },
+        session
+      );
 
-    // Add liked review to user document
-    updateUser_addLikedReview({ username, reviewId });
-  } catch (err) {
-    console.log(err);
+      // Add liked review to user document
+      await updateUser_addLikedReview({ username, reviewId, session });
+    }, transactionOptions);
+    console.log("transactionResults: ", !!transactionResults);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    await session.endSession();
   }
 
   return result.modifiedCount;
 };
 
 export const updateReview_removeLiker = async ({ reviewId, username }) => {
-  const { db } = await connectToDatabase();
+  const { db, client } = await connectToDatabase();
 
+  const session = client.startSession();
+
+  let result;
   try {
-    // Add liker to the review document
-    const reviews = db.collection("reviews");
-    var result = await reviews.updateOne(
-      { _id: ObjectId(reviewId) },
-      { $pull: { likers: username } }
-    );
+    const transactionResults = await session.withTransaction(async () => {
+      // Add liker to the review document
+      const reviews = db.collection("reviews");
+      result = await reviews.updateOne(
+        { _id: ObjectId(reviewId) },
+        { $pull: { likers: username } },
+        { session }
+      );
 
-    // Add liked review to user document
-    updateUser_removeLikedReview({ username, reviewId });
+      // Add liked review to user document
+      await updateUser_removeLikedReview({ username, reviewId });
+    }, transactionOptions);
+    console.log("transactionResults: ", !!transactionResults);
   } catch (err) {
     console.log(err);
+  } finally {
+    await session.endSession();
   }
 
   return result.modifiedCount;

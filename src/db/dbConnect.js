@@ -2,7 +2,7 @@ import { MongoClient } from "mongodb";
 import pusher from "../lib/pusher";
 import closeChangeStream from "../utils/helpers/closeChangeStream";
 import generateUniqueUsername from "../utils/helpers/generateUniqueUsername";
-import { readReview } from "./crud-functions/review";
+import { readReview } from "./crud-operations/review";
 
 const watchReviewsCollection = async (
   db,

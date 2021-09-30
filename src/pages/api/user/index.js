@@ -1,4 +1,4 @@
-import { readUsers } from "../../../db/crud-functions/user";
+import { readUsers } from "../../../db/crud-operations/user";
 
 export default async function handler(req, res) {
   const { method } = req;

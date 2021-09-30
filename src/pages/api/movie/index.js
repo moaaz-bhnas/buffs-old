@@ -1,4 +1,4 @@
-import { createMovie } from "../../../db/crud-functions/movie";
+import { createMovie } from "../../../db/crud-operations/movie";
 
 export default async function handler(req, res) {
   const { method } = req;

@@ -45,34 +45,60 @@ export const readUsers = async (usernames) => {
 };
 
 /* Update ---*/
-export const updateUser_addReview = async ({ username, reviewId }) => {
+export const updateUser_addReview = async ({ username, reviewId, session }) => {
   const { db } = await connectToDatabase();
   const usersCollection = db.collection("users");
 
+  const options = session ? { session } : {};
+
   try {
-    usersCollection.updateOne({ username }, { $push: { reviews: reviewId } });
+    usersCollection.updateOne(
+      { username },
+      { $push: { reviews: reviewId } },
+      options
+    );
   } catch (error) {
     console.error(error);
   }
 };
 
-export const updateUser_addLikedReview = async ({ username, reviewId }) => {
+export const updateUser_addLikedReview = async ({
+  username,
+  reviewId,
+  session,
+}) => {
   const { db } = await connectToDatabase();
   const users = db.collection("users");
 
+  const options = session ? { session } : {};
+
   try {
-    users.updateOne({ username }, { $push: { likedReviews: reviewId } });
+    await users.updateOne(
+      { username },
+      { $push: { likedReviews: reviewId } },
+      options
+    );
   } catch (error) {
     console.error(error);
   }
 };
 
-export const updateUser_removeLikedReview = async ({ username, reviewId }) => {
+export const updateUser_removeLikedReview = async ({
+  username,
+  reviewId,
+  session,
+}) => {
   const { db } = await connectToDatabase();
   const users = db.collection("users");
 
+  const options = session ? { session } : {};
+
   try {
-    users.updateOne({ username }, { $pull: { likedReviews: reviewId } });
+    await users.updateOne(
+      { username },
+      { $pull: { likedReviews: reviewId } },
+      options
+    );
   } catch (error) {
     console.error(error);
   }

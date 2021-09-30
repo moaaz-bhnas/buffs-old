@@ -43,3 +43,9 @@ export const mergingPipeline = [
   { $unwind: "$movieDetails" },
   { $project: { username: 0, movieId: 0 } },
 ];
+
+export const transactionOptions = {
+  readPreference: "primary",
+  readConcern: { level: "local" },
+  writeConcern: { w: "majority" },
+};

@@ -1,6 +1,6 @@
 import { useRouter } from "next/dist/client/router";
 import Layout from "../containers/layout/Layout";
-import { readUserReviews } from "../db/crud-functions/review";
+import { readUserReviews } from "../db/crud-operations/review";
 import toJson from "../utils/helpers/toJson";
 
 export default function Profile({ session, reviews }) {
