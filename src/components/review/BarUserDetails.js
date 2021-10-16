@@ -5,16 +5,13 @@ import PropTypes from "prop-types";
 import Avatar from "../avatar/Avatar";
 import { rawLink } from "../../utils/style";
 import formatDateForReview from "../../utils/helpers/formatDateForReview";
+import ReviewActions from "../../containers/review-actions/ReviewActions";
 
 const Row = styled.header`
   display: flex;
   align-items: flex-start;
   margin-bottom: 1.25rem;
-`;
-
-const Column = styled.div`
-  display: flex;
-  flex-direction: row;
+  position: relative;
 `;
 
 const UsernameLink = styled.a`
@@ -33,7 +30,6 @@ const ReviewDate = styled.time`
 `;
 
 const UserDetails = ({ userDetails, timestamp }) => {
-  console.log("userDetails: ", userDetails);
   const { username, name, image } = userDetails;
 
   return (
@@ -44,14 +40,15 @@ const UserDetails = ({ userDetails, timestamp }) => {
         </AvatarLink>
       </Link>
 
-      <Column>
-        <Link passHref href={`/${username}`}>
-          <UsernameLink>{name}</UsernameLink>
-        </Link>
-        <ReviewDate dateTime={timestamp}>
-          {formatDateForReview(timestamp)}
-        </ReviewDate>
-      </Column>
+      <Link passHref href={`/${username}`}>
+        <UsernameLink>{name}</UsernameLink>
+      </Link>
+
+      <ReviewDate dateTime={timestamp}>
+        {formatDateForReview(timestamp)}
+      </ReviewDate>
+
+      <ReviewActions />
     </Row>
   );
 };

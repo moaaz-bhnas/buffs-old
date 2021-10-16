@@ -116,6 +116,9 @@ export const shadows = {
   input: {
     success: "0 0 0 2px rgb(73, 175, 65, 1)",
   },
+  actionsMenu: {
+    default: "0 0 10px rgba(0, 0, 0, 0.20)",
+  },
 };
 
 export const overlays = {
@@ -144,6 +147,7 @@ export const containerStyles = css`
 `;
 
 export const rawButton = css`
+  color: inherit;
   font-size: 1rem;
   font-family: inherit;
   border: none;

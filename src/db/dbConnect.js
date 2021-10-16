@@ -1,7 +1,6 @@
 import { MongoClient } from "mongodb";
 import pusher from "../lib/pusher";
 import closeChangeStream from "../utils/helpers/closeChangeStream";
-import generateUniqueUsername from "../utils/helpers/generateUniqueUsername";
 import { readReview } from "./crud-operations/review";
 
 const watchReviewsCollection = async (
@@ -35,7 +34,7 @@ const watchReviewsCollection = async (
     }
   });
 
-  await closeChangeStream({ changeStream, timeInMs: 600000 });
+  // await closeChangeStream({ changeStream, timeInMs: 600000 });
 };
 
 const MONGODB_URI = process.env.MONGODB_URI;
