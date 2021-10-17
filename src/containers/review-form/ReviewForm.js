@@ -1,16 +1,19 @@
-import { memo, useCallback, useEffect, useRef, useState } from "react";
-import { getMovieCredits, getMovieDetails, search } from "../../api/index";
+import { memo, useCallback, useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import { getMovieCredits, getMovieDetails } from "../../api/index";
 import createMovieObject from "../../utils/helpers/createMovieObject";
 import { useSession } from "next-auth/client";
 import createReviewObject from "../../utils/helpers/createReviewObject";
 
-const Review = ({ children }) => {
+const Review = ({ children, editable = false, reviewToEdit = null }) => {
   const [session] = useSession();
 
-  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [selectedMovie, setSelectedMovie] = useState(
+    editable ? reviewToEdit.movieDetails : null
+  );
 
-  const [rating, setRating] = useState(0);
-  const [writeUp, setWriteUp] = useState("");
+  const [rating, setRating] = useState(editable ? reviewToEdit.rating : 0);
+  const [writeUp, setWriteUp] = useState(editable ? reviewToEdit.writeUp : "");
 
   const [loading, setLoading] = useState(false);
 
@@ -24,7 +27,7 @@ const Review = ({ children }) => {
     [selectedMovie]
   );
 
-  const handleSubmit = useCallback(async () => {
+  const handleCreateSubmit = useCallback(async () => {
     setLoading(true);
 
     const { id: tmdbId } = selectedMovie;
@@ -87,8 +90,10 @@ const Review = ({ children }) => {
     return documentId;
   }, []);
 
+  const handleUpdateSubmit = useCallback(async () => {}, []);
+
   return children({
-    onSubmit: handleSubmit,
+    onSubmit: editable ? handleUpdateSubmit : handleCreateSubmit,
     selectedMovie,
     setSelectedMovie,
     rating,
@@ -97,6 +102,11 @@ const Review = ({ children }) => {
     setWriteUp,
     loading,
   });
+};
+
+Review.propTypes = {
+  editable: PropTypes.bool,
+  reviewToEdit: PropTypes.object,
 };
 
 export default memo(Review);

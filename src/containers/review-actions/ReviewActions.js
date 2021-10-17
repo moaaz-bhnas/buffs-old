@@ -1,4 +1,5 @@
 import { memo, useRef, useState } from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import Menu from "../../components/review-actions/Menu";
 import Toggler from "../../components/review-actions/Toggler";
@@ -24,7 +25,7 @@ const ReviewActions = () => {
   return (
     <Container>
       <Toggler expanded={expanded} setExpanded={setExpanded} ref={togglerRef} />
-      {expanded && (
+      {true && (
         <Menu
           setExpanded={setExpanded}
           activeItem={activeItem}

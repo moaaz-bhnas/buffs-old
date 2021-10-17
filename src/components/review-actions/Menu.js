@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useRef } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { rawList, shadows, sizes } from "../../utils/style";
@@ -34,9 +34,11 @@ const StyledMenu = styled.ul`
 const Menu = ({ setExpanded, activeItem, setActiveItem, togglerRef }) => {
   const menuRef = useRef(null);
 
+  const [editModalVisible, setEditModalVisible] = useState(false);
+
   const items = [
     { text: "Edit review", onClick: () => console.log("edit") },
-    { text: "Remove", onClick: () => console.log("remove") },
+    { text: "Remove", onClick: () => setEditModalVisible(true) },
   ];
 
   const handleClickOutside = useCallback((event) => {
@@ -69,6 +71,9 @@ const Menu = ({ setExpanded, activeItem, setActiveItem, togglerRef }) => {
           } else {
             setActiveItem(activeItem - 1);
           }
+          break;
+        case "Tab":
+          setExpanded(false);
           break;
         case "Escape":
           setExpanded(false);

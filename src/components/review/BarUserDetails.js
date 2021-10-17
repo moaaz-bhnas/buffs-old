@@ -55,6 +55,7 @@ const UserDetails = ({ userDetails, timestamp }) => {
 
 UserDetails.propTypes = {
   userDetails: PropTypes.object,
+  timestamp: PropTypes.string,
 };
 
 export default memo(UserDetails);

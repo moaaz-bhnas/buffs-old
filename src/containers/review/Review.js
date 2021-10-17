@@ -1,6 +1,6 @@
-import { memo, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
-import PropTypes, { func } from "prop-types";
+import PropTypes from "prop-types";
 import MovieDetails from "../../components/review/BarMovieDetails";
 import { cardStyles, mediaQueries, sizes } from "../../utils/style";
 import ReviewDetails from "../../components/review/BarReviewDetails";
@@ -10,6 +10,8 @@ import { useSession } from "next-auth/client";
 import getUsers from "../../utils/helpers/getUsers";
 import Overlay from "../../components/overlay/Overlay";
 import LikersPopup from "../likers-popup/LikersPopup";
+import ReviewForm from "../../containers/review-form/ReviewForm";
+import Form from "../../containers/review-form/containers/DesktopEdit";
 
 const StyledReview = styled.li`
   margin-bottom: 1.25rem;
@@ -117,6 +119,15 @@ const Review = ({ review }) => {
 
         {likersObjects.length > 0 && (
           <LikersPopup likersObjects={likersObjects} hideLikers={hideLikers} />
+        )}
+
+        {true && (
+          <ReviewForm
+            editable
+            reviewToEdit={{ reviewId, movieDetails, rating, writeUp }}
+          >
+            {(props) => <Form {...props} />}
+          </ReviewForm>
         )}
       </Article>
     </StyledReview>
