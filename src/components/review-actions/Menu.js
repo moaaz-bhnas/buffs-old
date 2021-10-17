@@ -49,13 +49,13 @@ const Menu = ({ setExpanded, activeItem, setActiveItem, togglerRef }) => {
 
   const handleKeyDown = useCallback(
     (event) => {
-      event.preventDefault();
       const { key } = event;
 
       const lastIndex = items.length - 1;
 
       switch (key) {
         case "ArrowDown":
+          event.preventDefault();
           if (activeItem === lastIndex) {
             setActiveItem(0);
           } else {
@@ -63,6 +63,7 @@ const Menu = ({ setExpanded, activeItem, setActiveItem, togglerRef }) => {
           }
           break;
         case "ArrowUp":
+          event.preventDefault();
           if (activeItem === 0) {
             setActiveItem(lastIndex);
           } else {
