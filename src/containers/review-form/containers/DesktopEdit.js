@@ -16,6 +16,7 @@ const Modal = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 2;
 `;
 
 const StyledForm = styled.form`
@@ -97,6 +98,7 @@ const Form = ({
   writeUp,
   setWriteUp,
   loading,
+  setEditModalVisible,
 }) => {
   const { name, releaseYear, posterPath, genres } = selectedMovie;
 
@@ -111,12 +113,12 @@ const Form = ({
 
   return (
     <Container>
-      {/* <Overlay expanded /> */}
+      <Overlay expanded close={() => setEditModalVisible(false)} />
       <Modal role="dialog" aria-modal="true" aria-label="Edit review">
         <StyledForm>
           <Header>
             <Title>Edit Review</Title>
-            <CloseModal />
+            <CloseModal close={() => setEditModalVisible(false)} />
           </Header>
 
           <MovieTitle>
@@ -151,6 +153,7 @@ Form.propTypes = {
   writeUp: PropTypes.string,
   setWriteUp: PropTypes.func,
   loading: PropTypes.bool,
+  setEditModalVisible: PropTypes.func,
 };
 
 export default memo(Form);

@@ -16,7 +16,7 @@ const Container = styled.div`
   right: 0;
 `;
 
-const ReviewActions = () => {
+const ReviewActions = ({ setEditModalVisible }) => {
   const togglerRef = useRef(null);
 
   const [expanded, setExpanded] = useState(false);
@@ -25,18 +25,21 @@ const ReviewActions = () => {
   return (
     <Container>
       <Toggler expanded={expanded} setExpanded={setExpanded} ref={togglerRef} />
-      {true && (
+      {expanded && (
         <Menu
           setExpanded={setExpanded}
           activeItem={activeItem}
           setActiveItem={setActiveItem}
           togglerRef={togglerRef}
+          setEditModalVisible={setEditModalVisible}
         />
       )}
     </Container>
   );
 };
 
-ReviewActions.propTypes = {};
+ReviewActions.propTypes = {
+  setEditModalVisible: PropTypes.func,
+};
 
 export default memo(ReviewActions);

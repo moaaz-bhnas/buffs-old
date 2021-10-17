@@ -2,7 +2,8 @@ import { memo, useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { rawList, shadows, sizes } from "../../utils/style";
-import MenuItem from "./MenuItem";
+import MenuItemEdit from "./MenuItemEdit";
+import MenuItemRemove from "./MenuItemRemove";
 
 const StyledMenu = styled.ul`
   ${rawList}
@@ -31,15 +32,14 @@ const StyledMenu = styled.ul`
   }
 `;
 
-const Menu = ({ setExpanded, activeItem, setActiveItem, togglerRef }) => {
+const Menu = ({
+  setExpanded,
+  activeItem,
+  setActiveItem,
+  togglerRef,
+  setEditModalVisible,
+}) => {
   const menuRef = useRef(null);
-
-  const [editModalVisible, setEditModalVisible] = useState(false);
-
-  const items = [
-    { text: "Edit review", onClick: () => console.log("edit") },
-    { text: "Remove", onClick: () => setEditModalVisible(true) },
-  ];
 
   const handleClickOutside = useCallback((event) => {
     const { target } = event;
@@ -53,7 +53,7 @@ const Menu = ({ setExpanded, activeItem, setActiveItem, togglerRef }) => {
     (event) => {
       const { key } = event;
 
-      const lastIndex = items.length - 1;
+      const lastIndex = 1;
 
       switch (key) {
         case "ArrowDown":
@@ -99,9 +99,14 @@ const Menu = ({ setExpanded, activeItem, setActiveItem, togglerRef }) => {
       ref={menuRef}
       onKeyDown={handleKeyDown}
     >
-      {items.map((item, index) => (
-        <MenuItem key={item.text} item={item} active={index === activeItem} />
-      ))}
+      <MenuItemEdit
+        active={activeItem === 0}
+        onClick={() => {
+          setEditModalVisible(true);
+          setExpanded(false);
+        }}
+      />
+      <MenuItemRemove active={activeItem === 1} onClick={() => {}} />
     </StyledMenu>
   );
 };
@@ -111,6 +116,7 @@ Menu.propTypes = {
   activeItem: PropTypes.number,
   setActiveItem: PropTypes.func,
   togglerRef: PropTypes.object,
+  setEditModalVisible: PropTypes.func,
 };
 
 export default memo(Menu);

@@ -29,7 +29,7 @@ const ReviewDate = styled.time`
   font-size: 0.9rem;
 `;
 
-const UserDetails = ({ userDetails, timestamp }) => {
+const UserDetails = ({ userDetails, setEditModalVisible, timestamp }) => {
   const { username, name, image } = userDetails;
 
   return (
@@ -48,7 +48,7 @@ const UserDetails = ({ userDetails, timestamp }) => {
         {formatDateForReview(timestamp)}
       </ReviewDate>
 
-      <ReviewActions />
+      <ReviewActions setEditModalVisible={setEditModalVisible} />
     </Row>
   );
 };
@@ -56,6 +56,7 @@ const UserDetails = ({ userDetails, timestamp }) => {
 UserDetails.propTypes = {
   userDetails: PropTypes.object,
   timestamp: PropTypes.string,
+  setEditModalVisible: PropTypes.func,
 };
 
 export default memo(UserDetails);

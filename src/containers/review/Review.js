@@ -53,6 +53,7 @@ const Review = ({ review }) => {
   const [session] = useSession();
 
   const [likersObjects, setLikersObjects] = useState([]);
+  const [editModalVisible, setEditModalVisible] = useState(false);
 
   useEffect(
     function preventScrollingOnPopup() {
@@ -97,7 +98,11 @@ const Review = ({ review }) => {
   return (
     <StyledReview>
       <Article>
-        <UserDetails userDetails={userDetails} timestamp={timestamp} />
+        <UserDetails
+          userDetails={userDetails}
+          timestamp={timestamp}
+          setEditModalVisible={setEditModalVisible}
+        />
 
         <MovieDetails movieDetails={movieDetails} />
 
@@ -121,12 +126,14 @@ const Review = ({ review }) => {
           <LikersPopup likersObjects={likersObjects} hideLikers={hideLikers} />
         )}
 
-        {true && (
+        {editModalVisible && (
           <ReviewForm
             editable
             reviewToEdit={{ reviewId, movieDetails, rating, writeUp }}
           >
-            {(props) => <Form {...props} />}
+            {(props) => (
+              <Form {...props} setEditModalVisible={setEditModalVisible} />
+            )}
           </ReviewForm>
         )}
       </Article>
