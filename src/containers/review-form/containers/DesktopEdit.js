@@ -106,12 +106,16 @@ const Form = ({
   const submitButtonRef = useRef(null);
 
   const [submitDisabled, setSubmitDisabled] = useState(true);
+  const originalRating = useRef(rating);
+  const originalWriteUp = useRef(writeUp);
 
-  const { name, releaseYear, posterPath, genres } = selectedMovie;
-
-  useUpdateEffect(
+  useEffect(
     function enableSubmit() {
-      setSubmitDisabled(false);
+      const valuesNotUpdated =
+        rating === originalRating.current &&
+        writeUp === originalWriteUp.current;
+
+      setSubmitDisabled(valuesNotUpdated);
     },
     [rating, writeUp]
   );
@@ -143,6 +147,8 @@ const Form = ({
     }
   },
   []);
+
+  const { name, releaseYear, posterPath, genres } = selectedMovie;
 
   return (
     <Container>
