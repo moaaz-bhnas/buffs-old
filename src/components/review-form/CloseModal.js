@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { forwardRef, memo } from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import PropTypes from "prop-types";
@@ -25,9 +25,14 @@ const StyledButton = styled.button`
   }
 `;
 
-const Button = ({ close }) => {
+const Button = forwardRef(({ close }, ref) => {
   return (
-    <StyledButton type="button" aria-label="Close modal" onClick={close}>
+    <StyledButton
+      type="button"
+      aria-label="Close modal"
+      onClick={close}
+      ref={ref}
+    >
       <Image
         src="/images/close.svg"
         alt=""
@@ -38,7 +43,7 @@ const Button = ({ close }) => {
       />
     </StyledButton>
   );
-};
+});
 
 Button.propTypes = {
   close: PropTypes.func,

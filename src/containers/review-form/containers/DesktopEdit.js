@@ -100,7 +100,10 @@ const Form = ({
   loading,
   setEditModalVisible,
 }) => {
+  const closeButtonRef = useRef(null);
   const ratingRef = useRef(null);
+  const writeUpRef = useRef(null);
+  const submitButtonRef = useRef(null);
 
   const [submitDisabled, setSubmitDisabled] = useState(true);
 
@@ -117,14 +120,50 @@ const Form = ({
     ratingRef.current.focus();
   }, []);
 
+  const handleKeyDown = useCallback(function trapFocus(
+    event,
+    firstInteractive,
+    lastInteractive,
+    close
+  ) {
+    const { target, key, shiftKey } = event;
+
+    if (key === "Tab" && shiftKey && target === firstInteractive) {
+      event.preventDefault();
+      lastInteractive.focus();
+    }
+
+    if (key === "Tab" && !shiftKey && target === lastInteractive) {
+      event.preventDefault();
+      firstInteractive.focus();
+    }
+
+    if (key === "Escape") {
+      close();
+    }
+  },
+  []);
+
   return (
     <Container>
       <Overlay expanded close={() => setEditModalVisible(false)} />
       <Modal role="dialog" aria-modal="true" aria-label="Edit review">
-        <StyledForm>
+        <StyledForm
+          onKeyDown={(event) =>
+            handleKeyDown(
+              event,
+              closeButtonRef.current,
+              submitDisabled ? writeUpRef.current : submitButtonRef.current,
+              () => setEditModalVisible(false)
+            )
+          }
+        >
           <Header>
             <Title>Edit Review</Title>
-            <CloseModal close={() => setEditModalVisible(false)} />
+            <CloseModal
+              close={() => setEditModalVisible(false)}
+              ref={closeButtonRef}
+            />
           </Header>
 
           <MovieTitle>
@@ -138,11 +177,19 @@ const Form = ({
             </CoverContainer>
             <Column>
               <Rating rating={rating} setRating={setRating} ref={ratingRef} />
-              <WriteUp writeUp={writeUp} setWriteUp={setWriteUp} />
+              <WriteUp
+                writeUp={writeUp}
+                setWriteUp={setWriteUp}
+                ref={writeUpRef}
+              />
             </Column>
           </Row>
 
-          <SubmitButton type="submit" disabled={submitDisabled}>
+          <SubmitButton
+            type="submit"
+            disabled={submitDisabled}
+            ref={submitButtonRef}
+          >
             Save
           </SubmitButton>
         </StyledForm>

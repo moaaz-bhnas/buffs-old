@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { forwardRef, memo } from "react";
 import styled from "styled-components";
 import { inputStyles, mediaQueries } from "../../utils/style";
 import PropTypes from "prop-types";
@@ -15,16 +15,17 @@ const TestArea = styled.textarea`
   }
 `;
 
-const WriteUp = ({ writeUp, setWriteUp }) => {
+const WriteUp = forwardRef(({ writeUp, setWriteUp }, ref) => {
   return (
     <TestArea
       aria-label="Your review"
       placeholder="How do you feel about this movie?"
       value={writeUp}
       onChange={({ target: { value } }) => setWriteUp(value)}
+      ref={ref}
     />
   );
-};
+});
 
 WriteUp.propTypes = {
   writeUp: PropTypes.string,
