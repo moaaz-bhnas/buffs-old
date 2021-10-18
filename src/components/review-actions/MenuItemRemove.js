@@ -1,9 +1,7 @@
 import { memo, useEffect, useRef } from "react";
-import styled from "styled-components";
+import Image from "next/image";
 import PropTypes from "prop-types";
-import { Button } from "./style";
-
-const Item = styled.li``;
+import { Button, Item, ItemText } from "./style";
 
 const MenuItem = ({ active, onClick }) => {
   console.log("active: ", active);
@@ -27,7 +25,15 @@ const MenuItem = ({ active, onClick }) => {
         tabIndex={active ? 0 : -1}
         ref={itemRef}
       >
-        Remove
+        <Image
+          src="/images/remove.svg"
+          alt=""
+          width={20}
+          height={20}
+          layout="fixed"
+          quality={100}
+        />
+        <ItemText>Remove</ItemText>
       </Button>
     </Item>
   );
