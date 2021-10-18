@@ -1,6 +1,7 @@
-import { memo } from "react";
+import { forwardRef, memo } from "react";
 import styled from "styled-components";
-import ReactStars from "react-rating-stars-component";
+// import ReactStars from "react-rating-stars-component";
+import ReactStars from "../../containers/react-stars/ReactStars";
 import PropTypes from "prop-types";
 import { mediaQueries } from "../../utils/style";
 import Star from "../star/Star";
@@ -59,22 +60,25 @@ const Icon = ({ state }) => {
   );
 };
 
-const Rating = ({ rating, setRating }) => {
+const Rating = forwardRef(({ rating, setRating, className = "" }, ref) => {
   return (
     <StyledRating>
       <P>Rate: </P>
       <ReactStars
+        classNames={className}
         count={10}
         emptyIcon={<Icon state="empty" />}
         filledIcon={<Icon state="filled" />}
         value={rating}
         onChange={(newRating) => setRating(newRating)}
+        ref={ref}
       />
     </StyledRating>
   );
-};
+});
 
 Rating.propTypes = {
+  className: PropTypes.string,
   rating: PropTypes.number,
   setRating: PropTypes.func,
 };

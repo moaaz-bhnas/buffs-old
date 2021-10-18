@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import Overlay from "../../../components/overlay/Overlay";
@@ -100,9 +100,11 @@ const Form = ({
   loading,
   setEditModalVisible,
 }) => {
-  const { name, releaseYear, posterPath, genres } = selectedMovie;
+  const ratingRef = useRef(null);
 
   const [submitDisabled, setSubmitDisabled] = useState(true);
+
+  const { name, releaseYear, posterPath, genres } = selectedMovie;
 
   useUpdateEffect(
     function enableSubmit() {
@@ -110,6 +112,10 @@ const Form = ({
     },
     [rating, writeUp]
   );
+
+  useEffect(() => {
+    ratingRef.current.focus();
+  }, []);
 
   return (
     <Container>
@@ -131,7 +137,7 @@ const Form = ({
               <Cover coverPath={posterPath} height={125} tmdbWidth={92} />
             </CoverContainer>
             <Column>
-              <Rating rating={rating} setRating={setRating} />
+              <Rating rating={rating} setRating={setRating} ref={ratingRef} />
               <WriteUp writeUp={writeUp} setWriteUp={setWriteUp} />
             </Column>
           </Row>
