@@ -6,7 +6,6 @@ import { cardStyles, rawButton, sizes } from "../../../utils/style";
 import Cover from "../../../components/cover/Cover";
 import Rating from "../../../components/review-form/Rating";
 import WriteUp from "../../../components/review-form/WriteUp";
-import useUpdateEffect from "../../../hooks/useUpdateEffect";
 import CloseModal from "../../../components/review-form/CloseModal";
 
 const Container = styled.div``;
