@@ -1,12 +1,18 @@
 import {
   createReview,
   readReviews,
+  updateReview,
   updateReview_addLiker,
   updateReview_removeLiker,
 } from "../../../db/crud-operations/review";
 
 const update = async (type, data) => {
   switch (type) {
+    case "default": {
+      // data: { reviewId, rating, writeUp }
+      const modifiedCount = await updateReview(data);
+      return modifiedCount;
+    }
     case "like": {
       const { reviewId, username } = data;
       const modifiedCount = await updateReview_addLiker({

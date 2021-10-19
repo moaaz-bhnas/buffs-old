@@ -132,6 +132,24 @@ export const readUserReviews = async ({ username, skip = 0, limit = 20 }) => {
 };
 
 /* Update --- */
+export const updateReview = async ({ reviewId, rating, writeUp }) => {
+  const { db } = await connectToDatabase();
+
+  const reviewsCollection = db.collection("reviews");
+
+  let result;
+  try {
+    result = await reviewsCollection.updateOne(
+      { _id: ObjectId(reviewId) },
+      { $set: { rating, writeUp } }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+
+  return result.modifiedCount;
+};
+
 export const updateReview_addLiker = async ({ reviewId, username }) => {
   const { db, client } = await connectToDatabase();
 

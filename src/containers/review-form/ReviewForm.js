@@ -27,40 +27,45 @@ const Review = ({ children, editable = false, reviewToEdit = null }) => {
     [selectedMovie]
   );
 
-  const handleCreateSubmit = useCallback(async () => {
-    setLoading(true);
+  const handleCreateSubmit = useCallback(
+    async (event) => {
+      event.preventDefault();
 
-    const { id: tmdbId } = selectedMovie;
+      setLoading(true);
 
-    const movieDetails = getMovieDetails(tmdbId);
-    const movieCredits = getMovieCredits(tmdbId);
+      const { id: tmdbId } = selectedMovie;
 
-    // create a movie object
-    const movie = createMovieObject({
-      movieDetails: await movieDetails,
-      movieCredits: await movieCredits,
-    });
+      const movieDetails = getMovieDetails(tmdbId);
+      const movieCredits = getMovieCredits(tmdbId);
 
-    // post movie to database
-    const movieDocumentId = await postMovieToDb(movie);
+      // create a movie object
+      const movie = createMovieObject({
+        movieDetails: await movieDetails,
+        movieCredits: await movieCredits,
+      });
 
-    const { username } = session.user;
+      // post movie to database
+      const movieDocumentId = await postMovieToDb(movie);
 
-    // create a review object
-    const review = createReviewObject({
-      username,
-      movieId: movieDocumentId,
-      rating,
-      writeUp,
-    });
+      const { username } = session.user;
 
-    // post review to database
-    const reviewDocumentId = await postReviewToDb(review);
-    console.log("reviewDocumentId: ", reviewDocumentId);
+      // create a review object
+      const review = createReviewObject({
+        username,
+        movieId: movieDocumentId,
+        rating,
+        writeUp,
+      });
 
-    setSelectedMovie(null);
-    setLoading(false);
-  }, [selectedMovie, rating, writeUp]);
+      // post review to database
+      const reviewDocumentId = await postReviewToDb(review);
+      console.log("reviewDocumentId: ", reviewDocumentId);
+
+      setSelectedMovie(null);
+      setLoading(false);
+    },
+    [selectedMovie, rating, writeUp]
+  );
 
   const postMovieToDb = useCallback(async (movie) => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/movie`, {
@@ -90,7 +95,34 @@ const Review = ({ children, editable = false, reviewToEdit = null }) => {
     return documentId;
   }, []);
 
-  const handleUpdateSubmit = useCallback(async () => {}, []);
+  const handleUpdateSubmit = useCallback(
+    async (event) => {
+      event.preventDefault();
+
+      setLoading(true);
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/review`,
+        {
+          method: "PUT",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            type: "default",
+            data: { reviewId: reviewToEdit.reviewId, rating, writeUp },
+          }),
+        }
+      );
+
+      const { modifiedCount } = await res.json();
+      console.log("modifiedCount: ", modifiedCount);
+
+      setLoading(false);
+    },
+    [rating, writeUp]
+  );
 
   return children({
     onSubmit: editable ? handleUpdateSubmit : handleCreateSubmit,

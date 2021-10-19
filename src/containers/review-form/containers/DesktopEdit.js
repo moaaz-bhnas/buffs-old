@@ -7,6 +7,7 @@ import Cover from "../../../components/cover/Cover";
 import Rating from "../../../components/review-form/Rating";
 import WriteUp from "../../../components/review-form/WriteUp";
 import CloseModal from "../../../components/review-form/CloseModal";
+import Loader from "../../../components/review-form/Loader";
 
 const Container = styled.div``;
 
@@ -154,6 +155,10 @@ const Form = ({
       <Overlay expanded close={() => setEditModalVisible(false)} />
       <Modal role="dialog" aria-modal="true" aria-label="Edit review">
         <StyledForm
+          onSubmit={async (event) => {
+            await onSubmit(event);
+            setEditModalVisible(false);
+          }}
           onKeyDown={(event) =>
             handleKeyDown(
               event,
@@ -197,6 +202,8 @@ const Form = ({
           >
             Save
           </SubmitButton>
+
+          <Loader loading={loading} />
         </StyledForm>
       </Modal>
     </Container>
