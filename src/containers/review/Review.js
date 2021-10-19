@@ -12,6 +12,7 @@ import Overlay from "../../components/overlay/Overlay";
 import LikersPopup from "../likers-popup/LikersPopup";
 import ReviewForm from "../../containers/review-form/ReviewForm";
 import Form from "../../containers/review-form/containers/DesktopEdit";
+import ReviewActions from "../review-actions/ReviewActions";
 
 const StyledReview = styled.li`
   margin-bottom: 1.25rem;
@@ -24,6 +25,8 @@ const StyledReview = styled.li`
 const Article = styled.article`
   ${cardStyles}
 
+  position: relative;
+
   @media screen and (max-width: ${mediaQueries.review.main}) {
     width: calc(100% + ${sizes.padding.pageSmall} + ${sizes.padding.pageSmall});
     border-right: none;
@@ -31,6 +34,13 @@ const Article = styled.article`
     margin-right: -${sizes.padding.pageSmall};
     margin-left: -${sizes.padding.pageSmall};
   }
+`;
+
+const Row = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  position: relative;
 `;
 
 const Hr = styled.hr`
@@ -66,6 +76,24 @@ const Review = ({ review }) => {
     [likersObjects]
   );
 
+  const deleteReview = useCallback(async () => {
+    const { username } = session.user;
+
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/review?reviewId=${reviewId}&movieId=${movieDetails._id}&username=${username}`,
+      {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const { deletedCount } = await res.json();
+    console.log("deletedCount: ", deletedCount);
+  });
+
   const toggleLiker = useCallback(async () => {
     const { username } = session.user;
     const liked = likers.includes(username);
@@ -98,11 +126,14 @@ const Review = ({ review }) => {
   return (
     <StyledReview>
       <Article>
-        <UserDetails
-          userDetails={userDetails}
-          timestamp={timestamp}
-          setEditModalVisible={setEditModalVisible}
-        />
+        <Row>
+          <UserDetails userDetails={userDetails} timestamp={timestamp} />
+
+          <ReviewActions
+            deleteReview={deleteReview}
+            setEditModalVisible={setEditModalVisible}
+          />
+        </Row>
 
         <MovieDetails movieDetails={movieDetails} />
 

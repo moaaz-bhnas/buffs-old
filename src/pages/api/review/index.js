@@ -1,5 +1,6 @@
 import {
   createReview,
+  deleteReview,
   readReviews,
   updateReview,
   updateReview_addLiker,
@@ -69,5 +70,22 @@ export default async function handler(req, res) {
       } catch (err) {
         res.status(400).json({ success: false });
       }
+      break;
+
+    case "DELETE":
+      const { reviewId, movieId, username } = req.query;
+
+      try {
+        const deletedCount = await deleteReview({
+          reviewId,
+          movieId,
+          username,
+        });
+
+        res.status(200).json({ success: true, deletedCount }); // 200 = ok
+      } catch (error) {
+        res.status(400).json({ success: false });
+      }
+      break;
   }
 }

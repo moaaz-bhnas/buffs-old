@@ -37,6 +37,7 @@ const Menu = ({
   activeItem,
   setActiveItem,
   togglerRef,
+  deleteReview,
   setEditModalVisible,
 }) => {
   const menuRef = useRef(null);
@@ -106,7 +107,13 @@ const Menu = ({
           setExpanded(false);
         }}
       />
-      <MenuItemRemove active={activeItem === 1} onClick={() => {}} />
+      <MenuItemRemove
+        active={activeItem === 1}
+        onClick={() => {
+          setExpanded(false);
+          deleteReview();
+        }}
+      />
     </StyledMenu>
   );
 };
@@ -116,6 +123,7 @@ Menu.propTypes = {
   activeItem: PropTypes.number,
   setActiveItem: PropTypes.func,
   togglerRef: PropTypes.object,
+  deleteReview: PropTypes.func,
   setEditModalVisible: PropTypes.func,
 };
 

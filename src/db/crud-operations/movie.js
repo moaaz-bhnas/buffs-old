@@ -38,3 +38,22 @@ export const updateMovie_addReview = async ({ movieId, reviewId, session }) => {
     console.error(error);
   }
 };
+
+export const updateMovie_RemoveReview = async ({
+  movieId,
+  reviewId,
+  session,
+}) => {
+  const { db } = await connectToDatabase();
+  const moviesCollection = db.collection("movies");
+
+  try {
+    await moviesCollection.updateOne(
+      { _id: ObjectId(movieId) },
+      { $pull: { reviews: reviewId } },
+      { session }
+    );
+  } catch (error) {
+    console.error(error);
+  }
+};

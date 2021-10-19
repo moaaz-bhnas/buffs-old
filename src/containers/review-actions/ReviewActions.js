@@ -16,7 +16,7 @@ const Container = styled.div`
   right: 0;
 `;
 
-const ReviewActions = ({ setEditModalVisible }) => {
+const ReviewActions = ({ deleteReview, setEditModalVisible }) => {
   const togglerRef = useRef(null);
 
   const [expanded, setExpanded] = useState(false);
@@ -31,6 +31,7 @@ const ReviewActions = ({ setEditModalVisible }) => {
           activeItem={activeItem}
           setActiveItem={setActiveItem}
           togglerRef={togglerRef}
+          deleteReview={deleteReview}
           setEditModalVisible={setEditModalVisible}
         />
       )}
@@ -39,6 +40,7 @@ const ReviewActions = ({ setEditModalVisible }) => {
 };
 
 ReviewActions.propTypes = {
+  deleteReview: PropTypes.func,
   setEditModalVisible: PropTypes.func,
 };
 

@@ -1,10 +1,11 @@
 import { connectToDatabase } from "../dbConnect";
 const { ObjectId } = require("mongodb");
-import { updateMovie_addReview } from "./movie";
+import { updateMovie_addReview, updateMovie_RemoveReview } from "./movie";
 import {
   updateUser_addLikedReview,
   updateUser_removeLikedReview,
   updateUser_addReview,
+  updateUser_removeReview,
 } from "./user";
 import { mergingPipeline, transactionOptions } from "../utils";
 
@@ -206,4 +207,42 @@ export const updateReview_removeLiker = async ({ reviewId, username }) => {
   }
 
   return result.modifiedCount;
+};
+
+/* Delete --- */
+export const deleteReview = async ({ reviewId, movieId, username }) => {
+  const { db, client } = await connectToDatabase();
+
+  const session = client.startSession();
+
+  let result;
+  try {
+    const transactionResults = await session.withTransaction(async () => {
+      // Remove review document from reviews collection
+      const reviews = db.collection("reviews");
+
+      // debug
+      const review = await reviews.findOne(
+        { _id: ObjectId(reviewId) },
+        session
+      );
+      console.log("review: ", review);
+      // debug
+
+      result = await reviews.deleteOne({ _id: ObjectId(reviewId) }, session);
+
+      // Remove reviewId from user's documnent
+      await updateUser_removeReview({ username, reviewId, session });
+
+      // Remove reviewId from movie's document
+      await updateMovie_RemoveReview({ movieId, reviewId, session });
+    }, transactionOptions);
+    console.log("transactionResults: ", !!transactionResults);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    await session.endSession();
+  }
+
+  return result.deletedCount;
 };

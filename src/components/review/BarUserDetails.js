@@ -5,13 +5,11 @@ import PropTypes from "prop-types";
 import Avatar from "../avatar/Avatar";
 import { rawLink } from "../../utils/style";
 import formatDateForReview from "../../utils/helpers/formatDateForReview";
-import ReviewActions from "../../containers/review-actions/ReviewActions";
 
 const Row = styled.header`
   display: flex;
   align-items: flex-start;
   margin-bottom: 1.25rem;
-  position: relative;
 `;
 
 const UsernameLink = styled.a`
@@ -47,8 +45,6 @@ const UserDetails = ({ userDetails, setEditModalVisible, timestamp }) => {
       <ReviewDate dateTime={timestamp}>
         {formatDateForReview(timestamp)}
       </ReviewDate>
-
-      <ReviewActions setEditModalVisible={setEditModalVisible} />
     </Row>
   );
 };

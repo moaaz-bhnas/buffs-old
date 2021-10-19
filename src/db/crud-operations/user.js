@@ -62,6 +62,27 @@ export const updateUser_addReview = async ({ username, reviewId, session }) => {
   }
 };
 
+export const updateUser_removeReview = async ({
+  username,
+  reviewId,
+  session,
+}) => {
+  const { db } = await connectToDatabase();
+  const usersCollection = db.collection("users");
+
+  const options = session ? { session } : {};
+
+  try {
+    await usersCollection.updateOne(
+      { username },
+      { $pull: { reviews: reviewId } },
+      options
+    );
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const updateUser_addLikedReview = async ({
   username,
   reviewId,
