@@ -101,7 +101,7 @@ const Form = ({
   const handleSubmit = useCallback(
     async (event) => {
       event.preventDefault();
-      await onSubmit();
+      await onSubmit(event);
       setExpanded(false);
     },
     [selectedMovie, rating, writeUp]
