@@ -17,9 +17,9 @@ const watchReviewsCollection = async (
   });
 
   changeStream.on("change", async (change) => {
-    console.log("change: ", change);
     changeStreamResumeToken = change._id;
 
+    console.log("change.operationType: ", change.operationType);
     switch (change.operationType) {
       case "insert": {
         const document = await readReview(change.documentKey._id);

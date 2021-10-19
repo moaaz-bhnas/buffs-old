@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import { Button, Item, ItemText } from "./style";
 
 const MenuItem = ({ active, onClick }) => {
+  console.log("exists");
+
   const itemRef = useRef(null);
 
   useEffect(

@@ -29,7 +29,7 @@ export const updateMovie_addReview = async ({ movieId, reviewId, session }) => {
   const moviesCollection = db.collection("movies");
 
   try {
-    moviesCollection.updateOne(
+    await moviesCollection.updateOne(
       { _id: ObjectId(movieId) },
       { $push: { reviews: reviewId } },
       { session }

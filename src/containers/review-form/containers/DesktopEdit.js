@@ -124,29 +124,45 @@ const Form = ({
     ratingRef.current.focus();
   }, []);
 
-  const handleKeyDown = useCallback(function trapFocus(
-    event,
-    firstInteractive,
-    lastInteractive,
-    close
-  ) {
-    const { target, key, shiftKey } = event;
+  const handleKeyDown = useCallback(
+    function trapFocus(
+      event,
+      firstInteractive,
+      lastInteractive,
+      submit,
+      close
+    ) {
+      const { target, key, shiftKey } = event;
 
-    if (key === "Tab" && shiftKey && target === firstInteractive) {
-      event.preventDefault();
-      lastInteractive.focus();
-    }
+      if (key === "Tab" && shiftKey && target === firstInteractive) {
+        event.preventDefault();
+        lastInteractive.focus();
+      }
 
-    if (key === "Tab" && !shiftKey && target === lastInteractive) {
-      event.preventDefault();
-      firstInteractive.focus();
-    }
+      if (key === "Tab" && !shiftKey && target === lastInteractive) {
+        event.preventDefault();
+        firstInteractive.focus();
+      }
 
-    if (key === "Escape") {
-      close();
-    }
-  },
-  []);
+      if (key === "Enter") {
+        event.preventDefault();
+        submit();
+      }
+
+      if (key === "Escape") {
+        close();
+      }
+    },
+    [rating, writeUp]
+  );
+
+  const handleSubmit = useCallback(
+    async (event) => {
+      await onSubmit(event);
+      setEditModalVisible(false);
+    },
+    [rating, writeUp]
+  );
 
   const { name, releaseYear, posterPath, genres } = selectedMovie;
 
@@ -155,15 +171,13 @@ const Form = ({
       <Overlay expanded close={() => setEditModalVisible(false)} />
       <Modal role="dialog" aria-modal="true" aria-label="Edit review">
         <StyledForm
-          onSubmit={async (event) => {
-            await onSubmit(event);
-            setEditModalVisible(false);
-          }}
+          onSubmit={handleSubmit}
           onKeyDown={(event) =>
             handleKeyDown(
               event,
               closeButtonRef.current,
               submitDisabled ? writeUpRef.current : submitButtonRef.current,
+              () => handleSubmit(event),
               () => setEditModalVisible(false)
             )
           }

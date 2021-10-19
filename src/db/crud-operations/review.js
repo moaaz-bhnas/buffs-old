@@ -23,21 +23,21 @@ export const createReview = async (review) => {
       result = await reviews.insertOne(review, { session });
 
       // Update movie document's reviews array
-      updateMovie_addReview({
+      await updateMovie_addReview({
         movieId: review.movieId,
         reviewId: result.insertedId,
         session,
       });
 
       // Update user document's reviews array
-      updateUser_addReview({
+      await updateUser_addReview({
         username: review.username,
         reviewId: result.insertedId,
         session,
       });
     }, transactionOptions);
 
-    console.log("transactionResults: ", transactionResults);
+    console.log("transactionResults: ", !!transactionResults);
   } catch (error) {
     console.error(error);
   } finally {
@@ -201,6 +201,7 @@ export const updateReview_removeLiker = async ({ reviewId, username }) => {
     }, transactionOptions);
     console.log("transactionResults: ", !!transactionResults);
   } catch (err) {
+    console.log("transaction error");
     console.log(err);
   } finally {
     await session.endSession();
@@ -220,14 +221,6 @@ export const deleteReview = async ({ reviewId, movieId, username }) => {
     const transactionResults = await session.withTransaction(async () => {
       // Remove review document from reviews collection
       const reviews = db.collection("reviews");
-
-      // debug
-      const review = await reviews.findOne(
-        { _id: ObjectId(reviewId) },
-        session
-      );
-      console.log("review: ", review);
-      // debug
 
       result = await reviews.deleteOne({ _id: ObjectId(reviewId) }, session);
 

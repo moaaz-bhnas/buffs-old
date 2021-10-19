@@ -52,7 +52,7 @@ export const updateUser_addReview = async ({ username, reviewId, session }) => {
   const options = session ? { session } : {};
 
   try {
-    usersCollection.updateOne(
+    await usersCollection.updateOne(
       { username },
       { $push: { reviews: reviewId } },
       options
