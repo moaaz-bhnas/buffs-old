@@ -34,6 +34,16 @@ export default function Home({ session, reviews }) {
     [liveReviews]
   );
 
+  const deleteReview = useCallback(
+    (deletedId) => {
+      const reviewCopy = liveReviews.filter(
+        (review) => review._id !== deletedId
+      );
+      setLiveReviews(reviewCopy);
+    },
+    [liveReviews]
+  );
+
   useEffect(
     function subscribeToPusher() {
       const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY, {
@@ -44,6 +54,7 @@ export default function Home({ session, reviews }) {
       const channel = pusher.subscribe("reviews");
       channel.bind("inserted", addReview);
       channel.bind("updated", updateReview);
+      channel.bind("deleted", deleteReview);
     },
     [liveReviews]
   );

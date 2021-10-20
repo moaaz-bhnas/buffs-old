@@ -17,9 +17,9 @@ const watchReviewsCollection = async (
   });
 
   changeStream.on("change", async (change) => {
+    console.log("change: ", change);
     changeStreamResumeToken = change._id;
 
-    console.log("change.operationType: ", change.operationType);
     switch (change.operationType) {
       case "insert": {
         const document = await readReview(change.documentKey._id);
@@ -29,6 +29,11 @@ const watchReviewsCollection = async (
       case "update": {
         const document = change.fullDocument;
         pusher.trigger(collectionName, "updated", document);
+        break;
+      }
+      case "delete": {
+        const reviewId = change.documentKey._id;
+        pusher.trigger(collectionName, "deleted", reviewId);
         break;
       }
     }
