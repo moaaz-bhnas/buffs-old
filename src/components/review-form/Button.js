@@ -21,7 +21,7 @@ const StyledButton = styled(motion.button)`
   }
 `;
 
-const Button = forwardRef(({ disabled }, ref) => {
+const Button = forwardRef(({ text = "Submit", disabled }, ref) => {
   return (
     <StyledButton
       ref={ref}
@@ -31,7 +31,7 @@ const Button = forwardRef(({ disabled }, ref) => {
       initial="hidden"
       animate="visible"
     >
-      Submit
+      {text}
     </StyledButton>
   );
 });

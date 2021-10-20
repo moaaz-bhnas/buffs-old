@@ -8,6 +8,9 @@ import Rating from "../../../components/review-form/Rating";
 import WriteUp from "../../../components/review-form/WriteUp";
 import CloseModal from "../../../components/review-form/CloseModal";
 import Loader from "../../../components/review-form/Loader";
+import MovieTitle from "../../../components/review-form/MovieTitle";
+import Genres from "../../../components/review-form/Genres";
+import SubmitButton from "../../../components/review-form/Button";
 
 const Container = styled.div``;
 
@@ -42,17 +45,6 @@ const Title = styled.h2`
   margin: 0 auto;
 `;
 
-const MovieTitle = styled.h3`
-  font-size: 1.1rem;
-  margin: 0 0 0.25rem 0;
-  font-weight: normal;
-`;
-
-const Genres = styled.p`
-  margin: 0 0 0.5rem;
-  color: ${({ theme }) => theme.text.grey};
-`;
-
 const Row = styled.div`
   margin-bottom: 1rem;
 
@@ -72,22 +64,6 @@ const Column = styled.div`
 
   display: flex;
   flex-direction: column;
-`;
-
-const SubmitButton = styled.button`
-  ${rawButton}
-  font-weight: 500;
-  color: #fff;
-  background-color: ${({ theme }) => theme.bg.dark};
-  display: block;
-  width: 100%;
-  padding: 0.5em;
-  border-radius: ${sizes.borderRadius.default};
-
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.5 !important;
-  }
 `;
 
 const Form = ({
@@ -190,10 +166,8 @@ const Form = ({
             />
           </Header>
 
-          <MovieTitle>
-            {name} ({releaseYear})
-          </MovieTitle>
-          <Genres>{genres.join(", ")}</Genres>
+          <MovieTitle title={`${name} (${releaseYear})`} />
+          <Genres genres={genres.join(", ")} />
 
           <Row>
             <CoverContainer>
@@ -209,13 +183,7 @@ const Form = ({
             </Column>
           </Row>
 
-          <SubmitButton
-            type="submit"
-            disabled={submitDisabled}
-            ref={submitButtonRef}
-          >
-            Save
-          </SubmitButton>
+          <SubmitButton text="Save" disabled={submitDisabled} />
 
           <Loader loading={loading} />
         </StyledForm>

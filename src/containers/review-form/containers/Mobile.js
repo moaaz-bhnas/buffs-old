@@ -72,8 +72,7 @@ const Form = ({
 
   const handleSubmit = useCallback(
     async (event) => {
-      event.preventDefault();
-      await onSubmit();
+      await onSubmit(event);
       router.push("/");
     },
     [selectedMovie, rating, writeUp]
