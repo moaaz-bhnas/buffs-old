@@ -33,6 +33,7 @@ const StyledMenu = styled.ul`
 `;
 
 const Menu = ({
+  reviewId,
   setExpanded,
   activeItem,
   setActiveItem,
@@ -101,6 +102,7 @@ const Menu = ({
       onKeyDown={handleKeyDown}
     >
       <MenuItemEdit
+        reviewId={reviewId}
         active={activeItem === 0}
         onClick={() => {
           setEditModalVisible(true);
@@ -119,6 +121,7 @@ const Menu = ({
 };
 
 Menu.propTypes = {
+  reviewId: PropTypes.string,
   setExpanded: PropTypes.func,
   activeItem: PropTypes.number,
   setActiveItem: PropTypes.func,

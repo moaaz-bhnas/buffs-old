@@ -130,6 +130,7 @@ const Review = ({ review }) => {
           <UserDetails userDetails={userDetails} timestamp={timestamp} />
 
           <ReviewActions
+            reviewId={reviewId}
             deleteReview={deleteReview}
             setEditModalVisible={setEditModalVisible}
           />

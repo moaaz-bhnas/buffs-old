@@ -14,9 +14,10 @@ const Container = styled.div`
   position: absolute;
   top: 0;
   right: 0;
+  z-index: 1;
 `;
 
-const ReviewActions = ({ deleteReview, setEditModalVisible }) => {
+const ReviewActions = ({ reviewId, deleteReview, setEditModalVisible }) => {
   const togglerRef = useRef(null);
 
   const [expanded, setExpanded] = useState(false);
@@ -27,6 +28,7 @@ const ReviewActions = ({ deleteReview, setEditModalVisible }) => {
       <Toggler expanded={expanded} setExpanded={setExpanded} ref={togglerRef} />
       {expanded && (
         <Menu
+          reviewId={reviewId}
           setExpanded={setExpanded}
           activeItem={activeItem}
           setActiveItem={setActiveItem}
@@ -40,6 +42,7 @@ const ReviewActions = ({ deleteReview, setEditModalVisible }) => {
 };
 
 ReviewActions.propTypes = {
+  reviewId: PropTypes.string,
   deleteReview: PropTypes.func,
   setEditModalVisible: PropTypes.func,
 };

@@ -1,11 +1,7 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { rawButton, sizes, transitions } from "../../utils/style";
 
-export const Item = styled.li``;
-
-export const Button = styled.button`
-  ${rawButton}
-
+export const itemStyles = css`
   display: flex;
   align-items: center;
 
@@ -22,6 +18,13 @@ export const Button = styled.button`
   &:focus {
     background-color: ${({ theme }) => theme.bg.grey1};
   }
+`;
+
+export const Item = styled.li``;
+
+export const Button = styled.button`
+  ${rawButton}
+  ${itemStyles}
 `;
 
 export const ItemText = styled.span`
