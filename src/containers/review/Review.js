@@ -65,6 +65,8 @@ const Review = ({ review }) => {
   const [likersObjects, setLikersObjects] = useState([]);
   const [editModalVisible, setEditModalVisible] = useState(false);
 
+  const [likeLoading, setLikeLoading] = useState(false);
+
   useEffect(
     function preventScrollingOnPopup() {
       if (likersObjects.length) {
@@ -95,6 +97,11 @@ const Review = ({ review }) => {
   });
 
   const toggleLiker = useCallback(async () => {
+    console.log("likeLoading: ", likeLoading);
+    if (likeLoading) return;
+
+    setLikeLoading(true);
+
     const { username } = session.user;
     const liked = likers.includes(username);
 
@@ -110,9 +117,11 @@ const Review = ({ review }) => {
       }),
     });
 
+    setLikeLoading(false);
+
     const { modifiedCount } = await res.json();
     console.log("modifiedCount: ", modifiedCount);
-  }, [likers]);
+  }, [likers, likeLoading]);
 
   const showLikers = useCallback(async (usernames) => {
     const users = await getUsers(usernames);

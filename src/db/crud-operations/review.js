@@ -152,7 +152,12 @@ export const updateReview = async ({ reviewId, rating, writeUp }) => {
 };
 
 export const updateReview_addLiker = async ({ reviewId, username }) => {
+  console.log("updateReview_addLiker");
   const { db, client } = await connectToDatabase();
+
+  const reviews = db.collection("reviews");
+  const review = await reviews.findOne({ _id: ObjectId(reviewId) });
+  if (review.likers.includes(username)) return 0;
 
   const session = client.startSession();
 
@@ -160,7 +165,6 @@ export const updateReview_addLiker = async ({ reviewId, username }) => {
   try {
     const transactionResults = await session.withTransaction(async () => {
       // Add liker to the review document
-      const reviews = db.collection("reviews");
       result = await reviews.updateOne(
         { _id: ObjectId(reviewId) },
         { $push: { likers: username } },
@@ -181,6 +185,8 @@ export const updateReview_addLiker = async ({ reviewId, username }) => {
 };
 
 export const updateReview_removeLiker = async ({ reviewId, username }) => {
+  console.log("updateReview_removeLiker");
+
   const { db, client } = await connectToDatabase();
 
   const session = client.startSession();
