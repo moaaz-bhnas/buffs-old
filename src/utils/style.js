@@ -53,6 +53,19 @@ export const theme = {
   },
 };
 
+export const decideRatingColor = ({ rating, theme }) => {
+  const { rating1, rating2, rating3, rating4, rating5 } = theme.text;
+  return rating >= 9
+    ? rating5
+    : rating >= 7
+    ? rating4
+    : rating >= 5
+    ? rating3
+    : rating >= 3
+    ? rating2
+    : rating1;
+};
+
 export const fonts = {
   serif:
     "Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol",
