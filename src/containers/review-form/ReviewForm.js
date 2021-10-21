@@ -31,6 +31,8 @@ const Review = ({ children, editable = false, reviewToEdit = null }) => {
     async (event) => {
       event.preventDefault();
 
+      if (loading) return;
+
       setLoading(true);
 
       const { id: tmdbId } = selectedMovie;
@@ -64,7 +66,7 @@ const Review = ({ children, editable = false, reviewToEdit = null }) => {
       setSelectedMovie(null);
       setLoading(false);
     },
-    [selectedMovie, rating, writeUp]
+    [selectedMovie, rating, writeUp, loading]
   );
 
   const postMovieToDb = useCallback(async (movie) => {
@@ -99,6 +101,8 @@ const Review = ({ children, editable = false, reviewToEdit = null }) => {
     async (event) => {
       event.preventDefault();
 
+      if (loading) return;
+
       setLoading(true);
 
       const res = await fetch(
@@ -121,7 +125,7 @@ const Review = ({ children, editable = false, reviewToEdit = null }) => {
 
       setLoading(false);
     },
-    [rating, writeUp]
+    [rating, writeUp, loading]
   );
 
   return children({
