@@ -9,6 +9,7 @@ import toJson from "../utils/helpers/toJson";
 import { readReviews } from "../db/crud-operations/review";
 
 export default function Home({ session, reviews }) {
+  console.log("session: ", session);
   const [liveReviews, setLiveReviews] = useState(reviews);
 
   const addReview = useCallback(

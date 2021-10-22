@@ -23,9 +23,9 @@ const P = styled.p`
 `;
 
 const Rating = ({ rating }) => {
-  useEffect(() => {
-    console.log("rating changed");
-  }, [rating]);
+  // useEffect(() => {
+  //   console.log("rating changed");
+  // }, [rating]);
 
   return (
     <StyledRating rating={rating}>
