@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { memo, useCallback, useRef, useState } from "react";
-import styled, { css } from "styled-components";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
+import styled from "styled-components";
 import Cover from "../../../components/cover/Cover";
 import Rating from "../../../components/review-form/Rating";
 import WriteUp from "../../../components/review-form/WriteUp";
@@ -70,6 +70,12 @@ const Form = ({
   const [expanded, setExpanded] = useState(false);
   const [menuExpanded, setMenuExpanded] = useState(false);
 
+  const [submitDisabled, setSubmitDisabled] = useState(true);
+
+  useEffect(() => {
+    setSubmitDisabled(rating === 0);
+  }, [rating]);
+
   const handleSubmit = useCallback(
     async (event) => {
       await onSubmit(event);
@@ -111,7 +117,7 @@ const Form = ({
                 <WriteUp writeUp={writeUp} setWriteUp={setWriteUp} />
               </Column>
             </Row>
-            <Button disabled={rating === 0} />
+            <Button disabled={submitDisabled} />
           </>
         )}
       </StyledForm>

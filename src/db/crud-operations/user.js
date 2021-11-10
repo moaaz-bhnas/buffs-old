@@ -28,14 +28,16 @@ export const readUserById = async (id) => {
   return user;
 };
 
-export const readUsers = async (usernames) => {
+export const readUsers = async ({ usernames, preview = false }) => {
   const { db } = await connectToDatabase();
 
   try {
     const userCollection = db.collection("users");
-    const usersCursor = await userCollection.find({
-      username: { $in: usernames },
-    });
+    const usersCursor = await userCollection
+      .find({
+        username: { $in: usernames },
+      })
+      .project(preview ? { _id: 0, name: 1, username: 1, image: 1 } : {});
     var users = await usersCursor.toArray();
   } catch (error) {
     console.error(error);

@@ -134,6 +134,7 @@ const Form = ({
 
   const handleSubmit = useCallback(
     async (event) => {
+      setSubmitDisabled(true);
       await onSubmit(event);
       setEditModalVisible(false);
     },

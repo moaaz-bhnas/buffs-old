@@ -14,7 +14,7 @@ const StyledHeader = styled.header`
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1;
+  z-index: 2;
 `;
 
 const Title = styled.h1`

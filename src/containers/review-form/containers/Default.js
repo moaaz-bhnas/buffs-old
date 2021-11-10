@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { memo, useCallback, useRef, useState } from "react";
+import { memo, useCallback, useRef, useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import Overlay from "../../../components/overlay/Overlay";
 import Title from "../../../components/review-form/Title";
@@ -75,6 +75,12 @@ const Form = ({
   const [expanded, setExpanded] = useState(false);
   const [menuExpanded, setMenuExpanded] = useState(false);
 
+  const [submitDisabled, setSubmitDisabled] = useState(true);
+
+  useEffect(() => {
+    setSubmitDisabled(rating === 0);
+  }, [rating]);
+
   const handleKeyDown = useCallback(
     (event) => {
       const { target, key, shiftKey } = event;
@@ -100,7 +106,7 @@ const Form = ({
 
   const handleSubmit = useCallback(
     async (event) => {
-      event.preventDefault();
+      setSubmitDisabled(true);
       await onSubmit(event);
       setExpanded(false);
     },
@@ -145,7 +151,7 @@ const Form = ({
                 <WriteUp writeUp={writeUp} setWriteUp={setWriteUp} />
               </Column>
             </Row>
-            <Button ref={buttonRef} disabled={rating === 0} />
+            <Button ref={buttonRef} disabled={submitDisabled} />
           </>
         )}
         <Loader loading={loading} />
