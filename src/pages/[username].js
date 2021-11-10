@@ -6,7 +6,7 @@ import toJson from "../utils/helpers/toJson";
 export default function Profile({ user, reviews }) {
   console.log("user: ", user);
 
-  return <Layout>{user.username}</Layout>;
+  return <Layout>{user && user.username}</Layout>;
 }
 
 export async function getStaticPaths(context) {
