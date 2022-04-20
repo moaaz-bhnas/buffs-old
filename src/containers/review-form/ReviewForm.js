@@ -1,6 +1,6 @@
 import { memo, useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { getMovieCredits, getMovieDetails } from "../../api/index";
+import { getMovieCredits, getMovieDetails } from "../../lib/tmdb";
 import createMovieObject from "../../utils/helpers/createMovieObject";
 import { useSession } from "next-auth/client";
 import createReviewObject from "../../utils/helpers/createReviewObject";

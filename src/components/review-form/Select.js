@@ -1,7 +1,7 @@
 import { forwardRef, memo, useCallback, useEffect, useState } from "react";
 import AsyncSelect from "react-select/async";
 import { components } from "react-select";
-import { search } from "../../api";
+import { search } from "../../lib/tmdb";
 import PropTypes from "prop-types";
 import { sizes } from "../../utils/style";
 import Option from "./Option";

@@ -1,3 +1,5 @@
+import dbConnect from "../../../db/connectDB";
+import { getReviews } from "../../../db/controllers/reviews";
 import {
   createReview,
   deleteReview,
@@ -35,7 +37,8 @@ const update = async (type, data) => {
 
 export default async function handler(req, res) {
   const { method } = req;
-  console.log("req.body: ", req.body);
+
+  await dbConnect();
 
   switch (method) {
     case "POST":
@@ -49,15 +52,7 @@ export default async function handler(req, res) {
       break;
 
     case "GET":
-      const { skip, limit } = req.query;
-
-      try {
-        const results = await readReviews(skip, limit);
-
-        res.status(201).json({ success: true, data: results });
-      } catch (error) {
-        res.status(400).json({ success: false });
-      }
+      getReviews(req, res);
       break;
 
     case "PUT":
