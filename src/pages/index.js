@@ -86,13 +86,13 @@ export async function getServerSideProps(context) {
 
   const reviews = await readReviews({ skip: 0, limit: 20 });
 
-  const response = await fetch(`http://localhost:3000/api/review`);
+  // const response = await fetch(`http://localhost:3000/api/review`);
 
-  const json = await response.json();
+  // const json = await response.json();
 
-  const reviews2 = json.data;
+  // const reviews2 = json.data;
 
-  console.log("reviews: ", reviews, "reviews2: ", reviews2);
+  // console.log("reviews: ", reviews, "reviews2: ", reviews2);
 
   return {
     props: {
