@@ -4,7 +4,7 @@ This example features how you use a different styling solution than [styled-jsx]
 
 For this purpose we are extending the `<Document />` and injecting the server side rendered styles into the `<head>`, and also adding the `babel-plugin-styled-components` (which is required for server side rendering). Additionally we set up a global [theme](https://www.styled-components.com/docs/advanced#theming) for styled-components using NextJS custom [`<App>`](https://nextjs.org/docs/advanced-features/custom-app) component.
 
-## Deploy your own
+## Deploy
 
 Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
 
@@ -37,14 +37,14 @@ When wrapping a [Link](https://nextjs.org/docs/api-reference/next/link) from `ne
 **components/StyledLink.js**
 
 ```javascript
-import Link from 'next/link'
-import styled from 'styled-components'
+import Link from "next/link";
+import styled from "styled-components";
 
 const StyledLink = ({ as, children, className, href }) => (
   <Link href={href} as={as} passHref>
     <a className={className}>{children}</a>
   </Link>
-)
+);
 
 export default styled(StyledLink)`
   color: #0075e0;
@@ -60,19 +60,19 @@ export default styled(StyledLink)`
     outline: none;
     border: 0;
   }
-`
+`;
 ```
 
 **pages/index.js**
 
 ```javascript
-import StyledLink from '../components/StyledLink'
+import StyledLink from "../components/StyledLink";
 
 export default () => (
   <StyledLink href="/post/[pid]" forwardedAs="/post/abc">
     First post
   </StyledLink>
-)
+);
 ```
 
 </details>
