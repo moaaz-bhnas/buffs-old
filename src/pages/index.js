@@ -84,7 +84,14 @@ export async function getServerSideProps(context) {
     };
   }
 
+  // const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/review`);
+  const res = await fetch(`http://localhost:3000/api/review`);
+
+  const response = await res.json();
+
   const reviews = await readReviews({ skip: 0, limit: 20 });
+
+  console.log("reviews: ", reviews, "response: ", response);
 
   return {
     props: {
