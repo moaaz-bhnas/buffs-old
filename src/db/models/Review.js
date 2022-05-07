@@ -1,6 +1,6 @@
-import { Schema, model } from "mongoose";
+import mongoose from "mongoose";
 
-const schema = new Schema({
+const schema = new mongoose.Schema({
   username: {
     type: String,
     // ref: "User",
@@ -14,8 +14,8 @@ const schema = new Schema({
     type: {
       type: Number,
       enum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      required: [true, "Please add a rating"],
     },
-    required: [true, "Please add a rating"],
   },
   writeUp: {
     type: String,
@@ -30,6 +30,6 @@ const schema = new Schema({
   },
 });
 
-const Review = model("Review", schema);
+console.log("mongoose: ", mongoose.models);
 
-export default Review;
+export default mongoose.models.Review || mongoose.model("Review", schema);

@@ -5,7 +5,7 @@ import Review from "../models/Review";
 // @access    Public
 export async function getReviews(req, res) {
   // Fields to exclude
-  const reservedParams = ["sort", "page", "limit"];
+  const reservedParams = ["page", "limit"];
 
   // Remove reserved words from query
   const formattedQuery = (function removeReservedParams() {
@@ -14,23 +14,17 @@ export async function getReviews(req, res) {
     return queryCopy;
   })();
 
-  // Build query
-  let query = Review.find(formattedQuery);
-
-  // Sorting
-  if (req.query.sort) {
-    const sortBy = req.query.sort.split(",").join(" ");
-    query = query.sort(sortBy); // e.g. .sort(-name)
-  }
-
   // Pagination
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
   const startIndex = (page - 1) * limit;
   const endIndex = page * limit;
 
-  query = query.skip(startIndex).limit(limit);
-  const reviews = await query;
+  const reviews = await Review.aggregate([
+    { $sort: { _id: -1 } },
+    { $skip: Number(startIndex) },
+    { $limit: Number(limit) },
+  ]);
 
   // Pagination: next, prev
   const pagination = {};
