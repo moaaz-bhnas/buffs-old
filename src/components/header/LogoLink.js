@@ -10,10 +10,11 @@ const StyledLink = styled.a`
   height: 3rem; */
   justify-content: center;
   align-items: center;
+  margin-right: auto;
 
-  @media screen and (max-width: ${mediaQueries.main}) {
+  /* @media screen and (max-width: ${mediaQueries.main}) {
     margin-right: auto;
-  }
+  } */
 `;
 
 const LogoLink = () => {

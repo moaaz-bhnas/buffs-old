@@ -35,7 +35,7 @@ const Default = () => {
       <Navigation>
         <NavTitle>Main Navigation</NavTitle>
         <LogoLink />
-        <Search />
+        {/* <Search /> */}
         {session ? (
           <>
             <SocialList />
