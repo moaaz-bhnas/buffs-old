@@ -23,13 +23,13 @@ const List = styled.ul`
 `;
 
 const list = [
-  {
-    ActiveIcon: FilledPaperPlane,
-    InactiveIcon: EmptyPaperPlane,
-    name: "inbox",
-  },
-  { ActiveIcon: FilledHeart, InactiveIcon: EmptyHeart, name: "notifications" },
-  { ActiveIcon: Avatar, InactiveIcon: Avatar, name: "account" },
+  // {
+  //   ActiveIcon: FilledPaperPlane,
+  //   InactiveIcon: EmptyPaperPlane,
+  //   name: "inbox",
+  // },
+  // { ActiveIcon: FilledHeart, InactiveIcon: EmptyHeart, name: "notifications" },
+  // { ActiveIcon: Avatar, InactiveIcon: Avatar, name: "account" },
 ];
 
 const SocialList = () => {

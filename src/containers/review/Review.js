@@ -151,11 +151,13 @@ const Review = ({ review }) => {
         <Row>
           <UserDetails userDetails={userDetails} timestamp={timestamp} />
 
-          <ReviewActions
-            reviewId={reviewId}
-            deleteReview={deleteReview}
-            setEditModalVisible={setEditModalVisible}
-          />
+          {session.user.name === userDetails.name && (
+            <ReviewActions
+              reviewId={reviewId}
+              deleteReview={deleteReview}
+              setEditModalVisible={setEditModalVisible}
+            />
+          )}
         </Row>
 
         <MovieDetails movieDetails={movieDetails} />

@@ -12,7 +12,7 @@ const List = styled.ul`
   ${rawList}
 
   margin-top: -.7rem;
-  margin-bottom: 0.3rem; // To cancel button paddings effect
+  /* margin-bottom: 0.3rem; // To cancel button paddings effect */
   display: flex;
 
   > li {
@@ -60,8 +60,8 @@ const ReactionBar = ({
 
       <List>
         <ItemLike toggleLiker={toggleLiker} liked={liked} />
-        <ItemComment />
-        <ItemSend />
+        {/* <ItemComment />
+        <ItemSend /> */}
       </List>
     </Bar>
   );

@@ -24,18 +24,18 @@ const list = [
     name: "home",
     path: "/",
   },
-  {
-    ActiveIcon: BoldLoupe,
-    InactiveIcon: Loupe,
-    name: "search",
-    path: "/search",
-  },
-  {
-    ActiveIcon: FilledHeart,
-    InactiveIcon: EmptyHeart,
-    name: "notifications",
-    path: "/notifications",
-  },
+  // {
+  //   ActiveIcon: BoldLoupe,
+  //   InactiveIcon: Loupe,
+  //   name: "search",
+  //   path: "/search",
+  // },
+  // {
+  //   ActiveIcon: FilledHeart,
+  //   InactiveIcon: EmptyHeart,
+  //   name: "notifications",
+  //   path: "/notifications",
+  // },
   {
     ActiveIcon: Avatar,
     InactiveIcon: Avatar,

@@ -24,11 +24,11 @@ const list = [
     name: "add review",
     path: "/add",
   },
-  {
-    Icon: PaperPlane,
-    name: "inbox",
-    path: "/inbox",
-  },
+  // {
+  //   Icon: PaperPlane,
+  //   name: "inbox",
+  //   path: "/inbox",
+  // },
 ];
 
 const SocialListMobile = () => {
