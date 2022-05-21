@@ -1,4 +1,4 @@
-import { signOut, useSession } from "next-auth/client";
+import { useSession } from "next-auth/client";
 import { memo } from "react";
 import styled from "styled-components";
 import { containerStyles } from "../../utils/style";
