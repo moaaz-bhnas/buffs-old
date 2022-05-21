@@ -15,8 +15,6 @@ const Title = styled.h2`
 `;
 
 const SignIn = ({ providers }) => {
-  console.log("providers: ", providers);
-
   const twitterProvider = providers.twitter;
   const googleProvider = providers.google;
 

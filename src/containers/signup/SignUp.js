@@ -1,6 +1,6 @@
 import { memo } from "react";
 import styled from "styled-components";
-import { TwitterButton } from "../../components/button/Button";
+import { TwitterButton, GoogleButton } from "../../components/button/Button";
 import PropTypes from "prop-types";
 import { signIn } from "next-auth/client";
 
@@ -15,14 +15,24 @@ const Title = styled.h2`
 `;
 
 const SignUp = ({ providers }) => {
+  const twitterProvider = providers.twitter;
+  const googleProvider = providers.google;
+
   return (
     <Form>
       <Title>Sign up to Buffs</Title>
-      {Object.values(providers).map((provider) => (
-        <TwitterButton key={provider.id} onClick={() => signIn(provider.id)}>
-          Continue with Twitter
-        </TwitterButton>
-      ))}
+      <GoogleButton
+        key={googleProvider.id}
+        onClick={() => signIn(googleProvider.id)}
+      >
+        Continue with {googleProvider.name}
+      </GoogleButton>
+      <TwitterButton
+        key={twitterProvider.id}
+        onClick={() => signIn(twitterProvider.id)}
+      >
+        Continue with {twitterProvider.name}
+      </TwitterButton>
     </Form>
   );
 };
