@@ -40,6 +40,7 @@ export const theme = {
     grey4: "#727274",
     dark: "#333",
     twitter: "#0D91E3",
+    google: "#DB4437",
     like: "#ed4956",
   },
   border: {

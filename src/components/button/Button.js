@@ -24,6 +24,7 @@ const StyledAuthButton = styled(StyledButton)`
   color: #fff;
   font-weight: 500;
   padding: 0.75em 1em;
+  margin-bottom: 0.5rem;
   border: none;
   border-radius: ${sizes.borderRadius.default};
 
@@ -39,7 +40,14 @@ const StyledTwitterButton = styled(StyledAuthButton)`
   background-color: ${({ theme }) => theme.bg.twitter};
 `;
 
+const StyledGoogleButton = styled(StyledAuthButton)`
+  background-color: ${({ theme }) => theme.bg.google};
+`;
+
 export const Button = (props) => generateButton(StyledButton, props);
 
 export const TwitterButton = (props) =>
   generateButton(StyledTwitterButton, props, "/images/twitter.svg");
+
+export const GoogleButton = (props) =>
+  generateButton(StyledGoogleButton, props, "/images/google.svg");
