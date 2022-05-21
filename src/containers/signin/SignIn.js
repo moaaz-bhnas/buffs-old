@@ -23,20 +23,18 @@ const SignIn = ({ providers }) => {
   return (
     <Form>
       <Title>Log in to Buffs</Title>
-      {/* {Object.values(providers).map((provider) => ( */}
-      <TwitterButton
-        key={twitterProvider.id}
-        onClick={() => signIn(twitterProvider.id)}
-      >
-        Continue with {twitterProvider.name}
-      </TwitterButton>
-      {/* // ))} */}
       <GoogleButton
         key={googleProvider.id}
         onClick={() => signIn(googleProvider.id)}
       >
         Continue with {googleProvider.name}
       </GoogleButton>
+      <TwitterButton
+        key={twitterProvider.id}
+        onClick={() => signIn(twitterProvider.id)}
+      >
+        Continue with {twitterProvider.name}
+      </TwitterButton>
     </Form>
   );
 };
