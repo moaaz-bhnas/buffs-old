@@ -1,7 +1,7 @@
 import Layout from "../containers/layout/Layout";
 import Review from "../containers/review-form/ReviewForm";
 import Form from "../containers/review-form/containers/Default";
-import { getSession, useSession } from "next-auth/client";
+import { getSession } from "next-auth/client";
 import Feed from "../containers/feed/Feed";
 import { useCallback, useEffect, useState } from "react";
 import Pusher from "pusher-js";
@@ -89,12 +89,6 @@ export async function getServerSideProps(context) {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/review`
   );
-
-  const json = await response.json();
-
-  const reviews2 = json.data;
-
-  console.log("reviews: ", reviews, "reviews2: ", reviews2);
 
   return {
     props: {
