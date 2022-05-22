@@ -4,7 +4,7 @@ import Form from "../containers/review-form/containers/Default";
 import { getSession } from "next-auth/client";
 import Feed from "../containers/feed/Feed";
 import { useCallback, useEffect, useState } from "react";
-import Pusher from "pusher-js";
+// import Pusher from "pusher-js";
 import toJson from "../utils/helpers/toJson";
 import { readReviews } from "../db/crud-operations/review";
 
@@ -45,21 +45,21 @@ export default function Home({ session, reviews }) {
     [liveReviews]
   );
 
-  useEffect(
-    function subscribeToPusher() {
-      const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY, {
-        cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER,
-        forceTLS: true,
-      });
+  // useEffect(
+  //   function subscribeToPusher() {
+  //     const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY, {
+  //       cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER,
+  //       forceTLS: true,
+  //     });
 
-      const channel = pusher.subscribe("reviews");
+  //     const channel = pusher.subscribe("reviews");
 
-      channel.bind("inserted", addReview);
-      channel.bind("updated", updateReview);
-      channel.bind("deleted", deleteReview);
-    },
-    [liveReviews]
-  );
+  //     channel.bind("inserted", addReview);
+  //     channel.bind("updated", updateReview);
+  //     channel.bind("deleted", deleteReview);
+  //   },
+  //   [liveReviews]
+  // );
 
   return (
     <Layout>

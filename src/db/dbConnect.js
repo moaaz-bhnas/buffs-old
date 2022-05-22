@@ -82,7 +82,7 @@ export async function connectToDatabase() {
     cached.promise = MongoClient.connect(MONGODB_URI, opts).then((client) => {
       const db = client.db(MONGODB_DB);
 
-      watchReviewsCollection(db);
+      // watchReviewsCollection(db);
 
       return { client, db };
     });
