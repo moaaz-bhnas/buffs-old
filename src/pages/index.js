@@ -9,41 +9,40 @@ import toJson from "../utils/helpers/toJson";
 import { readReviews } from "../db/crud-operations/review";
 
 export default function Home({ session, reviews }) {
-  console.log("session: ", session);
   const [liveReviews, setLiveReviews] = useState(reviews);
 
-  const addReview = useCallback(
-    (review) => {
-      const reviewsCopy = [...liveReviews];
-      reviewsCopy.unshift(review);
-      setLiveReviews(reviewsCopy);
-    },
-    [liveReviews]
-  );
+  // const addReview = useCallback(
+  //   (review) => {
+  //     const reviewsCopy = [...liveReviews];
+  //     reviewsCopy.unshift(review);
+  //     setLiveReviews(reviewsCopy);
+  //   },
+  //   [liveReviews]
+  // );
 
-  const updateReview = useCallback(
-    (updatedReview) => {
-      const reviewsCopy = liveReviews.map((review) => {
-        if (review._id === updatedReview._id) {
-          review = Object.assign(review, updatedReview);
-          return review;
-        }
-        return review;
-      });
-      setLiveReviews(reviewsCopy);
-    },
-    [liveReviews]
-  );
+  // const updateReview = useCallback(
+  //   (updatedReview) => {
+  //     const reviewsCopy = liveReviews.map((review) => {
+  //       if (review._id === updatedReview._id) {
+  //         review = Object.assign(review, updatedReview);
+  //         return review;
+  //       }
+  //       return review;
+  //     });
+  //     setLiveReviews(reviewsCopy);
+  //   },
+  //   [liveReviews]
+  // );
 
-  const deleteReview = useCallback(
-    (deletedId) => {
-      const reviewCopy = liveReviews.filter(
-        (review) => review._id !== deletedId
-      );
-      setLiveReviews(reviewCopy);
-    },
-    [liveReviews]
-  );
+  // const deleteReview = useCallback(
+  //   (deletedId) => {
+  //     const reviewCopy = liveReviews.filter(
+  //       (review) => review._id !== deletedId
+  //     );
+  //     setLiveReviews(reviewCopy);
+  //   },
+  //   [liveReviews]
+  // );
 
   // useEffect(
   //   function subscribeToPusher() {
@@ -85,10 +84,6 @@ export async function getServerSideProps(context) {
   }
 
   const reviews = await readReviews({ skip: 0, limit: 20 });
-
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/review`
-  );
 
   return {
     props: {
