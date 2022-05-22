@@ -151,7 +151,7 @@ const Review = ({ review }) => {
         <Row>
           <UserDetails userDetails={userDetails} timestamp={timestamp} />
 
-          {session.user.name === userDetails.name && (
+          {session && session.user.name === userDetails.name && (
             <ReviewActions
               reviewId={reviewId}
               deleteReview={deleteReview}

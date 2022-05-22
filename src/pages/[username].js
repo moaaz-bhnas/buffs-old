@@ -1,4 +1,5 @@
 import Layout from "../containers/layout/Layout";
+import ReviewsList from "../containers/reviews-list/ReviewsList";
 import { readUserReviews } from "../db/crud-operations/review";
 import { readUser } from "../db/crud-operations/user";
 import toJson from "../utils/helpers/toJson";
@@ -6,7 +7,7 @@ import toJson from "../utils/helpers/toJson";
 export default function Profile({ user, reviews }) {
   console.log("user: ", user);
 
-  return <Layout>{user && user.username}</Layout>;
+  return <Layout>{reviews && <ReviewsList reviews={reviews} />}</Layout>;
 }
 
 export async function getStaticPaths(context) {
