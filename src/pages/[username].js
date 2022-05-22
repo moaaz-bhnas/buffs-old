@@ -1,13 +1,36 @@
+import styled from "styled-components";
 import Layout from "../containers/layout/Layout";
 import ReviewsList from "../containers/reviews-list/ReviewsList";
 import { readUserReviews } from "../db/crud-operations/review";
 import { readUser } from "../db/crud-operations/user";
 import toJson from "../utils/helpers/toJson";
+import { offScreen } from "../utils/style";
+
+const Username = styled.h2`
+  text-transform: capitalize;
+  font-weight: 300;
+  margin-bottom: 2rem;
+`;
+
+const Section = styled.section``;
+
+const Subtitle = styled.h2`
+  ${offScreen}
+`;
 
 export default function Profile({ user, reviews }) {
   console.log("user: ", user);
 
-  return <Layout>{reviews && <ReviewsList reviews={reviews} />}</Layout>;
+  return (
+    <Layout>
+      <Username>{user && user.name}</Username>
+
+      <Section>
+        <Subtitle>Reviews</Subtitle>
+        {reviews && <ReviewsList reviews={reviews} />}
+      </Section>
+    </Layout>
+  );
 }
 
 export async function getStaticPaths(context) {
