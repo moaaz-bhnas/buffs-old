@@ -6,6 +6,10 @@ import Form from "../containers/review-form/containers/Mobile";
 export default function Add({ session }) {
   return (
     <Layout returnable returnableTitle="Add Review">
+      <Head>
+        <title>Add Review</title>
+      </Head>
+
       <Review>{(props) => <Form {...props} />}</Review>
     </Layout>
   );

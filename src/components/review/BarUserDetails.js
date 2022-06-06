@@ -34,7 +34,7 @@ const UserDetails = ({ userDetails, setEditModalVisible, timestamp }) => {
     <Row>
       <Link passHref href={`/${username}`}>
         <AvatarLink>
-          <Avatar image={image} size={40} />
+          <Avatar image={image} size={40} alt={username} />
         </AvatarLink>
       </Link>
 

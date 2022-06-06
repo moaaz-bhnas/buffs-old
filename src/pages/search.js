@@ -2,7 +2,14 @@ import Layout from "../containers/layout/Layout";
 import { getSession } from "next-auth/client";
 
 export default function Search({ session }) {
-  return <Layout>Search</Layout>;
+  return (
+    <Layout>
+      <Head>
+        <title>Search</title>
+      </Head>
+      Search
+    </Layout>
+  );
 }
 
 export async function getServerSideProps(context) {

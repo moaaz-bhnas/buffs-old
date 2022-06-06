@@ -7,6 +7,10 @@ const SignIn = ({ providers }) => {
 
   return (
     <Layout>
+      <Head>
+        <title>Sign In</title>
+      </Head>
+
       <SignInForm providers={providers} />
     </Layout>
   );

@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Layout from "../containers/layout/Layout";
 import Review from "../containers/review-form/ReviewForm";
 import Form from "../containers/review-form/containers/Default";
@@ -62,6 +63,10 @@ export default function Home({ session, reviews }) {
 
   return (
     <Layout>
+      <Head>
+        <title>Home</title>
+      </Head>
+
       <Review>{(props) => <Form {...props} />}</Review>
 
       <Feed reviews={liveReviews} />

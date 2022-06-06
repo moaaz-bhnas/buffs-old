@@ -23,6 +23,10 @@ export default function Profile({ user, reviews }) {
 
   return (
     <Layout>
+      <Head>
+        <title>{user && user.name} Profile</title>
+      </Head>
+
       <Username>{user && user.name}</Username>
 
       <Section>

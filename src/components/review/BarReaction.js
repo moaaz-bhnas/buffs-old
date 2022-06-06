@@ -50,8 +50,8 @@ const ReactionBar = ({
             type="button"
             onClick={showLikers}
             aria-label="show likers"
-            aria-expanded={likersObjects.length}
-            aria-pressed={likersObjects.length}
+            aria-expanded={numOfLikers > 0}
+            aria-pressed={numOfLikers > 0}
           >
             {numOfLikers} like{numOfLikers > 1 ? "s" : ""}
           </Button>

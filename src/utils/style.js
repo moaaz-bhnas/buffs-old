@@ -41,7 +41,7 @@ export const theme = {
     dark: "#333",
     twitter: "#0D91E3",
     google: "#DB4437",
-    like: "#ed4956",
+    like: "#E81728",
   },
   border: {
     grey2: "#d8dadd",

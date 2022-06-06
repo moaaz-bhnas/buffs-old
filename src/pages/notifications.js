@@ -2,7 +2,14 @@ import Layout from "../containers/layout/Layout";
 import { getSession } from "next-auth/client";
 
 export default function Notifications({ session }) {
-  return <Layout>Notifications</Layout>;
+  return (
+    <Layout>
+      <Head>
+        <title>Notifications</title>
+      </Head>
+      Notifications
+    </Layout>
+  );
 }
 
 export async function getServerSideProps(context) {
