@@ -33,7 +33,7 @@ const Cover = ({
             ? `https://image.tmdb.org/t/p/w${tmdbWidth}${coverPath}`
             : "/images/logo.png"
         }
-        alt="Buffs logo"
+        alt=""
         layout="fill"
         objectFit="cover"
         quality={100}

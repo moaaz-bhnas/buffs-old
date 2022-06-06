@@ -240,7 +240,7 @@ function ReactStars(props, ref) {
     >
       <div
         tabIndex={config.a11y && config.edit ? 0 : null}
-        aria-label="add rating by typing an integer from 0 to 5 or pressing arrow keys"
+        aria-label="add rating by typing an integer from 0 to 9 or pressing arrow keys"
         onKeyDown={handleKeyDown}
         className={classNames}
         style={parentStyles}

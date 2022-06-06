@@ -52,7 +52,7 @@ const Button = ({ text, icon, onClick }) => {
         <Image
           className="review__reaction-icon"
           src={icon}
-          alt={text}
+          alt=""
           layout="fill" // Facebook size: 18
           quality={100}
         />
