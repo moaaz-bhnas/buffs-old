@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle, theme } from "../utils/style";
 import { Provider } from "next-auth/client";
