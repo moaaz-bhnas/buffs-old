@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Layout from "../containers/layout/Layout";
 import { getSession } from "next-auth/client";
 
@@ -5,7 +6,7 @@ export default function Notifications({ session }) {
   return (
     <Layout>
       <Head>
-        <title>Notifications</title>
+        <title>Notifications | Buffs</title>
       </Head>
       Notifications
     </Layout>

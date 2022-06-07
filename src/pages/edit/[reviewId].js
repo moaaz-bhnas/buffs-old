@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useRouter } from "next/dist/client/router";
 import Layout from "../../containers/layout/Layout";
 import FormContainer from "../../containers/review-form/ReviewForm";
@@ -12,6 +13,10 @@ const EditReview = ({ review }) => {
 
   return (
     <Layout returnable returnableTitle="Edit Review">
+      <Head>
+        <title>Edit Review | Buffs</title>
+      </Head>
+
       <FormContainer
         editable
         reviewToEdit={{ reviewId, movieDetails, rating, writeUp }}

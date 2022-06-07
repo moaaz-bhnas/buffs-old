@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Layout from "../containers/layout/Layout";
 import { getSession } from "next-auth/client";
 import Review from "../containers/review-form/ReviewForm";
@@ -7,7 +8,7 @@ export default function Add({ session }) {
   return (
     <Layout returnable returnableTitle="Add Review">
       <Head>
-        <title>Add Review</title>
+        <title>Add Review | Buffs</title>
       </Head>
 
       <Review>{(props) => <Form {...props} />}</Review>

@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Layout from "../containers/layout/Layout";
 import { getSession } from "next-auth/client";
 
@@ -5,7 +6,7 @@ export default function Search({ session }) {
   return (
     <Layout>
       <Head>
-        <title>Search</title>
+        <title>Search | Buffs</title>
       </Head>
       Search
     </Layout>

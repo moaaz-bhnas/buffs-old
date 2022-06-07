@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Layout from "../containers/layout/Layout";
 import SignUpForm from "../containers/signup/SignUp";
 import { getProviders, getSession } from "next-auth/client";
@@ -8,7 +9,7 @@ const SignUp = ({ providers }) => {
   return (
     <Layout>
       <Head>
-        <title>Sign Up</title>
+        <title>Sign Up | Buffs</title>
       </Head>
 
       <SignUpForm providers={providers} />

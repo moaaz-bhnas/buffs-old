@@ -64,7 +64,7 @@ export default function Home({ session, reviews }) {
   return (
     <Layout>
       <Head>
-        <title>Home</title>
+        <title>Home | Buffs</title>
       </Head>
 
       <Review>{(props) => <Form {...props} />}</Review>

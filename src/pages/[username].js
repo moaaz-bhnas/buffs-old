@@ -1,3 +1,4 @@
+import Head from "next/head";
 import styled from "styled-components";
 import Layout from "../containers/layout/Layout";
 import ReviewsList from "../containers/reviews-list/ReviewsList";
@@ -24,7 +25,7 @@ export default function Profile({ user, reviews }) {
   return (
     <Layout>
       <Head>
-        <title>{user && user.name} Profile</title>
+        <title>{user && user.name} | Buffs</title>
       </Head>
 
       <Username>{user && user.name}</Username>
