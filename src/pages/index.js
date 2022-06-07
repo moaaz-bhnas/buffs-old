@@ -54,6 +54,8 @@ export default function Home({ session, reviews }) {
 
       const channel = pusher.subscribe("reviews");
 
+      console.log("channel: ", channel);
+
       channel.bind("inserted", addReview);
       channel.bind("updated", updateReview);
       channel.bind("deleted", deleteReview);
