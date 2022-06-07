@@ -7,6 +7,9 @@ export default function App({ Component, pageProps }) {
     <Provider session={pageProps.session}>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
+        <Head>
+          <link rel="shortcut icon" href="/favicon.ico" />
+        </Head>
         <Component {...pageProps} />
       </ThemeProvider>
     </Provider>
