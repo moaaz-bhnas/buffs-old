@@ -39,7 +39,7 @@ const watchReviewsCollection = async (
     }
   });
 
-  // await closeChangeStream({ changeStream, timeInMs: 600000 });
+  await closeChangeStream({ changeStream, timeInMs: 600000 });
 };
 
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -82,7 +82,7 @@ export async function connectToDatabase() {
     cached.promise = MongoClient.connect(MONGODB_URI, opts).then((client) => {
       const db = client.db(MONGODB_DB);
 
-      // watchReviewsCollection(db);
+      watchReviewsCollection(db);
 
       return { client, db };
     });
