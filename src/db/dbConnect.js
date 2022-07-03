@@ -39,7 +39,7 @@ const watchReviewsCollection = async (
     }
   });
 
-  await closeChangeStream({ changeStream, timeInMs: 600000 });
+  // await closeChangeStream({ changeStream, timeInMs: 600000 });
 };
 
 const MONGODB_URI = process.env.MONGODB_URI;
