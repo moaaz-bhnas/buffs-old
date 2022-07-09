@@ -20,7 +20,7 @@ const SignIn = ({ providers }) => {
 
   return (
     <Form>
-      <Title>Log in to Buff</Title>
+      <Title>Log in to Buffs</Title>
       <GoogleButton
         key={googleProvider.id}
         onClick={() => signIn(googleProvider.id)}
