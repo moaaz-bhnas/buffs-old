@@ -1,0 +1,14 @@
+{
+  "web": {
+    "client_id": "932049689330-p73gb900q423r5buvu3nn6jlh1jjjvoq.apps.googleusercontent.com",
+    "project_id": "buffs-production",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_secret": "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",
+    "redirect_uris": [
+      "https://film-buffs.herokuapp.com/api/auth/callback/google",
+      "http://localhost:3000/api/auth/callback/google"
+    ]
+  }
+}

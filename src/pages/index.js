@@ -12,6 +12,8 @@ import { readReviews } from "../db/crud-operations/review";
 export default function Home({ session, reviews }) {
   const [liveReviews, setLiveReviews] = useState(reviews);
 
+  console.log("liveReviews: ", liveReviews);
+
   const addReview = useCallback(
     (review) => {
       const reviewsCopy = [...liveReviews];
