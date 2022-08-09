@@ -8,7 +8,7 @@ Update the values/settings of ".env.local" file to your own
 
 ## Live
 
-https://buffs.vercel.app/
+https://film-buffs.herokuapp.com/
 
 ## Built With
 
